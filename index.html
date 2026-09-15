@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jay · Gameplay Programmer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Jay, a gameplay programmer with 3+ years of commercial game industry experience — Unity, C++, real-time rendering, and shipped mobile titles including RADDX Racing Metaverse (1M+ downloads).">
+<meta name="theme-color" content="#ff4319">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jay · Gameplay Programmer">
+<meta property="og:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
+<meta property="og:url" content="https://jay6900.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jay · Gameplay Programmer">
+<meta name="twitter:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='3' fill='%23ff4319'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-2:#f3f2ee;
+    --ink:#131417; --ink-2:#5c5f66; --ink-3:#9a9ca3;
+    --line:rgba(19,20,23,.16); --line-strong:#131417;
+    --accent:#ff4319; --accent-ink:#ffffff;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0c0d10; --bg-2:#17181c;
+      --ink:#f2f1ec; --ink-2:#a7aab0; --ink-3:#6d7076;
+      --line:rgba(242,241,236,.16); --line-strong:#f2f1ec;
+      --accent:#ff6a3d; --accent-ink:#101114;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c0d10; --bg-2:#17181c;
+    --ink:#f2f1ec; --ink-2:#a7aab0; --ink-3:#6d7076;
+    --line:rgba(242,241,236,.16); --line-strong:#f2f1ec;
+    --accent:#ff6a3d; --accent-ink:#101114;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Archivo",-apple-system,sans-serif; line-height:1.56;}
+  #scrollbar{position:fixed; top:0; left:0; height:3px; width:0%; background:var(--accent); z-index:200; transition:width .08s linear;}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+  h1,h2,h3,h4{font-family:"Fraunces",serif; margin:0; font-weight:500; text-wrap:balance;}
+  i,em{font-family:"Fraunces",serif; font-style:italic; color:var(--accent);}
+  a{color:inherit;}
+  button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0;}
+  ::selection{background:var(--accent); color:#fff;}
+  [hidden]{display:none!important;}
+  .wrap{max-width:1180px; margin-inline:auto; padding-inline:24px;}
+  .mono{font-family:"Space Mono",monospace;}
+
+  [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion:reduce){ [data-reveal]{opacity:1; transform:none; transition:none;} }
+
+  /* nav */
+  nav{position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--line);}
+  .nav-row{max-width:1180px; margin-inline:auto; padding:18px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-family:"Space Mono",monospace; font-weight:700; font-size:.92rem; letter-spacing:.02em; display:flex; align-items:center; gap:9px; text-decoration:none;}
+  .brand .sq{width:9px; height:9px; background:var(--accent); flex:none;}
+  .navlinks{display:flex; gap:34px; font-family:"Space Mono",monospace; font-size:.78rem; letter-spacing:.05em; text-transform:uppercase;}
+  .navlinks a{text-decoration:none; position:relative; padding-bottom:4px;}
+  .navlinks a::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--accent); transition:right .2s ease;}
+  .navlinks a:hover::after{right:0;}
+  .burger{display:none; width:34px; height:34px; align-items:center; justify-content:center; border:1px solid var(--line);}
+  @media (max-width:780px){ .navlinks{display:none;} .burger{display:flex;} }
+
+  .mobile-menu{
+    position:fixed; inset:0; background:var(--bg); z-index:80; display:flex; flex-direction:column;
+    padding:22px 24px; transform:translateY(-100%); transition:transform .3s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu .mm-top{display:flex; justify-content:space-between; align-items:center;}
+  .mobile-menu .mm-close{width:34px; height:34px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center;}
+  .mobile-menu .mm-links{display:flex; flex-direction:column; gap:6px; margin-top:60px;}
+  .mobile-menu .mm-links a{font-family:"Fraunces",serif; font-size:2.4rem; text-decoration:none; padding-block:10px; border-bottom:1px solid var(--line); color:var(--ink);}
+
+  /* hero */
+  .hero{padding-block:72px 56px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.4fr .8fr; gap:56px; align-items:end;}
+  @media (max-width:820px){ .hero-grid{grid-template-columns:1fr; gap:36px;} }
+  .eyebrow-mono{font-family:"Space Mono",monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-2); display:flex; align-items:center; gap:9px; margin-bottom:24px;}
+  .eyebrow-mono .sq{width:7px; height:7px; background:var(--accent); flex:none;}
+  .hero h1{font-size:clamp(2.5rem,6.2vw,4.4rem); line-height:1.04; letter-spacing:-.01em;}
+  .hero-bio{margin-top:26px; max-width:54ch; color:var(--ink-2); font-size:1.03rem;}
+  .hero-ctas{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    position:relative; overflow:hidden; font-family:"Space Mono",monospace; font-size:.8rem; text-transform:uppercase; letter-spacing:.05em;
+    padding:14px 22px; border:1px solid var(--line-strong); text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+    transition:color .25s ease, border-color .25s ease, transform .15s ease;
+  }
+  .btn::before{content:""; position:absolute; inset:0; background:var(--accent); transform:translateY(102%); transition:transform .28s cubic-bezier(.65,0,.35,1); z-index:0;}
+  .btn > span{position:relative; z-index:1; display:inline-flex; align-items:center; gap:9px;}
+  .btn:hover::before{transform:translateY(0);}
+  .btn:active{transform:scale(.97);}
+  .btn-solid{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .btn-solid:hover{color:#fff; border-color:var(--accent);}
+  .btn-ghost{color:var(--ink);}
+  .btn-ghost:hover{color:#fff; border-color:var(--accent);}
+  .btn-ghost::before{background:var(--ink);}
+  @media (prefers-reduced-motion:reduce){ .btn::before{transition:none;} }
+
+  .draw{position:relative; text-decoration:none; padding-bottom:3px;}
+  .draw::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--accent); transition:right .25s cubic-bezier(.65,0,.35,1);}
+  .draw:hover::after{right:0;}
+  .draw:hover{color:var(--accent);}
+
+  .hero-stats{display:flex; flex-direction:column;}
+  .hstat{display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-block:15px; border-top:1px solid var(--line);}
+  .hstat:last-child{border-bottom:1px solid var(--line);}
+  .hstat .num{font-family:"Fraunces",serif; font-size:1.6rem; font-weight:500; white-space:nowrap;}
+  .hstat .lab{font-family:"Space Mono",monospace; font-size:.72rem; color:var(--ink-2); text-transform:uppercase; letter-spacing:.04em; text-align:right;}
+
+  /* ticker */
+  .ticker-wrap{border-bottom:1px solid var(--line); overflow:hidden; padding-block:13px; background:var(--bg-2);}
+  .ticker-track{display:flex; width:max-content; animation:ticker 30s linear infinite;}
+  .ticker-track span{display:flex; align-items:center; gap:36px; font-family:"Space Mono",monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-2); padding-right:36px;}
+  .ticker-track .dot{color:var(--accent);}
+  @keyframes ticker{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion:reduce){ .ticker-track{animation:none;} }
+
+  section{padding-block:64px;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:36px;}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.5rem);}
+  .section-num{font-family:"Space Mono",monospace; color:var(--ink-3); font-size:.84rem;}
+
+  /* controls */
+  .controls{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:14px;}
+  .tabs{display:flex; gap:4px; flex-wrap:wrap;}
+  .tab{padding:9px 14px; border:1px solid var(--line); font-family:"Space Mono",monospace; text-transform:uppercase; letter-spacing:.04em; font-size:.74rem; transition:border-color .2s ease, color .2s ease;}
+  .tab:hover{border-color:var(--accent); color:var(--accent);}
+  .tab.active{background:var(--ink); color:var(--bg); border-color:var(--ink);}
+  .tab.active:hover{color:var(--bg); border-color:var(--ink);}
+  .searchwrap{display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--line-strong); padding-bottom:7px; min-width:220px; flex:1 1 220px; max-width:320px;}
+  .searchwrap svg{flex:none; color:var(--ink-3);}
+  .searchwrap input{border:none; background:none; outline:none; font-family:"Space Mono",monospace; font-size:.84rem; color:var(--ink); width:100%;}
+  .searchwrap input::placeholder{color:var(--ink-3);}
+  .count{font-family:"Space Mono",monospace; font-size:.74rem; color:var(--ink-3); margin-bottom:8px;}
+
+  /* project rows */
+  .proj-list{display:flex; flex-direction:column;}
+  .proj{display:grid; grid-template-columns:1fr 1fr; gap:52px; padding-block:50px; border-top:1px solid var(--line); align-items:center;}
+  .proj:last-child{border-bottom:1px solid var(--line);}
+  .proj.reverse .proj-media{order:2;}
+  .proj.reverse .proj-body{order:1;}
+  @media (max-width:860px){
+    .proj{grid-template-columns:1fr; gap:24px; padding-block:36px;}
+    .proj.reverse .proj-media, .proj.reverse .proj-body{order:initial;}
+  }
+  .proj-media{position:relative; aspect-ratio:16/10; background:var(--bg-2); border:1px solid var(--line); overflow:hidden; cursor:pointer;}
+  .proj-media iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block; pointer-events:none; z-index:1;}
+  .proj-media.unlocked iframe{pointer-events:auto;}
+  .proj-media .plate{width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative;
+    background-image:repeating-linear-gradient(135deg, transparent 0px, transparent 11px, var(--line) 11px, var(--line) 12px);}
+  .proj-media .plate .idx{font-family:"Fraunces",serif; font-style:italic; font-size:5.5rem; color:var(--ink-3); opacity:.55;}
+  .proj-media .plate .picon{position:relative; color:var(--ink-2);}
+  .video-flag{position:absolute; bottom:0; left:0; right:0; background:var(--ink); color:var(--bg); font-family:"Space Mono",monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; padding:7px 11px; display:flex; align-items:center; gap:7px; z-index:2; pointer-events:none;}
+  .video-flag .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
+  .video-flag .yt-link{margin-left:auto; color:var(--bg); opacity:.75; text-decoration:underline; pointer-events:auto; flex:none;}
+  .video-flag .yt-link:hover{opacity:1;}
+  .proj-media.unlocked .video-flag{display:none;}
+
+  .proj-body{display:flex; flex-direction:column; gap:12px;}
+  .proj-idx{font-family:"Space Mono",monospace; font-size:.78rem; color:var(--ink-3);}
+  .proj-status{font-family:"Space Mono",monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); display:flex; gap:10px; flex-wrap:wrap;}
+  .proj-status .muted{color:var(--ink-3);}
+  .proj h3{font-size:1.7rem; font-weight:500;}
+  .proj-tagline{color:var(--ink-2); font-size:.98rem; max-width:54ch;}
+  .proj-tags{display:flex; gap:8px; flex-wrap:wrap;}
+  .proj-tags span{font-family:"Space Mono",monospace; font-size:.68rem; border:1px solid var(--line); padding:5px 9px; color:var(--ink-2); text-transform:uppercase; letter-spacing:.03em;}
+  .proj-more{font-family:"Space Mono",monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; display:inline-flex; align-items:center; gap:8px; margin-top:6px; width:fit-content;}
+  .proj-more span{transition:transform .2s ease;}
+  .proj-more:hover span{transform:translateX(4px);}
+
+  .proj-media{transition:transform .35s cubic-bezier(.2,.7,.3,1);}
+  .proj-media:hover{transform:scale(1.015);}
+  @media (prefers-reduced-motion:reduce){ .proj-media{transition:none;} .proj-media:hover{transform:none;} }
+
+  /* about */
+  .about-bio{max-width:74ch;}
+  .about-bio p{color:var(--ink-2); font-size:1.08rem; margin-bottom:16px;}
+
+  /* skills */
+  .skill-list{display:grid; grid-template-columns:1fr 1fr; column-gap:56px;}
+  @media (max-width:760px){ .skill-list{grid-template-columns:1fr;} }
+  .skill-row{
+    display:grid; grid-template-columns:34px 1fr; gap:18px; padding-block:22px; border-top:1px solid var(--line);
+    transition:padding-left .25s ease, background .25s ease;
+  }
+  @media (max-width:760px){ .skill-list > .skill-row{border-bottom:1px solid var(--line);} }
+  .skill-row:hover{padding-left:10px; background:var(--bg-2);}
+  .skill-row .n{font-family:"Space Mono",monospace; color:var(--ink-3); font-size:.78rem;}
+  .skill-row h4{font-size:1.06rem; font-weight:500; margin-bottom:6px;}
+  .skill-row p{color:var(--ink-2); font-size:.9rem; margin:0;}
+  .skill-row a{text-decoration:underline; text-underline-offset:3px;}
+  .skill-row a:hover{color:var(--accent);}
+
+  /* contact */
+  .contact{border-top:1px solid var(--line); padding-block:72px;}
+  .contact-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:44px; align-items:end;}
+  @media (max-width:780px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact h2{font-size:clamp(2rem,5vw,3.1rem);}
+  .contact-grid > div:first-child p{color:var(--ink-2); max-width:46ch; margin-top:14px;}
+  .mail-line{font-family:"Space Mono",monospace; font-size:1.05rem; display:inline-flex; align-items:center; gap:10px; padding-bottom:6px; margin-top:28px;}
+  .social-col{display:flex; flex-direction:column;}
+  .social-row{display:flex; justify-content:space-between; align-items:center; padding-block:15px; border-top:1px solid var(--line); text-decoration:none; font-family:"Space Mono",monospace; font-size:.84rem; text-transform:uppercase; letter-spacing:.04em; transition:padding-left .2s ease;}
+  .social-row:last-child{border-bottom:1px solid var(--line);}
+  .social-row:hover{color:var(--accent); padding-left:8px;}
+  .social-row span{transition:transform .2s ease;}
+  .social-row:hover span{transform:translate(3px,-3px);}
+
+  footer{border-top:1px solid var(--line); padding-block:24px 50px; text-align:center; font-family:"Space Mono",monospace; font-size:.72rem; color:var(--ink-3);}
+
+  /* modal */
+  .modal-bg{position:fixed; inset:0; background:rgba(8,8,10,.72); display:flex; align-items:flex-start; justify-content:center; padding:44px 18px; z-index:100; overflow-y:auto;}
+  .modal{background:var(--bg); border:1px solid var(--line-strong); max-width:680px; width:100%;}
+  .modal-media{aspect-ratio:16/9; position:relative; border-bottom:1px solid var(--line); background:var(--bg-2);}
+  .modal-media iframe{width:100%; height:100%; border:0; display:block;}
+  .modal-media .plate{width:100%; height:100%; display:flex; align-items:center; justify-content:center; background-image:repeating-linear-gradient(135deg, transparent 0px, transparent 11px, var(--line) 11px, var(--line) 12px);}
+  .modal-media .plate .picon{color:var(--ink-2);}
+  .modal-close{position:absolute; top:14px; right:14px; width:36px; height:36px; background:var(--ink); color:var(--bg); display:flex; align-items:center; justify-content:center; font-family:"Space Mono",monospace; z-index:3; cursor:pointer; transition:background .2s ease, transform .2s ease;}
+  .modal-close:hover{background:var(--accent); transform:rotate(90deg);}
+  .modal-links a{transition:border-color .2s ease, color .2s ease;}
+  .modal-bg{animation:fadeIn .2s ease;}
+  .modal{animation:modalIn .28s cubic-bezier(.2,.7,.3,1);}
+  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+  @keyframes modalIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion:reduce){ .modal-bg, .modal{animation:none;} }
+  .modal-inner{padding:30px 32px 36px;}
+  .modal-status{font-family:"Space Mono",monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .modal-status .muted{color:var(--ink-3);}
+  .modal-inner h3{font-size:1.55rem; margin-bottom:14px;}
+  .modal-inner .desc{color:var(--ink-2); font-size:.93rem; margin-bottom:22px;}
+  .syslabel{font-family:"Space Mono",monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); margin-bottom:12px;}
+  .syslist{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .syslist li{font-size:.89rem; padding-left:16px; position:relative;}
+  .syslist li::before{content:"—"; position:absolute; left:0; color:var(--accent);}
+  .modal-note{font-size:.82rem; color:var(--ink-3); border-top:1px dashed var(--line); padding-top:14px; margin-bottom:16px;}
+  .modal-links{display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:20px;}
+  .modal-links a{font-family:"Space Mono",monospace; font-size:.76rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--line); padding:9px 14px; text-decoration:none;}
+  .modal-links a:hover{border-color:var(--accent); color:var(--accent);}
+</style>
+</head>
+<body>
+
+<div id="scrollbar"></div>
+<div class="wrap">
+  <nav>
+    <div class="nav-row">
+      <a class="brand" href="#top"><span class="sq"></span>JAY.DEV</a>
+      <div class="navlinks">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="burger" id="burgerBtn" aria-label="Menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mm-top">
+      <span class="brand"><span class="sq"></span>JAY.DEV</span>
+      <button class="mm-close" id="mmClose" aria-label="Close">✕</button>
+    </div>
+    <div class="mm-links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <section class="hero" id="top">
+    <div class="hero-grid">
+      <div data-reveal>
+        <div class="eyebrow-mono"><span class="sq"></span>Game Developer · London</div>
+        <h1>I build the systems behind games that feel <i>alive</i>.</h1>
+        <p class="hero-bio">Gameplay programmer with three years of commercial experience: two shipped mobile titles, one of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
+        <div class="hero-ctas">
+          <a href="#work" class="btn btn-solid"><span>See the work ↓</span></a>
+          <a href="#contact" class="btn btn-ghost"><span>Get in touch</span></a>
+        </div>
+      </div>
+      <div class="hero-stats" data-reveal>
+        <div class="hstat"><span class="num">2</span><span class="lab">Commercial titles shipped</span></div>
+        <div class="hstat"><span class="num">1M+</span><span class="lab">RADDX downloads before delisting</span></div>
+        <div class="hstat"><span class="num">9</span><span class="lab">Portfolio builds</span></div>
+        <div class="hstat"><span class="num">2026</span><span class="lab">MSc Games Tech &amp; VR</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <section id="work">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">01 / SELECTED WORK</div>
+        <h2>Project Showcase</h2>
+      </div>
+      <div class="section-num mono" style="max-width:34ch; text-align:right;">Filter by platform, search by tech, and open any project for the full systems breakdown.</div>
+    </div>
+    <div class="controls">
+      <div class="tabs" id="catTabs"></div>
+      <div class="searchwrap">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5.2"/><path d="M11 11 15 15" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="text" placeholder="Search projects, tags…" autocomplete="off">
+      </div>
+    </div>
+    <div class="count" id="resultCount"></div>
+    <div class="proj-list" id="projList"></div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">02 / ABOUT</div>
+        <h2>Building systems with intention.</h2>
+      </div>
+    </div>
+    <div class="about-bio" data-reveal>
+      <p>I'm Jaygovindhan Neelanarayanan, a London-based gameplay programmer with shipped commercial games experience and a strong foundation in performance-critical systems, game architecture, and mobile development. Currently completing an MSc in Computer Games Technology with VR at City St George's, University of London.</p>
+      <p>From physics engines and enemy AI in C++17 to monetisation design on live mobile titles, I work across the full stack of a game: engine systems, editor tooling, and the design and visual work that ships alongside them.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">03 / SKILLS</div>
+        <h2>What I work with.</h2>
+      </div>
+    </div>
+    <div class="skill-list" id="skillList">
+      <div class="skill-row">
+        <div class="n">01</div>
+        <div><h4>C++ &amp; Graphics</h4><p>C++17 engines, OpenGL/GLSL, Bullet3 physics, FSM AI, and real-time rendering pipelines.</p></div>
+      </div>
+      <div class="skill-row">
+        <div class="n">02</div>
+        <div><h4>Unity &amp; C#</h4><p>Unity 6 LTS gameplay systems, editor tooling, ScriptableObject architecture, Cinemachine.</p></div>
+      </div>
+      <div class="skill-row">
+        <div class="n">03</div>
+        <div><h4>Mobile &amp; Live Ops</h4><p>IAP and monetisation design, performance budgets, and live-game iteration on shipped titles.</p></div>
+      </div>
+      <div class="skill-row">
+        <div class="n">04</div>
+        <div><h4>AI Tooling</h4><p>Daily Claude Code and Copilot workflow for code generation, debugging, and review.</p></div>
+      </div>
+      <div class="skill-row" style="grid-column:1 / -1; border-bottom:1px solid var(--line)">
+        <div class="n">05</div>
+        <div><h4>Graphic &amp; Game Design</h4><p>Game design documentation, monetisation &amp; progression systems, and visual/technical-art work behind two shipped titles. Full gallery on <a href="https://www.artstation.com/jay6900" target="_blank" rel="noopener">ArtStation ↗</a>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="contact-grid">
+      <div data-reveal>
+        <div class="section-num mono">04 / CONTACT</div>
+        <h2>Let's build something playable.</h2>
+        <p>Open to collaboration, freelance, and full-time roles. The fastest way to reach me is email, or find me on the platforms to the right.</p>
+        <a class="mail-line draw" href="mailto:jaygoneelz@gmail.com">jaygoneelz@gmail.com ↗</a>
+      </div>
+      <div class="social-col" data-reveal>
+        <a class="social-row" href="https://github.com/jay6900" target="_blank" rel="noopener">GitHub<span>↗</span></a>
+        <a class="social-row" href="https://www.linkedin.com/in/jaygovindhan-n-840aab147" target="_blank" rel="noopener">LinkedIn<span>↗</span></a>
+        <a class="social-row" href="https://www.artstation.com/jay6900" target="_blank" rel="noopener">ArtStation<span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Jaygovindhan Neelanarayanan. All rights reserved.</footer>
+</div>
+
+<div id="modalRoot"></div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const scrollbar = document.getElementById('scrollbar');
+  function updateScrollbar(){
+    const h = document.scrollingElement || document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    scrollbar.style.width = `${Math.min(100, Math.max(0, scrolled * 100))}%`;
+  }
+  window.addEventListener('scroll', updateScrollbar, { passive: true });
+  updateScrollbar();
+
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mmClose = document.getElementById('mmClose');
+  burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mmClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  const ICONS = {
+    unity: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>',
+    mobile: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="1"/><path d="M11 18h2"/></svg>',
+    web: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>',
+    desktop: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>'
+  };
+  const CAT_LABEL = { unity: 'Unity', mobile: 'Mobile', web: 'Web', desktop: 'Desktop' };
+
+  const PROJECTS = [
+    {
+      id: "acf", title: "Action Combat Framework", category: "unity", featured: true,
+      tagline: "Modular melee combat system in Unity: FSM, input buffering, hitbox system and a full custom-editor debug suite.",
+      status: "In Development", year: "2026", tags: ["Unity 6", "C#", "FSM", "Enemy AI"],
+      description: "A from-scratch action-combat system built as the first project in a 30-day Unity gameplay-programming portfolio sprint, aimed at demonstrating combat feel and tooling depth to studio interviewers.",
+      systems: [
+        "Generic FSM, ScriptableObject event bus, service locator and input buffering over the New Input System",
+        "Light/heavy attack combos, i-frame dodge state and a block state with damage reduction",
+        "IDamageable/HealthComponent damage pipeline with hitbox/hurtbox controllers and a matching enemy FSM",
+        "Game feel pass: timescale hitstop, Cinemachine impulse screen shake, floating damage numbers, world-space health bars",
+        "Custom editor tooling: a state-machine debug window, a scene-handle hitbox editor, a combat log window with CSV export"
+      ],
+      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/ActionCombatFramework" }]
+    },
+    {
+      id: "aut", title: "Accessibility UI Tester", category: "unity",
+      tagline: "Unity Editor extension detecting colour-vision UI failures: GPU CVD simulation, a WCAG contrast meter and JSON reporting.",
+      status: "MSc Dissertation", year: "2025–26", tags: ["Unity 6", "C#", "URP", "Render Graph"],
+      description: "MSc Individual Research Project under Philip Edwards, targeting correctness of detection and computational cost for colour-related UI accessibility failures. All five build phases and evaluation are complete.",
+      systems: [
+        "URP Render Graph shader feature simulating protanopia, deuteranopia and tritanopia with Machado et al. (2009) CVD matrices",
+        "Click-driven WCAG 2.1 contrast checker via EventSystem raycasting with alpha-compositing",
+        "Static scene scanner producing JSON accessibility reports against configurable threshold assets",
+        "Global TMP font scaler with revertible caching and RectTransform overlap detection",
+        "Validated via a stratified 21-sample evaluation: Precision 0.917, Recall 1.000, F1 0.957"
+      ],
+      links: []
+    },
+    {
+      id: "raddx", title: "RADDX Racing Metaverse", category: "mobile", discontinued: true,
+      tagline: "Shipped mobile racer with metaverse architecture; passed 1M+ downloads before the rights holder pulled it from stores.",
+      status: "Shipped", year: "2021–22", tags: ["Mobile", "Live-ops", "Monetisation"],
+      description: "Commercial mobile title shipped at ChennaiGames Studio, reaching 1M+ downloads. Owned game design documentation, monetisation mechanics and product architecture, including the metaverse architecture underpinning the title. Later discontinued from app stores by the client who holds the rights to the game.",
+      systems: [
+        "Full design lifecycle ownership from documentation through to live release",
+        "Metaverse product architecture design",
+        "IAP systems and progression-linked offer structures, iterated on live player behaviour data",
+        "Cross-functional coordination across programmers, artists and QA"
+      ],
+      links: [
+        { label: "Launch Trailer", href: "https://youtu.be/OuEfs4a5ba4" },
+        { label: "Sneak Peek", href: "https://youtu.be/AdHHFoV-Aoo" }
+      ],
+      videoId: "LHrRsfpCugk"
+    },
+    {
+      id: "hurley", title: "Hurley Super Surfer", category: "mobile", discontinued: true,
+      tagline: "Shipped mobile surfing title with engagement loops and progression systems designed for live iteration.",
+      status: "Shipped", year: "2021–22", tags: ["Mobile", "Live-ops", "Monetisation"],
+      description: "Second of two commercial mobile titles shipped at ChennaiGames Studio, with design ownership across engagement loops and monetisation, presented directly to production leads. Later discontinued from app stores by the client who holds the rights to the game.",
+      systems: [
+        "Engagement-loop and progression-system design, presented to production leads for implementation",
+        "IAP and offer-structure design informed by live player behaviour research",
+        "Player behaviour research feeding iterative live balancing"
+      ],
+      links: [],
+      videoId: "iYSKuCKZeCs"
+    },
+    {
+      id: "forklift", title: "Forklift Idle", category: "web",
+      tagline: "Data-driven logistics simulation & idle game: JSON-driven progression, observer-pattern event architecture.",
+      status: "In Development", year: "2025", tags: ["Idle Game", "JSON Config", "Observer Pattern"],
+      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~6,850 lines).",
+      systems: [
+        "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values",
+        "Observer-pattern event architecture decoupling game logic from UI state",
+        "Minimisable live delivery-tracking bar and a redesigned garage upgrade system",
+        "Hosted on GitHub Pages; PWA/Trusted Web Activity packaging planned for Google Play"
+      ],
+      links: [], note: "Playable build live on GitHub Pages: embed link pending."
+    },
+    {
+      id: "bounce", title: "8-Bit Bounce", category: "desktop",
+      tagline: "Self-contained 3D platformer in raw C++/OpenGL with 20-agent FSM enemy AI and full rigid-body physics.",
+      status: "Released", year: "2025", tags: ["C++17", "OpenGL", "Bullet3", "FMOD"],
+      description: "Built for INM710 Advanced Games Technology at City St George's: a full 3D platformer game loop implemented from first principles.",
+      systems: [
+        "Four-state FSM enemy AI (patrol, chase, attack, dying) across 20 concurrent agents, driven by line-of-sight raycasting",
+        "Bullet3 rigid-body physics: gravity, restitution, surface friction and per-frame synchronisation to oscillating platforms",
+        "FMOD Core spatialised audio and Assimp mesh loading",
+        "Score/timer/health HUD, power-ups, skybox, wireframe debug toggle and alpha-fade spawn effects"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "sideshooter", title: "Side Scroller Shooter", category: "desktop",
+      tagline: "2D arcade shooter in C#/MonoGame with a fully data-driven difficulty curve and zero hardcoded spawn values.",
+      status: "Released", year: "2025", tags: ["C#", "MonoGame"],
+      description: "Built for INM379 Computer Games Architecture, prioritising engine architecture over content as a demonstration of production-grade systems design.",
+      systems: [
+        "Observer/EventManager pattern with an IGameState FSM driving screen flow",
+        "Wave-based enemy spawning, three-life system, power-ups and high-score persistence",
+        "Difficulty entirely JSON-config driven, enabling balance iteration without touching code",
+        "ResourceManager caching textures/fonts/SFX on first load; object pooling and spatial partitioning"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "drivecircuit", title: "Drive Circuit", category: "desktop",
+      tagline: "OpenGL racing game with procedural spline track generation and a GLSL weather system.",
+      status: "Released", year: "2024–25", tags: ["C++", "OpenGL", "GLSL"],
+      description: "Built for INM376 Computer Graphics under Dr Eddie Edwards: a graphics-focused racing build centred on procedural track generation and shader work.",
+      systems: [
+        "Catmull-Rom spline track generation with TNB-frame chase cameras",
+        "Multi-texturing and multiple dynamic lighting modes",
+        "GLSL rain and lightning weather shader"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    }
+  ];
+  PROJECTS.forEach((p, i) => p.idx = String(i + 1).padStart(2, '0'));
+
+  function muteSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&playsinline=1`; }
+  function activeSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&loop=1&playlist=${id}&controls=1&modestbranding=1&rel=0&playsinline=1`; }
+
+  function mediaTemplate(p){
+    if (p.videoId) {
+      return `
+        <div class="proj-media" data-video="${p.videoId}">
+          <div class="plate video-plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
+          <div class="video-flag"><span class="dot"></span><span class="flag-text">Loading · click to unmute &amp; control</span><a href="https://youtu.be/${p.videoId}" target="_blank" rel="noopener" class="yt-link">Watch on YouTube ↗</a></div>
+        </div>`;
+    }
+    return `
+      <div class="proj-media" data-video="">
+        <div class="plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
+      </div>`;
+  }
+
+  function tickerHTML(){
+    const words = ['UNITY 6', 'C++17', 'OPENGL', 'FSM AI', 'RENDER GRAPH', 'CINEMACHINE', 'MONETISATION', 'MONOGAME', 'BULLET3 PHYSICS', 'LIVE-OPS'];
+    const one = words.map(w => `<span class="dot">·</span>${w}`).join('');
+    return `<span>${one}</span><span>${one}</span>`;
+  }
+  document.getElementById('tickerTrack').innerHTML = tickerHTML();
+
+  const catTabs = document.getElementById('catTabs');
+  const cats = ['all', ...Array.from(new Set(PROJECTS.map(p => p.category)))];
+  const state = { cat: 'all', q: '' };
+
+  catTabs.innerHTML = cats.map(c => `<button class="tab ${c==='all'?'active':''}" data-cat="${c}">${c==='all'?'All':CAT_LABEL[c]}</button>`).join('');
+  catTabs.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.cat = btn.dataset.cat;
+      catTabs.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+  });
+  document.getElementById('searchInput').addEventListener('input', e => {
+    state.q = e.target.value.trim().toLowerCase();
+    render();
+  });
+
+  function matches(p){
+    if (state.cat !== 'all' && p.category !== state.cat) return false;
+    if (!state.q) return true;
+    const hay = [p.title, p.tagline, p.description, ...p.tags].join(' ').toLowerCase();
+    return hay.includes(state.q);
+  }
+
+  function statusLine(p){
+    return `<span>${CAT_LABEL[p.category]}</span><span class="muted">${p.year}</span><span>[${p.status.toUpperCase()}]</span>${p.discontinued ? '<span class="muted">[DISCONTINUED]</span>' : ''}${p.featured ? '<span>[FEATURED]</span>' : ''}`;
+  }
+
+  function rowTemplate(p, i){
+    return `
+      <div class="proj ${i % 2 ? 'reverse' : ''}">
+        ${mediaTemplate(p)}
+        <div class="proj-body">
+          <div class="proj-idx mono">${p.idx} / ${PROJECTS.length}</div>
+          <div class="proj-status">${statusLine(p)}</div>
+          <h3>${p.title}</h3>
+          <div class="proj-tagline">${p.tagline}</div>
+          <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+          <button class="proj-more draw" data-id="${p.id}">Full breakdown <span>→</span></button>
+        </div>
+      </div>`;
+  }
+
+  const projList = document.getElementById('projList');
+  const resultCount = document.getElementById('resultCount');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); } });
+  }, { threshold: .15 });
+
+  function loadVideoTile(el, muted){
+    if (el.dataset.loadState) return;
+    el.dataset.loadState = 'loading';
+    const iframe = document.createElement('iframe');
+    iframe.title = 'gameplay video';
+    iframe.allow = 'autoplay; encrypted-media';
+    iframe.loading = 'lazy';
+    iframe.src = muted ? muteSrc(el.dataset.video) : activeSrc(el.dataset.video);
+    iframe.addEventListener('load', () => { el.dataset.loadState = 'loaded'; });
+    el.appendChild(iframe);
+    if (!muted) el.classList.add('unlocked');
+  }
+
+  const lazyVideoObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        loadVideoTile(e.target, true);
+        lazyVideoObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: .2, rootMargin: '200px' });
+
+  function wireVideoUnlock(){
+    projList.querySelectorAll('.proj-media[data-video]:not([data-video=""])').forEach(el => {
+      if (el.dataset.wired) return;
+      el.dataset.wired = '1';
+      lazyVideoObserver.observe(el);
+      const ytLink = el.querySelector('.yt-link');
+      if (ytLink) ytLink.addEventListener('click', e => e.stopPropagation());
+      el.addEventListener('click', () => {
+        if (el.classList.contains('unlocked')) return;
+        el.classList.add('unlocked');
+        const iframe = el.querySelector('iframe');
+        if (iframe) {
+          iframe.src = activeSrc(el.dataset.video);
+        } else {
+          lazyVideoObserver.unobserve(el);
+          loadVideoTile(el, false);
+        }
+      });
+    });
+  }
+
+  function render(){
+    const visible = PROJECTS.filter(matches);
+    resultCount.textContent = `${visible.length} of ${PROJECTS.length} projects`;
+    projList.innerHTML = visible.length ? visible.map(rowTemplate).join('') :
+      `<div class="mono" style="text-align:center; color:var(--ink-3); padding:50px 0;">No projects match. Clear the search or filter.</div>`;
+    projList.querySelectorAll('.proj-more').forEach(btn => {
+      btn.addEventListener('click', () => openModal(PROJECTS.find(p => p.id === btn.dataset.id)));
+    });
+    wireVideoUnlock();
+    projList.querySelectorAll('.proj').forEach(el => { el.setAttribute('data-reveal',''); revealObserver.observe(el); });
+  }
+  render();
+
+  document.querySelectorAll('#about [data-reveal], #contact [data-reveal], .hero [data-reveal]').forEach(el => revealObserver.observe(el));
+
+  document.querySelectorAll('#skillList .skill-row').forEach((el, i) => {
+    el.setAttribute('data-reveal', '');
+    el.style.transitionDelay = `${(i % 4) * 70}ms`;
+    revealObserver.observe(el);
+  });
+
+  const modalRoot = document.getElementById('modalRoot');
+  function openModal(p){
+    const links = p.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('');
+    const media = p.videoId
+      ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
+      : `<div class="modal-media"><div class="plate"><span class="picon">${ICONS[p.category]}</span></div></div>`;
+    modalRoot.innerHTML = `
+      <div class="modal-bg" id="modalBg">
+        <div class="modal">
+          <div style="position:relative">
+            ${media}
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+          </div>
+          <div class="modal-inner">
+            <div class="modal-status">${statusLine(p)}</div>
+            <h3>${p.title}</h3>
+            <div class="desc">${p.description}</div>
+            <div class="syslabel">Systems</div>
+            <ul class="syslist">${p.systems.map(s => `<li>${s}</li>`).join('')}</ul>
+            ${p.note ? `<div class="modal-note">${p.note}</div>` : ''}
+            ${links ? `<div class="modal-links">${links}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') closeModal(); });
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.addEventListener('keydown', escClose);
+  }
+  function escClose(e){ if (e.key === 'Escape') closeModal(); }
+  function closeModal(){ modalRoot.innerHTML = ''; document.removeEventListener('keydown', escClose); }
+</script>
+</body>
+</html>
