@@ -160,6 +160,9 @@
   .proj-media{position:relative; aspect-ratio:16/10; background:var(--bg-2); border:1px solid var(--line); overflow:hidden; cursor:pointer;}
   .proj-media iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block; pointer-events:none; z-index:1;}
   .proj-media.unlocked iframe{pointer-events:auto;}
+  .proj-media.playable{aspect-ratio:3/4; cursor:default;}
+  .proj-media.playable iframe{pointer-events:auto;}
+  @media (max-width:820px){ .proj-media.playable{aspect-ratio:9/13;} }
   .proj-media .plate{width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative;
     background-image:repeating-linear-gradient(135deg, transparent 0px, transparent 11px, var(--line) 11px, var(--line) 12px);}
   .proj-media .plate .idx{font-family:"Fraunces",serif; font-style:italic; font-size:5.5rem; color:var(--ink-3); opacity:.55;}
@@ -207,6 +210,28 @@
 
   /* contact */
   .contact{border-top:1px solid var(--line); padding-block:72px;}
+  .resume-doc{display:flex; flex-direction:column; gap:44px;}
+  .resume-cols{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:820px){ .resume-cols{grid-template-columns:1fr; gap:8px;} }
+  .resume-h{font-family:"Space Mono",monospace; font-size:.76rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); margin:0 0 14px;}
+  .resume-summary{color:var(--ink-2); line-height:1.6; font-size:.96rem; max-width:78ch;}
+  .resume-item{border-top:1px solid var(--line); padding-block:18px;}
+  .resume-block .resume-item:first-of-type{border-top:1px solid var(--line);}
+  .resume-item-head{display:flex; justify-content:space-between; gap:12px; align-items:baseline; flex-wrap:wrap;}
+  .resume-item-head span:first-child{font-family:"Fraunces",serif; font-size:1.12rem; font-weight:500;}
+  .resume-date{font-family:"Space Mono",monospace; font-size:.72rem; color:var(--ink-3); white-space:nowrap;}
+  .resume-item-sub{font-family:"Space Mono",monospace; font-size:.74rem; color:var(--ink-2); margin-top:4px;}
+  .resume-item p{color:var(--ink-2); margin-top:10px; line-height:1.55; font-size:.94rem;}
+  .resume-bullets{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .resume-bullets li{color:var(--ink-2); line-height:1.55; font-size:.92rem; padding-left:16px; position:relative;}
+  .resume-bullets li::before{content:"—"; position:absolute; left:0; color:var(--ink-3);}
+  .resume-cert-list{list-style:none; margin:0; padding:0;}
+  .resume-cert-list li{border-top:1px solid var(--line); padding-block:12px; font-size:.88rem; color:var(--ink-2);}
+  .resume-skills{border-top:1px solid var(--line);}
+  .resume-skill-row{display:grid; grid-template-columns:190px 1fr; gap:20px; padding-block:13px; border-bottom:1px solid var(--line);}
+  @media (max-width:700px){ .resume-skill-row{grid-template-columns:1fr; gap:4px;} }
+  .rs-label{font-family:"Space Mono",monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-3);}
+  .rs-val{color:var(--ink-2); font-size:.92rem; line-height:1.5;}
   .contact-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:44px; align-items:end;}
   @media (max-width:780px){ .contact-grid{grid-template-columns:1fr;} }
   .contact h2{font-size:clamp(2rem,5vw,3.1rem);}
@@ -228,6 +253,13 @@
   .modal-media iframe{width:100%; height:100%; border:0; display:block;}
   .modal-media .plate{width:100%; height:100%; display:flex; align-items:center; justify-content:center; background-image:repeating-linear-gradient(135deg, transparent 0px, transparent 11px, var(--line) 11px, var(--line) 12px);}
   .modal-media .plate .picon{color:var(--ink-2);}
+  .modal-media.playable{aspect-ratio:3/4; max-height:78vh;}
+  @media (max-width:640px){ .modal-media.playable{aspect-ratio:9/14;} }
+  .modal-extra-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:8px;}
+  @media (max-width:560px){ .modal-extra-grid{grid-template-columns:1fr;} }
+  .modal-extra-label{font-family:"Space Mono",monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-2); margin-bottom:8px;}
+  .modal-extra-frame{aspect-ratio:16/9; border:1px solid var(--line); background:var(--bg-2); overflow:hidden;}
+  .modal-extra-frame iframe{width:100%; height:100%; border:0; display:block;}
   .modal-close{position:absolute; top:14px; right:14px; width:36px; height:36px; background:var(--ink); color:var(--bg); display:flex; align-items:center; justify-content:center; font-family:"Space Mono",monospace; z-index:3; cursor:pointer; transition:background .2s ease, transform .2s ease;}
   .modal-close:hover{background:var(--accent); transform:rotate(90deg);}
   .modal-links a{transition:border-color .2s ease, color .2s ease;}
@@ -260,8 +292,7 @@
       <a class="brand" href="#top"><span class="sq"></span>JAY.DEV</a>
       <div class="navlinks">
         <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
+        <a href="#resume">Resume</a>
         <a href="#contact">Contact</a>
       </div>
       <button class="burger" id="burgerBtn" aria-label="Menu">
@@ -277,8 +308,7 @@
     </div>
     <div class="mm-links">
       <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -326,46 +356,103 @@
     <div class="proj-list" id="projList"></div>
   </section>
 
-  <section id="about">
+  <section id="resume">
     <div class="section-head">
       <div>
-        <div class="section-num mono">02 / ABOUT</div>
-        <h2>Building systems with intention.</h2>
+        <div class="section-num mono">02 / RESUME</div>
+        <h2>Full track record.</h2>
       </div>
+      <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download CV (PDF) ↓</span></a>
     </div>
-    <div class="about-bio" data-reveal>
-      <p>I'm Jaygovindhan Neelanarayanan, a London-based gameplay programmer with shipped commercial games experience and a strong foundation in performance-critical systems, game architecture, and mobile development. Currently completing an MSc in Computer Games Technology with VR at City St George's, University of London.</p>
-      <p>From physics engines and enemy AI in C++17 to monetisation design on live mobile titles, I work across the full stack of a game: engine systems, editor tooling, and the design and visual work that ships alongside them.</p>
-    </div>
-  </section>
+    <div class="resume-doc">
+      <div class="resume-block" data-reveal>
+        <h3 class="resume-h">Professional Summary</h3>
+        <p class="resume-summary">Software developer with shipped commercial games experience and a strong foundation in performance-critical systems, game architecture, and mobile development. Two commercial mobile titles shipped to Google Play and the App Store. Built production-grade C++17 systems including physics engines, FSM AI, real-time rendering pipelines, and data-driven game architectures across five academic projects. Experienced in cross-functional teams, monetisation design, and iterative live-game development. Active daily user of AI coding tools (Claude Code, Copilot) as part of engineering workflow. Currently completing an MSc in Computer Games Technology with VR at City St George's, University of London (2024–2026).</p>
+      </div>
 
-  <section id="skills">
-    <div class="section-head">
-      <div>
-        <div class="section-num mono">03 / SKILLS</div>
-        <h2>What I work with.</h2>
+      <div class="resume-block" data-reveal>
+        <h3 class="resume-h">Key Skills</h3>
+        <div class="resume-skills">
+          <div class="resume-skill-row"><span class="rs-label">Languages</span><span class="rs-val">C/C++ (C++17), C#, Python, JavaScript, TypeScript</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Game Development</span><span class="rs-val">Unity 6 LTS, Unreal Engine 4/5, MonoGame/XNA, OpenGL/GLSL — shipped production experience across mobile and desktop</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Systems &amp; Architecture</span><span class="rs-val">FSM design, event-driven systems, observer pattern, object pooling, resource management, data-driven JSON config, separation of concerns</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Mobile &amp; Performance</span><span class="rs-val">Android and iOS game delivery, frame-rate optimisation, GPU profiling, performance budget management, real-time rendering</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Monetisation &amp; Live Ops</span><span class="rs-val">IAP system design, monetisation mechanics, offer and progression systems, A/B test-informed iteration, player behaviour research</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Testing &amp; Quality</span><span class="rs-val">Unit and integration testing, code review, controlled experiment design, quantitative evaluation</span></div>
+          <div class="resume-skill-row"><span class="rs-label">AI &amp; Generative AI</span><span class="rs-val">Active daily use of Claude Code and Copilot for code generation, debugging, and review; applied Generative AI tooling in production workflow</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Tools</span><span class="rs-val">Git/GitHub, Visual Studio, Bullet3, FMOD Core, Assimp, Autodesk Maya, ImGui, ScriptableObject config</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Languages Spoken</span><span class="rs-val">English (Native), Tamil (Native), Hindi (Limited Working), Arabic (Elementary), French (Elementary), Portuguese (Elementary)</span></div>
+        </div>
       </div>
-    </div>
-    <div class="skill-list" id="skillList">
-      <div class="skill-row">
-        <div class="n">01</div>
-        <div><h4>C++ &amp; Graphics</h4><p>C++17 engines, OpenGL/GLSL, Bullet3 physics, FSM AI, and real-time rendering pipelines.</p></div>
+
+      <div class="resume-block" data-reveal>
+        <h3 class="resume-h">Work Experience</h3>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Computer Games Designer (Freelance, Hourly)</span><span class="resume-date">Jul 2026 – Present</span></div>
+          <div class="resume-item-sub">ALPHA2 Solutions &amp; Software Limited · London</div>
+          <ul class="resume-bullets"><li>Engaged on an hourly, as-required basis, contributing game design work to a client project delivered through ALPHA2 Solutions &amp; Software.</li></ul>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Developer &amp; Technical Artist</span><span class="resume-date">Nov 2022 – Aug 2024</span></div>
+          <div class="resume-item-sub">OFGA Multimedia · Remote</div>
+          <ul class="resume-bullets">
+            <li>Shipped a commercial mobile title end-to-end — contributing game logic, performance-critical rendering systems, and asset pipelines within a live production codebase serving thousands of active users on Android and iOS.</li>
+            <li>Maintained performance budgets and operational stability across the full development lifecycle — development, integration, testing, and post-launch maintenance — within a small, agile cross-functional team.</li>
+            <li>Worked across engineering and technical art simultaneously: integrating self-produced assets, coordinating runtime behaviour with programmers, and iterating on visual features under commercial release pressure.</li>
+          </ul>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Game Designer</span><span class="resume-date">Jun 2021 – Oct 2022</span></div>
+          <div class="resume-item-sub">ChennaiGames Studio · Chennai, India</div>
+          <ul class="resume-bullets">
+            <li>Led full design lifecycle on two commercial mobile titles — RADDX Racing Metaverse and Hurley Super Surfer — shipped to Google Play and App Store, owning game design documentation, monetisation mechanics, and product architecture (including metaverse architecture for RADDX).</li>
+            <li>Designed IAP systems, progression-linked offer structures, and engagement loops — presented to production leads and implemented by engineering teams; iterated using live player behaviour data.</li>
+            <li>Coordinated cross-functional delivery across programmers, artists, and QA under tight commercial release cycles.</li>
+          </ul>
+        </div>
       </div>
-      <div class="skill-row">
-        <div class="n">02</div>
-        <div><h4>Unity &amp; C#</h4><p>Unity 6 LTS gameplay systems, editor tooling, ScriptableObject architecture, Cinemachine.</p></div>
+
+      <div class="resume-block" data-reveal>
+        <h3 class="resume-h">Additional Work Experience</h3>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Team Member</span><span class="resume-date">Jul 2026 – Present</span></div>
+          <div class="resume-item-sub">The Salad Project · London</div>
+          <ul class="resume-bullets"><li>Point-of-sale operations, food preparation, and customer service in a high-volume fast-casual environment, maintained alongside full-time MSc study.</li></ul>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Sales Assistant</span><span class="resume-date">Mar 2026 – Jun 2026</span></div>
+          <div class="resume-item-sub">The Salad Kitchen · London</div>
+          <ul class="resume-bullets"><li>Customer service and retail food operations in a fast-paced hospitality environment, balanced alongside MSc dissertation work.</li></ul>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-head"><span>Front of House Staff Member</span><span class="resume-date">Aug 2025 – Nov 2025</span></div>
+          <div class="resume-item-sub">UBA Shoreditch · London</div>
+          <ul class="resume-bullets"><li>Front-of-house service and customer-facing operations in a high-volume café/bar environment.</li></ul>
+        </div>
       </div>
-      <div class="skill-row">
-        <div class="n">03</div>
-        <div><h4>Mobile &amp; Live Ops</h4><p>IAP and monetisation design, performance budgets, and live-game iteration on shipped titles.</p></div>
-      </div>
-      <div class="skill-row">
-        <div class="n">04</div>
-        <div><h4>AI Tooling</h4><p>Daily Claude Code and Copilot workflow for code generation, debugging, and review.</p></div>
-      </div>
-      <div class="skill-row" style="grid-column:1 / -1; border-bottom:1px solid var(--line)">
-        <div class="n">05</div>
-        <div><h4>Graphic &amp; Game Design</h4><p>Game design documentation, monetisation &amp; progression systems, and visual/technical-art work behind two shipped titles. Full gallery on <a href="https://www.artstation.com/jay6900" target="_blank" rel="noopener">ArtStation ↗</a>.</p></div>
+
+      <div class="resume-cols">
+        <div class="resume-col" data-reveal>
+          <h3 class="resume-h">Education</h3>
+          <div class="resume-item">
+            <div class="resume-item-head"><span>MSc Computer Games Technology with VR</span><span class="resume-date">2024–2026</span></div>
+            <div class="resume-item-sub">City St George's, University of London</div>
+          </div>
+          <div class="resume-item">
+            <div class="resume-item-head"><span>BSc Media Technology — Game Design Specialisation</span><span class="resume-date">2018–2021</span></div>
+            <div class="resume-item-sub">ICAT College of Design &amp; Media · Chennai, India</div>
+          </div>
+        </div>
+        <div class="resume-col" data-reveal>
+          <h3 class="resume-h">Certifications</h3>
+          <ul class="resume-cert-list">
+            <li>Microsoft Security Essentials Professional Certificate — Microsoft &amp; LinkedIn (2025)</li>
+            <li>Introduction to AI Governance — LinkedIn Learning</li>
+            <li>Ethics in the Age of Generative AI — LinkedIn Learning (2026)</li>
+            <li>Unity 3D 2021 Essential Training — LinkedIn Learning</li>
+            <li>Game Design and Development 1: 2D Shooter — Michigan State University (2024)</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -373,7 +460,7 @@
   <section id="contact" class="contact">
     <div class="contact-grid">
       <div data-reveal>
-        <div class="section-num mono">04 / CONTACT</div>
+        <div class="section-num mono">03 / CONTACT</div>
         <h2>Let's build something playable.</h2>
         <p>Open to collaboration, freelance, and full-time roles. The fastest way to reach me is email, or find me on the platforms to the right.</p>
         <a class="mail-line draw" href="mailto:jaygoneelz@gmail.com">jaygoneelz@gmail.com ↗</a>
@@ -458,11 +545,12 @@
         "IAP systems and progression-linked offer structures, iterated on live player behaviour data",
         "Cross-functional coordination across programmers, artists and QA"
       ],
-      links: [
-        { label: "Launch Trailer", href: "https://youtu.be/OuEfs4a5ba4" },
-        { label: "Sneak Peek", href: "https://youtu.be/AdHHFoV-Aoo" }
-      ],
-      videoId: "LHrRsfpCugk"
+      links: [],
+      videoId: "LHrRsfpCugk",
+      extraVideos: [
+        { id: "OuEfs4a5ba4", label: "Launch Trailer" },
+        { id: "AdHHFoV-Aoo", label: "Sneak Peek" }
+      ]
     },
     {
       id: "hurley", title: "Hurley Super Surfer", category: "mobile", discontinued: true,
@@ -481,14 +569,14 @@
       id: "forklift", title: "Forklift Idle", category: "web",
       tagline: "Data-driven logistics simulation & idle game: JSON-driven progression, observer-pattern event architecture.",
       status: "In Development", year: "2025", tags: ["Idle Game", "JSON Config", "Observer Pattern"],
-      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~6,850 lines).",
+      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~6,890 lines). Playable in full below.",
       systems: [
         "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values",
         "Observer-pattern event architecture decoupling game logic from UI state",
         "Minimisable live delivery-tracking bar and a redesigned garage upgrade system",
         "Hosted on GitHub Pages; PWA/Trusted Web Activity packaging planned for Google Play"
       ],
-      links: [], note: "Playable build live on GitHub Pages: embed link pending."
+      links: [], playUrl: "games/forklift/index.html"
     },
     {
       id: "bounce", title: "8-Bit Bounce", category: "desktop",
@@ -533,6 +621,7 @@
 
   function muteSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&playsinline=1`; }
   function activeSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&loop=1&playlist=${id}&controls=1&modestbranding=1&rel=0&playsinline=1`; }
+  function staticSrc(id){ return `https://www.youtube.com/embed/${id}?modestbranding=1&rel=0&playsinline=1`; }
 
   function mediaTemplate(p){
     if (p.videoId) {
@@ -540,6 +629,13 @@
         <div class="proj-media" data-video="${p.videoId}">
           <div class="plate video-plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Loading · click to unmute &amp; control</span><a href="https://youtu.be/${p.videoId}" target="_blank" rel="noopener" class="yt-link">Watch on YouTube ↗</a></div>
+        </div>`;
+    }
+    if (p.playUrl) {
+      return `
+        <div class="proj-media playable" data-video="">
+          <iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe>
+          <div class="video-flag"><span class="dot"></span><span class="flag-text">Playable build</span><a href="${p.playUrl}" target="_blank" rel="noopener" class="yt-link">Open fullscreen ↗</a></div>
         </div>`;
     }
     return `
@@ -660,20 +756,21 @@
   }
   render();
 
-  document.querySelectorAll('#about [data-reveal], #contact [data-reveal], .hero [data-reveal]').forEach(el => revealObserver.observe(el));
-
-  document.querySelectorAll('#skillList .skill-row').forEach((el, i) => {
-    el.setAttribute('data-reveal', '');
-    el.style.transitionDelay = `${(i % 4) * 70}ms`;
-    revealObserver.observe(el);
-  });
+  document.querySelectorAll('#resume [data-reveal], #contact [data-reveal], .hero [data-reveal]').forEach(el => revealObserver.observe(el));
 
   const modalRoot = document.getElementById('modalRoot');
   function openModal(p){
     const links = p.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('');
     const media = p.videoId
       ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
+      : p.playUrl
+      ? `<div class="modal-media playable"><iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe></div>`
       : `<div class="modal-media"><div class="plate"><span class="picon">${ICONS[p.category]}</span></div></div>`;
+    const extraVideos = (p.extraVideos || []).map(v => `
+      <div class="modal-extra-video">
+        <div class="modal-extra-label">${v.label}</div>
+        <div class="modal-extra-frame"><iframe src="${staticSrc(v.id)}" title="${p.title} ${v.label}" allow="encrypted-media" loading="lazy"></iframe></div>
+      </div>`).join('');
     modalRoot.innerHTML = `
       <div class="modal-bg" id="modalBg">
         <div class="modal">
@@ -681,10 +778,12 @@
             ${media}
             <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
           </div>
+          ${p.playUrl ? `<div class="modal-note" style="border-bottom:1px solid var(--line); margin:0; padding:14px 28px;">Playing inline above. <a href="${p.playUrl}" target="_blank" rel="noopener" style="color:var(--accent);">Open fullscreen ↗</a></div>` : ''}
           <div class="modal-inner">
             <div class="modal-status">${statusLine(p)}</div>
             <h3>${p.title}</h3>
             <div class="desc">${p.description}</div>
+            ${extraVideos ? `<div class="syslabel">More footage</div><div class="modal-extra-grid">${extraVideos}</div>` : ''}
             <div class="syslabel">Systems</div>
             <ul class="syslist">${p.systems.map(s => `<li>${s}</li>`).join('')}</ul>
             ${p.note ? `<div class="modal-note">${p.note}</div>` : ''}
