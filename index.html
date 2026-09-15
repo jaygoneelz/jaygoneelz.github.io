@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Jay · Gameplay Programmer</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Portfolio of Jay, a gameplay programmer with 3+ years of commercial game industry experience — Unity, C++, real-time rendering, and shipped mobile titles including RADDX Racing Metaverse (1M+ downloads).">
 <meta name="theme-color" content="#ff4319">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Jay · Gameplay Programmer">
 <meta property="og:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
-<meta property="og:url" content="https://jay6900.github.io/">
+<meta property="og:url" content="https://jaygoneelz.github.io/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jay · Gameplay Programmer">
 <meta name="twitter:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='3' fill='%23ff4319'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon-180.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,18 +47,21 @@
     color-scheme:dark;
   }
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Archivo",-apple-system,sans-serif; line-height:1.56;}
+  :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Archivo",-apple-system,sans-serif; line-height:1.56; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden;}
+  img,svg{max-width:100%;}
   #scrollbar{position:fixed; top:0; left:0; height:3px; width:0%; background:var(--accent); z-index:200; transition:width .08s linear;}
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
   h1,h2,h3,h4{font-family:"Fraunces",serif; margin:0; font-weight:500; text-wrap:balance;}
   i,em{font-family:"Fraunces",serif; font-style:italic; color:var(--accent);}
-  a{color:inherit;}
-  button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0;}
+  a{color:inherit; -webkit-tap-highlight-color:transparent;}
+  button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0; -webkit-tap-highlight-color:transparent;}
+  input,textarea{-webkit-tap-highlight-color:transparent;}
   ::selection{background:var(--accent); color:#fff;}
   [hidden]{display:none!important;}
-  .wrap{max-width:1180px; margin-inline:auto; padding-inline:24px;}
+  .wrap{max-width:1180px; margin-inline:auto; padding-inline:max(24px, env(safe-area-inset-left,0px)) max(24px, env(safe-area-inset-right,0px));}
   .mono{font-family:"Space Mono",monospace;}
 
   [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
@@ -91,8 +96,10 @@
   @media (max-width:820px){ .hero-grid{grid-template-columns:1fr; gap:36px;} }
   .eyebrow-mono{font-family:"Space Mono",monospace; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-2); display:flex; align-items:center; gap:9px; margin-bottom:24px;}
   .eyebrow-mono .sq{width:7px; height:7px; background:var(--accent); flex:none;}
-  .hero-name{font-family:"Fraunces",serif; font-size:1.08rem; font-weight:500; color:var(--ink); margin-bottom:10px;}
+  .hero-name{font-family:"Fraunces",serif; font-size:1.08rem; font-weight:500; color:var(--ink); margin-bottom:10px; display:flex; align-items:center; gap:12px;}
   .hero-name-tag{font-family:"Space Mono",monospace; font-size:.76rem; font-weight:400; color:var(--ink-3); letter-spacing:.02em; margin-left:2px;}
+  .hero-avatar{width:44px; height:44px; border-radius:50%; flex:none; background:var(--bg-2); border:1.5px solid var(--accent); object-fit:cover;}
+  @media (max-width:480px){ .hero-avatar{width:38px; height:38px;} }
   .hero h1{font-size:clamp(2.5rem,6.2vw,4.4rem); line-height:1.04; letter-spacing:-.01em;}
   .hero-bio{margin-top:26px; max-width:54ch; color:var(--ink-2); font-size:1.03rem;}
   .hero-ctas{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
@@ -135,6 +142,8 @@
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:36px;}
   .section-head h2{font-size:clamp(1.9rem,4vw,2.5rem);}
   .section-num{font-family:"Space Mono",monospace; color:var(--ink-3); font-size:.84rem;}
+  .section-desc{max-width:34ch; text-align:right;}
+  @media (max-width:820px){ .section-desc{max-width:100%; text-align:left;} }
 
   /* controls */
   .controls{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:14px;}
@@ -147,6 +156,7 @@
   .searchwrap svg{flex:none; color:var(--ink-3);}
   .searchwrap input{border:none; background:none; outline:none; font-family:"Space Mono",monospace; font-size:.84rem; color:var(--ink); width:100%;}
   .searchwrap input::placeholder{color:var(--ink-3);}
+  @media (max-width:780px){ .searchwrap input{font-size:16px;} }
   .count{font-family:"Space Mono",monospace; font-size:.74rem; color:var(--ink-3); margin-bottom:8px;}
 
   /* project rows */
@@ -319,7 +329,7 @@
     <div class="hero-grid">
       <div data-reveal>
         <div class="eyebrow-mono"><span class="sq"></span>Game Developer · London</div>
-        <p class="hero-name">Jaygovindhan Neelanarayanan <span class="hero-name-tag">— goes by Jay</span></p>
+        <p class="hero-name"><img class="hero-avatar" src="images/avatar-hero.png" alt="Pixel-art avatar of Jay" width="44" height="44" loading="eager">Jaygovindhan Neelanarayanan <span class="hero-name-tag">— goes by Jay</span></p>
         <h1>I build the systems behind games that feel <i>alive</i>.</h1>
         <p class="hero-bio">Gameplay programmer with three years of commercial experience: two shipped mobile titles, one of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
         <div class="hero-ctas">
@@ -346,7 +356,7 @@
         <div class="section-num mono">01 / SELECTED WORK</div>
         <h2>Project Showcase</h2>
       </div>
-      <div class="section-num mono" style="max-width:34ch; text-align:right;">Filter by platform, search by tech, and open any project for the full systems breakdown.</div>
+      <div class="section-num mono section-desc">Filter by platform, search by tech, and open any project for the full systems breakdown.</div>
     </div>
     <div class="controls">
       <div class="tabs" id="catTabs"></div>
