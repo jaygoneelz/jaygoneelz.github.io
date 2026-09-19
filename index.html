@@ -382,6 +382,28 @@
   .plate.video-plate .play-ico svg{margin-left:3px;}
   @media (prefers-reduced-motion:reduce){ .proj-media:hover .plate.video-plate{transform:none; filter:none;} .plate.video-plate .play-ico{transition:none;} }
 
+  /* === touch/mobile motion parity === */
+  @media (pointer:coarse){
+    /* card settles in with a tilt instead of relying on hover */
+    .proj-media{transform:perspective(700px) rotateY(6deg) scale(.97); opacity:.82; transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .6s ease;}
+    .proj.in .proj-media{transform:none; opacity:1;}
+    /* cover art gets a gentle idle drift since there's no cursor to parallax against */
+    .plate.cover-plate svg{animation:coverfloat 4.5s ease-in-out infinite;}
+    /* play icon stays lightly visible since hover never fires */
+    .plate.video-plate .play-ico{opacity:.85; transform:scale(1);}
+    .plate.video-plate .play-ico.pulse{animation:playpulse .45s ease;}
+    /* tapping a button flashes the terminal prompt the same way hover does on desktop */
+    .btn:active > span{opacity:0;}
+    .btn:active .btn-prompt{opacity:1;}
+  }
+  @keyframes coverfloat{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(4px,-4px);} }
+  @keyframes playpulse{ 0%{transform:scale(1);} 50%{transform:scale(1.2);} 100%{transform:scale(1);} }
+  @media (pointer:coarse) and (prefers-reduced-motion:reduce){
+    .proj-media{transform:none !important; opacity:1; transition:none;}
+    .plate.cover-plate svg{animation:none;}
+    .plate.video-plate .play-ico.pulse{animation:none;}
+  }
+
   /* theme flicker */
   .crt-flicker{position:fixed; inset:0; z-index:99999; background:var(--ink); pointer-events:none; opacity:0; mix-blend-mode:difference;}
   .crt-flicker.on{animation:crtflicker .38s steps(2,end);}
@@ -418,6 +440,7 @@
       <div class="navlinks">
         <a href="#work">Work</a>
         <a href="#resume">Resume</a>
+        <a href="#skills">Skill Set</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" id="themeToggle" type="button">[ DARK ]</button>
       </div>
@@ -435,6 +458,7 @@
     <div class="mm-links">
       <a href="#work">Work</a>
       <a href="#resume">Resume</a>
+      <a href="#skills">Skill Set</a>
       <a href="#contact">Contact</a>
     </div>
     <button class="theme-toggle mm-theme" id="themeToggleMobile" type="button">[ DARK ]</button>
@@ -500,7 +524,7 @@
       </div>
       <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Short 2-Page CV (PDF) ↓</span><span class="btn-prompt">&gt; download_cv<span class="cur"></span></span></a>
     </div>
-    <div class="win resume-doc-win" data-reveal>
+    <div class="win resume-doc-win">
       <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/resume/cv.log</span></div>
     <div class="win-body">
     <div class="resume-doc">
@@ -509,7 +533,7 @@
         <p class="resume-summary">Game developer with three-plus years of commercial mobile experience, including design work and NFT-economy architecture for a title that passed one million downloads. Now expanding into general engineering across C++ systems programming, Unity architecture, VR design, and full-stack web development: a from-scratch physics-driven platformer in C++, plus a reusable Unity combat framework with custom editor tooling and a self-built Progressive Web App with real-world map routing. Handles the full pipeline: design, implementation, cross-functional delivery, and iterative live-game development. Completing an MSc in Computer Games Technology with VR at City St George's, University of London, and uses AI coding tools, Claude Code and Copilot, daily.</p>
       </div>
 
-      <div class="resume-block" data-reveal>
+      <div class="resume-block" id="skills" data-reveal style="scroll-margin-top:96px;">
         <h3 class="resume-h">Key Skills</h3>
         <div class="resume-skills">
           <div class="resume-skill-row"><span class="rs-label">Languages</span><span class="rs-val">C/C++ (C++17), C#, Python, JavaScript, TypeScript</span></div>
@@ -1096,7 +1120,15 @@
   const projList = document.getElementById('projList');
   const resultCount = document.getElementById('resultCount');
   const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); } });
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      if (isCoarse && e.target.classList.contains('proj')) {
+        const st = e.target.querySelector('.scramble-txt');
+        if (st) scramble(st);
+      }
+      revealObserver.unobserve(e.target);
+    });
   }, { threshold: .15 });
 
   function loadVideoTile(el, muted){
@@ -1128,6 +1160,15 @@
       lazyVideoObserver.observe(el);
       const ytLink = el.querySelector('.yt-link');
       if (ytLink) ytLink.addEventListener('click', e => e.stopPropagation());
+      if (isCoarse) {
+        el.addEventListener('touchstart', () => {
+          const ico = el.querySelector('.play-ico');
+          if (!ico || reduceMotion) return;
+          ico.classList.remove('pulse');
+          void ico.offsetWidth;
+          ico.classList.add('pulse');
+        }, { passive: true });
+      }
       el.addEventListener('click', () => {
         if (el.classList.contains('unlocked')) return;
         el.classList.add('unlocked');
