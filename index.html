@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <title>Jay · Gameplay Programmer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Portfolio of Jay, a gameplay programmer with 3+ years of commercial game industry experience — Unity, C++, real-time rendering, and shipped mobile titles including RADDX Racing Metaverse (1M+ downloads).">
+<meta name="description" content="Portfolio of Jay, a gameplay programmer with 3+ years of commercial game industry experience — Unity, C++, real-time rendering, and shipped mobile titles including RADDX Racing Metaverse and MR RACER: Premium Racing Game (both 1M+ downloads).">
 <meta name="theme-color" content="#d9480f">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Jay · Gameplay Programmer">
-<meta property="og:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
+<meta property="og:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles, two of them past 1M+ downloads.">
 <meta property="og:url" content="https://jaygoneelz.github.io/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jay · Gameplay Programmer">
-<meta name="twitter:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles with 1M+ combined downloads.">
+<meta name="twitter:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles, two of them past 1M+ downloads.">
 
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
@@ -213,8 +213,12 @@
   @media (max-width:820px){ .proj-media.playable{aspect-ratio:9/13;} }
   .proj-media .plate{width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative;
     background-image:repeating-linear-gradient(135deg, transparent 0px, transparent 11px, var(--line) 11px, var(--line) 12px);}
-  .proj-media .plate .idx{font-family:"Space Mono",monospace; font-weight:700; font-size:4.2rem; color:var(--ink-3); opacity:.4;}
-  .proj-media .plate .picon{position:relative; color:var(--ink-2);}
+  .proj-media .plate.video-plate{background-size:cover; background-position:center;}
+  .proj-media .plate.video-plate::after{content:"";position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,9,7,.2), rgba(10,9,7,.6)); z-index:1;}
+  .proj-media .plate .idx{font-family:"Space Mono",monospace; font-weight:700; font-size:4.2rem; color:var(--ink-3); opacity:.4; position:relative; z-index:2;}
+  .proj-media .plate.video-plate .idx{color:#f3ede0; opacity:.85;}
+  .proj-media .plate .picon{position:relative; z-index:2; color:var(--ink-2);}
+  .proj-media .plate.video-plate .picon{color:#f3ede0;}
   .video-flag{position:absolute; bottom:0; left:0; right:0; background:var(--ink); color:var(--bg); font-family:"Space Mono",monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; padding:7px 11px; display:flex; align-items:center; gap:7px; z-index:2; pointer-events:none;}
   .video-flag .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
   .video-flag .yt-link{margin-left:auto; color:var(--bg); opacity:.75; text-decoration:underline; pointer-events:auto; flex:none;}
@@ -377,7 +381,7 @@
           <div class="eyebrow-mono"><span class="sq"></span>Game Developer · London</div>
           <p class="hero-name"><img class="hero-avatar" src="images/avatar-hero.png" alt="Pixel-art avatar of Jay" width="44" height="44" loading="eager">Jaygovindhan Neelanarayanan <span class="hero-name-tag">— goes by Jay</span></p>
           <h1>I build the systems behind games that feel <span class="accent-tag">alive</span><span class="cursor"></span></h1>
-          <p class="hero-bio">Gameplay programmer with three years of commercial experience: two shipped mobile titles, one of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
+          <p class="hero-bio">Gameplay programmer with three years of commercial experience: four shipped mobile titles, two of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
           <div class="hero-ctas">
             <a href="#work" class="btn btn-solid"><span>See the work ↓</span></a>
             <a href="#contact" class="btn btn-ghost"><span>Get in touch</span></a>
@@ -388,9 +392,9 @@
         <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/stats.json</span></div>
         <div class="win-body">
           <div class="json-line">{</div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_shipped"</span>: <span class="json-val">2</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"raddx_downloads"</span>: <span class="json-val">"1M+"</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val">9</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_shipped"</span>: <span class="json-val">4</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_past_1M_downloads"</span>: <span class="json-val">2</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val">11</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"program"</span>: <span class="json-val">"MSc Games Tech &amp; VR '26"</span></div>
           <div class="json-line">}<span class="cursor"></span></div>
         </div>
@@ -427,7 +431,7 @@
         <div class="section-num mono">02 / RESUME</div>
         <h2>Full track record.</h2>
       </div>
-      <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download CV (PDF) ↓</span></a>
+      <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Short 2-Page CV (PDF) ↓</span></a>
     </div>
     <div class="win resume-doc-win" data-reveal>
       <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/resume/cv.log</span></div>
@@ -435,20 +439,21 @@
     <div class="resume-doc">
       <div class="resume-block">
         <h3 class="resume-h">Professional Summary</h3>
-        <p class="resume-summary">Software developer with shipped commercial games experience and a strong foundation in performance-critical systems, game architecture, and mobile development. Two commercial mobile titles shipped to Google Play and the App Store. Built production-grade C++17 systems including physics engines, FSM AI, real-time rendering pipelines, and data-driven game architectures across five academic projects. Experienced in cross-functional teams, monetisation design, and iterative live-game development. Active daily user of AI coding tools (Claude Code, Copilot) as part of engineering workflow. Currently completing an MSc in Computer Games Technology with VR at City St George's, University of London (2024–2026).</p>
+        <p class="resume-summary">Game developer with three-plus years of commercial mobile experience, including design work and NFT-economy architecture for a title that passed one million downloads. Now expanding into general engineering across C++ systems programming, Unity architecture, VR design, and full-stack web development: a from-scratch physics-driven platformer in C++, a reusable Unity combat framework with custom editor tooling, and a self-built Progressive Web App with real-world map routing. Handles the full pipeline — design, implementation, cross-functional delivery, and iterative live-game development. Completing an MSc in Computer Games Technology with VR at City St George's, University of London, and uses AI coding tools (Claude Code, Copilot) daily.</p>
       </div>
 
       <div class="resume-block" data-reveal>
         <h3 class="resume-h">Key Skills</h3>
         <div class="resume-skills">
           <div class="resume-skill-row"><span class="rs-label">Languages</span><span class="rs-val">C/C++ (C++17), C#, Python, JavaScript, TypeScript</span></div>
-          <div class="resume-skill-row"><span class="rs-label">Game Development</span><span class="rs-val">Unity 6 LTS, Unreal Engine 4/5, MonoGame/XNA, OpenGL/GLSL — shipped production experience across mobile and desktop</span></div>
-          <div class="resume-skill-row"><span class="rs-label">Systems &amp; Architecture</span><span class="rs-val">FSM design, event-driven systems, observer pattern, object pooling, resource management, data-driven JSON config, separation of concerns</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Game Development</span><span class="rs-val">Unity 6 LTS (URP, Render Graph API), Unreal Engine 4/5, MonoGame/XNA, OpenGL/GLSL, Cinemachine, VR development (Meta Quest 2) — shipped production experience across mobile, desktop and VR</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Systems &amp; Architecture</span><span class="rs-val">FSM design, event-driven and observer systems, ScriptableObject architecture, service locator pattern, object pooling, resource management, data-driven JSON config, separation of concerns</span></div>
           <div class="resume-skill-row"><span class="rs-label">Mobile &amp; Performance</span><span class="rs-val">Android and iOS game delivery, frame-rate optimisation, GPU profiling, performance budget management, real-time rendering</span></div>
-          <div class="resume-skill-row"><span class="rs-label">Monetisation &amp; Live Ops</span><span class="rs-val">IAP system design, monetisation mechanics, offer and progression systems, A/B test-informed iteration, player behaviour research</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Web &amp; PWA</span><span class="rs-val">Progressive Web Apps, service workers, Web App Manifest, TWA and PWABuilder packaging, Leaflet.js, OSRM routing API, WebAudio API, localStorage persistence</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Monetisation &amp; Live Ops</span><span class="rs-val">IAP system design, monetisation mechanics, offer and progression systems, NFT and token economy design, A/B test-informed iteration, player behaviour research</span></div>
           <div class="resume-skill-row"><span class="rs-label">Testing &amp; Quality</span><span class="rs-val">Unit and integration testing, code review, controlled experiment design, quantitative evaluation</span></div>
-          <div class="resume-skill-row"><span class="rs-label">AI &amp; Generative AI</span><span class="rs-val">Active daily use of Claude Code and Copilot for code generation, debugging, and review; applied Generative AI tooling in production workflow</span></div>
-          <div class="resume-skill-row"><span class="rs-label">Tools</span><span class="rs-val">Git/GitHub, Visual Studio, Bullet3, FMOD Core, Assimp, Autodesk Maya, ImGui, ScriptableObject config</span></div>
+          <div class="resume-skill-row"><span class="rs-label">AI &amp; Generative AI</span><span class="rs-val">Daily use of Claude Code and Copilot for code generation, debugging, and review; applied generative AI tooling in production workflow</span></div>
+          <div class="resume-skill-row"><span class="rs-label">Tools</span><span class="rs-val">Git/GitHub, Visual Studio, Bullet Physics, FMOD Core, Assimp, FreeType, GLM, GLFW, Autodesk Maya, Blender 3D, Adobe Photoshop/Illustrator/After Effects/Premiere Pro, ImGui, TextMesh Pro</span></div>
           <div class="resume-skill-row"><span class="rs-label">Languages Spoken</span><span class="rs-val">English (Native), Tamil (Native), Hindi (Limited Working), Arabic (Elementary), French (Elementary), Portuguese (Elementary)</span></div>
         </div>
       </div>
@@ -458,14 +463,15 @@
         <div class="resume-item">
           <div class="resume-item-head"><span>Computer Games Designer (Freelance, Hourly)</span><span class="resume-date">Jul 2026 – Present</span></div>
           <div class="resume-item-sub">ALPHA2 Solutions &amp; Software Limited · London</div>
-          <ul class="resume-bullets"><li>Engaged on an hourly, as-required basis, contributing game design work to a client project delivered through ALPHA2 Solutions &amp; Software.</li></ul>
+          <ul class="resume-bullets"><li>Delivering game design work across multiple concurrent client projects on an hourly, as-required basis, scoping and adapting each engagement to the itinerary and brief supplied per project.</li></ul>
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>Developer &amp; Technical Artist</span><span class="resume-date">Nov 2022 – Aug 2024</span></div>
           <div class="resume-item-sub">OFGA Multimedia · Remote</div>
           <ul class="resume-bullets">
-            <li>Shipped a commercial mobile title end-to-end — contributing game logic, performance-critical rendering systems, and asset pipelines within a live production codebase serving thousands of active users on Android and iOS.</li>
+            <li>Shipped a commercial mobile title (The Dot) end-to-end — contributing game logic, performance-critical rendering systems, and asset pipelines within a live production codebase.</li>
             <li>Maintained performance budgets and operational stability across the full development lifecycle — development, integration, testing, and post-launch maintenance — within a small, agile cross-functional team.</li>
+            <li>Broadened technical range across a multi-discipline studio, contributing development and technical art support across games, web, mobile app, and AI-integration projects.</li>
             <li>Worked across engineering and technical art simultaneously: integrating self-produced assets, coordinating runtime behaviour with programmers, and iterating on visual features under commercial release pressure.</li>
           </ul>
         </div>
@@ -473,7 +479,10 @@
           <div class="resume-item-head"><span>Game Designer</span><span class="resume-date">Jun 2021 – Oct 2022</span></div>
           <div class="resume-item-sub">ChennaiGames Studio · Chennai, India</div>
           <ul class="resume-bullets">
-            <li>Led full design lifecycle on two commercial mobile titles — RADDX Racing Metaverse and Hurley Super Surfer — shipped to Google Play and App Store, owning game design documentation, monetisation mechanics, and product architecture (including metaverse architecture for RADDX).</li>
+            <li>Led full design lifecycle on two commercial NFT mobile titles built during the studio's contract engagement with Jump.trade — RADDX Racing Metaverse and Hurley Super Surfer (built for Jump.trade's client, the Hurley surfing brand) — shipped to Google Play and App Store, owning game design documentation, monetisation mechanics, player behaviour research, and product architecture (including metaverse architecture for RADDX).</li>
+            <li>Designed RADDX's blockchain-based NFT vehicle economy and virtual real-estate layer — a 30,103-car supply across a 6-tier rarity system, a 30-level upgrade path fed by a dual-currency system, and 500 digital land parcels and buildings across 4 rarity tiers — and authored the game's public-facing litepaper.</li>
+            <li>Contributed world-building and character concept art for an unreleased FPS/TPS title (POR: Players on Retaliation) — see <a href="https://www.artstation.com/jay6900" target="_blank" rel="noopener" style="text-decoration:underline; text-underline-offset:3px;">ArtStation</a>.</li>
+            <li>Contributed car and environment art to a separate title, MR RACER: Premium Racing Game — 1M+ downloads, 4.2★ across 12,000+ reviews — across the game's 5 locations and its car-customisation system.</li>
             <li>Designed IAP systems, progression-linked offer structures, and engagement loops — presented to production leads and implemented by engineering teams; iterated using live player behaviour data.</li>
             <li>Coordinated cross-functional delivery across programmers, artists, and QA under tight commercial release cycles.</li>
           </ul>
@@ -485,17 +494,26 @@
         <div class="resume-item">
           <div class="resume-item-head"><span>Team Member</span><span class="resume-date">Jul 2026 – Present</span></div>
           <div class="resume-item-sub">The Salad Project · London</div>
-          <ul class="resume-bullets"><li>Point-of-sale operations, food preparation, and customer service in a high-volume fast-casual environment, maintained alongside full-time MSc study.</li></ul>
+          <ul class="resume-bullets">
+            <li>Maintained food hygiene and allergen compliance standards during high-volume, physically demanding shifts, preparing fresh salads to order and running the till across a fast-paced front and back of house team.</li>
+            <li>Kept service running smoothly under pressure, coordinating closely with kitchen and floor staff across multiple stations.</li>
+          </ul>
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>Sales Assistant</span><span class="resume-date">Mar 2026 – Jun 2026</span></div>
           <div class="resume-item-sub">The Salad Kitchen · London</div>
-          <ul class="resume-bullets"><li>Customer service and retail food operations in a fast-paced hospitality environment, balanced alongside MSc dissertation work.</li></ul>
+          <ul class="resume-bullets">
+            <li>Delivered fresh, made-to-order salad bowls daily — blending dressings and hummus, making labneh, baking focaccia, and slow-roasting lamb, chicken, and mushrooms.</li>
+            <li>Ran an outdoor market stall independently, handling focaccia sandwich service, proactive upselling, and adapting fluidly between stall and in-store operations.</li>
+          </ul>
         </div>
         <div class="resume-item">
-          <div class="resume-item-head"><span>Front of House Staff Member</span><span class="resume-date">Aug 2025 – Nov 2025</span></div>
+          <div class="resume-item-head"><span>Barista and Waiter</span><span class="resume-date">Aug 2025 – Nov 2025</span></div>
           <div class="resume-item-sub">UBA Shoreditch · London</div>
-          <ul class="resume-bullets"><li>Front-of-house service and customer-facing operations in a high-volume café/bar environment.</li></ul>
+          <ul class="resume-bullets">
+            <li>Delivered full table service across high-volume shifts from dinner through breakfast and lunch — taking orders, upselling, and serving wine.</li>
+            <li>Supported bar and kitchen coordination — pouring drinks, preparing espresso, and assisting as food runner and commis.</li>
+          </ul>
         </div>
       </div>
 
@@ -519,6 +537,7 @@
             <li>Ethics in the Age of Generative AI — LinkedIn Learning (2026)</li>
             <li>Unity 3D 2021 Essential Training — LinkedIn Learning</li>
             <li>Game Design and Development 1: 2D Shooter — Michigan State University (2024)</li>
+            <li>Food Hygiene (Level 2), Allergy Awareness, Manual Handling, First Aid at Work, Fire Safety</li>
           </ul>
         </div>
       </div>
@@ -596,9 +615,10 @@
     unity: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>',
     mobile: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="1"/><path d="M11 18h2"/></svg>',
     web: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>',
-    desktop: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>'
+    desktop: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>',
+    vr: '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="7" width="20" height="11" rx="5"/><circle cx="8.5" cy="12.5" r="2"/><circle cx="15.5" cy="12.5" r="2"/><path d="M10.3 12.5h3.4"/></svg>'
   };
-  const CAT_LABEL = { unity: 'Unity', mobile: 'Mobile', web: 'Web', desktop: 'Desktop' };
+  const CAT_LABEL = { unity: 'Unity', mobile: 'Mobile', web: 'Web', desktop: 'Desktop', vr: 'VR' };
 
   const PROJECTS = [
     {
@@ -607,11 +627,11 @@
       status: "In Development", year: "2026", tags: ["Unity 6", "C#", "FSM", "Enemy AI"],
       description: "A from-scratch action-combat system built as the first project in a 30-day Unity gameplay-programming portfolio sprint, aimed at demonstrating combat feel and tooling depth to studio interviewers.",
       systems: [
-        "Generic FSM, ScriptableObject event bus, service locator and input buffering over the New Input System",
-        "Light/heavy attack combos, i-frame dodge state and a block state with damage reduction",
-        "IDamageable/HealthComponent damage pipeline with hitbox/hurtbox controllers and a matching enemy FSM",
-        "Game feel pass: timescale hitstop, Cinemachine impulse screen shake, floating damage numbers, world-space health bars",
-        "Custom editor tooling: a state-machine debug window, a scene-handle hitbox editor, a combat log window with CSV export"
+        "A single generic FSM driving player combat, enemy AI and UI simultaneously, with transition priority, debug history and forced-state interrupts",
+        "Full player combat kit: 3-hit combo, heavy attacks, i-frame dodging and configurable block damage reduction, via input buffering and a data-driven hitbox/hurtbox system with per-swing duplicate-hit prevention",
+        "Enemy AI sharing the player's FSM architecture: chase, attack, stagger and death states with detection range and cooldowns",
+        "Game feel pass: frame-precise hitstop, Cinemachine impulse screen shake, floating damage popups",
+        "Three custom Editor tools: a dockable state-machine debugger, a Scene-view hitbox editor and a CSV-exportable combat log"
       ],
       links: [{ label: "Repository", href: "https://github.com/jaygoneelz/ActionCombatFramework" }]
     },
@@ -621,26 +641,34 @@
       status: "MSc Dissertation", year: "2025–26", tags: ["Unity 6", "C#", "URP", "Render Graph"],
       description: "MSc Individual Research Project under Philip Edwards, targeting correctness of detection and computational cost for colour-related UI accessibility failures. All five build phases and evaluation are complete.",
       systems: [
-        "URP Render Graph shader feature simulating protanopia, deuteranopia and tritanopia with Machado et al. (2009) CVD matrices",
+        "URP Render Graph shader feature simulating protanopia, deuteranopia and tritanopia with Machado et al. (2009) CVD matrices, verified to a colour deviation of 0.0000 against reference data at ~420fps",
         "Click-driven WCAG 2.1 contrast checker via EventSystem raycasting with alpha-compositing",
-        "Static scene scanner producing JSON accessibility reports against configurable threshold assets",
+        "Automated whole-scene accessibility scanner, JSON-exporting; fixed an N+1 rendering regression for an 8.6x speed-up (4.3s → 499ms per 1,000-element scan)",
         "Global TMP font scaler with revertible caching and RectTransform overlap detection",
-        "Validated via a stratified 21-sample evaluation: Precision 0.917, Recall 1.000, F1 0.957"
+        "Validated via a labelled ground-truth benchmark and reproducible Python scoring script: Precision 0.917, Recall 1.000, F1 0.957",
+        "Packaged as an MIT-licensed, one-click-importable Unity package with a full unit and integration test suite"
       ],
-      links: []
+      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/AccessibilityUITester" }]
     },
     {
       id: "raddx", title: "RADDX Racing Metaverse", category: "mobile", discontinued: true,
-      tagline: "Shipped mobile racer with metaverse architecture; passed 1M+ downloads before the rights holder pulled it from stores.",
+      tagline: "Shipped NFT mobile racer with metaverse architecture, built for Jump.trade; passed 1M+ downloads before the rights holder pulled it from stores.",
       status: "Shipped", year: "2021–22", tags: ["Mobile", "Live-ops", "Monetisation"],
-      description: "Commercial mobile title shipped at ChennaiGames Studio, reaching 1M+ downloads. Owned game design documentation, monetisation mechanics and product architecture, including the metaverse architecture underpinning the title. Later discontinued from app stores by the client who holds the rights to the game.",
+      description: "Commercial mobile title shipped at ChennaiGames Studio during its contract engagement with Jump.trade, reaching 1M+ downloads and running strong through the NFT-gaming period. Owned game design documentation, monetisation mechanics and product architecture, including the blockchain-based NFT vehicle economy and virtual real-estate layer underpinning the title. Later discontinued from app stores by the client who holds the rights to the game.",
       systems: [
         "Full design lifecycle ownership from documentation through to live release",
-        "Metaverse product architecture design",
+        "NFT vehicle economy: a 30,103-car supply across a 6-tier rarity system, each tier with distinct top speed, acceleration, handling and braking stats",
+        "Progression loop: a 30-level car upgrade path fed by 6 earning channels, via a dual-currency system (RC and JT Points) with a position-based blueprint-card drop-rate curve",
+        "Virtual real-estate layer: 500 digital land parcels and 500 digital buildings across 4 rarity tiers spread over 10 tracks",
+        "Authored the public-facing litepaper covering currencies, NFT tiers, powerups, game modes, XP curve and roadmap",
         "IAP systems and progression-linked offer structures, iterated on live player behaviour data",
-        "Cross-functional coordination across programmers, artists and QA"
+        "Cross-functional coordination across programmers, artists and QA",
+        "Also contributed world-building and character concept art for an unreleased FPS/TPS title from the same studio (POR: Players on Retaliation) — concept art on ArtStation, public trailer linked below"
       ],
-      links: [],
+      links: [
+        { label: "ArtStation (POR concept art)", href: "https://www.artstation.com/jay6900" },
+        { label: "POR: Players on Retaliation — Trailer", href: "https://www.youtube.com/watch?v=BuWmD8IfGaE" }
+      ],
       videoId: "LHrRsfpCugk",
       extraVideos: [
         { id: "OuEfs4a5ba4", label: "Launch Trailer" },
@@ -649,9 +677,9 @@
     },
     {
       id: "hurley", title: "Hurley Super Surfer", category: "mobile", discontinued: true,
-      tagline: "Shipped mobile surfing title with engagement loops and progression systems designed for live iteration.",
+      tagline: "Shipped NFT surfing title built for Hurley (via Jump.trade), with engagement loops and progression systems designed for live iteration.",
       status: "Shipped", year: "2021–22", tags: ["Mobile", "Live-ops", "Monetisation"],
-      description: "Second of two commercial mobile titles shipped at ChennaiGames Studio, with design ownership across engagement loops and monetisation, presented directly to production leads. Later discontinued from app stores by the client who holds the rights to the game.",
+      description: "Second of two commercial mobile titles shipped at ChennaiGames Studio during its Jump.trade contract, built as an NFT game for Jump.trade's client, the Hurley surfing brand, with design ownership across engagement loops and monetisation, presented directly to production leads. Later discontinued from app stores by the client who holds the rights to the game.",
       systems: [
         "Engagement-loop and progression-system design, presented to production leads for implementation",
         "IAP and offer-structure design informed by live player behaviour research",
@@ -661,15 +689,31 @@
       videoId: "iYSKuCKZeCs"
     },
     {
+      id: "mrracer", title: "MR RACER: Premium Racing Game", category: "mobile",
+      tagline: "Car and environment art for a separate commercial mobile racer at ChennaiGames Studio that passed 1M+ downloads and a 4.2★ rating.",
+      status: "Shipped", year: "2021–22", tags: ["Mobile", "Art & Assets"],
+      description: "Commercial mobile racer shipped at ChennaiGames Studio — 1M+ downloads, 4.2★ across 12,000+ reviews. Contributed car and environment art across the game's 5 locations and its car-customisation system.",
+      systems: [
+        "Car and environment asset production across 5 in-game locations",
+        "Car-customisation art system: paint finishes, wheel sets and name boards"
+      ],
+      links: [],
+      videoId: "GpT5q4G0uug",
+      extraVideos: [
+        { id: "uvVXt-9Gx9g", label: "Gameplay Trailer" }
+      ]
+    },
+    {
       id: "forklift", title: "Forklift Idle", category: "web",
       tagline: "Data-driven logistics simulation & idle game: JSON-driven progression, observer-pattern event architecture.",
       status: "In Development", year: "2025", tags: ["Idle Game", "JSON Config", "Observer Pattern"],
-      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~6,890 lines). Playable in full below.",
+      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~7,000 lines). Playable in full below.",
       systems: [
-        "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values",
+        "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values — 28 restaurants across 4 unlock tiers and 284 menu items with rarity tiers and cuisine mastery discounts",
+        "Dual-currency economy with 4 built-in minigames feeding wallet income, alongside daily tasks, streak rewards and a prestige soft-reset",
         "Observer-pattern event architecture decoupling game logic from UI state",
-        "Minimisable live delivery-tracking bar and a redesigned garage upgrade system",
-        "Hosted on GitHub Pages; PWA/Trusted Web Activity packaging planned for Google Play"
+        "Live delivery tracking with real-world routing: Leaflet.js integrated with the OSRM routing API, plus WebAudio sound and localStorage state persistence",
+        "Shipped as an installable, offline-capable Progressive Web App: service-worker caching, a Web App Manifest, and TWA/PWABuilder packaging for the Play Store"
       ],
       links: [], playUrl: "games/forklift/index.html"
     },
@@ -705,9 +749,33 @@
       status: "Released", year: "2024–25", tags: ["C++", "OpenGL", "GLSL"],
       description: "Built for INM376 Computer Graphics under Dr Eddie Edwards: a graphics-focused racing build centred on procedural track generation and shader work.",
       systems: [
-        "Catmull-Rom spline track generation with TNB-frame chase cameras",
-        "Multi-texturing and multiple dynamic lighting modes",
-        "GLSL rain and lightning weather shader"
+        "Catmull-Rom spline track generation with arc-length parameterisation and TNB-frame cameras across 4 distinct camera modes",
+        "Three custom GLSL rendering effects: exponential distance fog, multi-texturing, and an animated storm shader with procedural rain and lightning",
+        "Complete gameplay loop — speed control, lap timing and collision-based pickups through a drop-shadow HUD — with 4 external OBJ meshes and 40 animated lane markers"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "arkcorebreach", title: "The Ark: Core Breach", category: "unity",
+      tagline: "First-person sci-fi systems prototype in Unity: a reactor-repair loop with a full environmental storytelling system.",
+      status: "Released", year: "2026", tags: ["Unity 6", "C#", "Input System", "TextMesh Pro"],
+      description: "A first-person sci-fi gameplay prototype built in Unity, shipped as a playable Windows 64-bit build.",
+      systems: [
+        "Complete reactor-repair objective loop: raycast interaction and a single-item carry/install mechanic across 4 power cores",
+        "Responsive environmental storytelling: lighting, audio, UI and camera changes reacting live to player progress via a state system toggling between alarm and stable station states",
+        "A guided, navigable level — modular reactor chamber, supply room and corridor layout — using lighting and directional cues alongside a complete TextMesh Pro UI for objectives and progress tracking"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "trafalgar", title: "Lost in Trafalgar", category: "vr",
+      tagline: "VR gameplay and puzzle design for a Unity mystery experience built for Meta Quest 2.",
+      status: "Released", year: "2025", tags: ["Unity", "VR", "Meta Quest 2"], team: true,
+      description: "Built for INM717 Experiencing the Unknown at City St George's — a group project centred on a digital-disconnection theme, collaborating directly with programmers and environment designers.",
+      systems: [
+        "Gameplay and puzzle systems for a 5-minute-plus immersive VR mystery experience, architecting a branching puzzle-dependency flow with multiple completion routes",
+        "VR object interactions and affordances — props including newspapers, bottles and cameras guiding player behaviour — combining visual, spatial-audio and environmental cues",
+        "Gameplay sketches and 3D assets contributed to the wider team's integrated interactive environment"
       ],
       links: [], note: "No capture loaded: screenshots pending export."
     }
@@ -720,9 +788,10 @@
 
   function mediaTemplate(p){
     if (p.videoId) {
+      const thumb = `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`;
       return `
         <div class="proj-media" data-video="${p.videoId}">
-          <div class="plate video-plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
+          <div class="plate video-plate" style="background-image:url('${thumb}')"><span class="idx">${p.idx}</span><span class="picon" style="position:relative">${ICONS[p.category]}</span></div>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Loading · click to unmute &amp; control</span><a href="https://youtu.be/${p.videoId}" target="_blank" rel="noopener" class="yt-link">Watch on YouTube ↗</a></div>
         </div>`;
     }
@@ -771,7 +840,7 @@
   }
 
   function statusLine(p){
-    return `<span>${CAT_LABEL[p.category]}</span><span class="muted">${p.year}</span><span>[${p.status.toUpperCase()}]</span>${p.discontinued ? '<span class="muted">[DISCONTINUED]</span>' : ''}${p.featured ? '<span>[FEATURED]</span>' : ''}`;
+    return `<span>${CAT_LABEL[p.category]}</span><span class="muted">${p.year}</span><span>[${p.status.toUpperCase()}]</span>${p.discontinued ? '<span class="muted">[DISCONTINUED]</span>' : ''}${p.featured ? '<span>[FEATURED]</span>' : ''}${p.team ? '<span class="muted">[GROUP PROJECT]</span>' : ''}`;
   }
 
   function rowTemplate(p, i){
