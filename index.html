@@ -219,6 +219,9 @@
   .proj-media .plate.video-plate .idx{color:#f3ede0; opacity:.85;}
   .proj-media .plate .picon{position:relative; z-index:2; color:var(--ink-2);}
   .proj-media .plate.video-plate .picon{color:#f3ede0;}
+  .plate.cover-plate{display:block; background-image:none;}
+  .plate.cover-plate .idx{position:absolute; bottom:10px; right:12px; font-size:1.5rem; opacity:.5; z-index:3;}
+  .modal-media .plate.cover-plate{background-image:none;}
   .video-flag{position:absolute; bottom:0; left:0; right:0; background:var(--ink); color:var(--bg); font-family:"Space Mono",monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; padding:7px 11px; display:flex; align-items:center; gap:7px; z-index:2; pointer-events:none;}
   .video-flag .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:none;}
   .video-flag .yt-link{margin-left:auto; color:var(--bg); opacity:.75; text-decoration:underline; pointer-events:auto; flex:none;}
@@ -338,6 +341,70 @@
   .modal-links{display:flex; gap:10px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:20px;}
   .modal-links a{font-family:"Space Mono",monospace; font-size:.76rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--line); padding:9px 14px; text-decoration:none;}
   .modal-links a:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* === interaction / motion layer === */
+
+  /* custom cursor tag */
+  .cursor-tag{position:fixed; left:0; top:0; z-index:9999; pointer-events:none; transform:translate(-999px,-999px); font-family:"Space Mono",monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent-ink); background:var(--accent); padding:4px 8px; opacity:0; transition:opacity .15s ease, transform .05s linear; white-space:nowrap;}
+  .cursor-tag.show{opacity:1;}
+  @media (pointer:coarse){ .cursor-tag{display:none !important;} }
+  @media (prefers-reduced-motion:reduce){ .cursor-tag{transition:opacity .15s ease;} }
+
+  /* title scramble */
+  .proj h3{position:relative;}
+  .proj h3 .scramble-txt{white-space:pre-wrap;}
+
+  /* stat count-up: no extra CSS needed, values animate via textContent */
+
+  /* button > prompt hover */
+  .btn > span{transition:opacity .15s ease;}
+  .btn .btn-prompt{position:absolute; left:0; top:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; gap:9px; opacity:0; transition:opacity .15s ease; z-index:1; pointer-events:none;}
+  .btn:hover > span{opacity:0;}
+  .btn:hover .btn-prompt{opacity:1;}
+  .btn .btn-prompt .cur{display:inline-block; width:.5em; height:1em; background:currentColor; animation:blink 1.1s steps(1) infinite; vertical-align:-2px;}
+  @media (prefers-reduced-motion:reduce){ .btn .btn-prompt .cur{animation:none;} }
+
+  /* card tilt */
+  .proj-media{transform-style:preserve-3d; will-change:transform;}
+  .proj-media.tilt-ready{transition:transform .35s cubic-bezier(.2,.7,.3,1);}
+  @media (prefers-reduced-motion:reduce){ .proj-media{transform:none !important;} }
+
+  /* cover svg parallax */
+  .plate.cover-plate svg{transition:transform .12s linear; will-change:transform;}
+  @media (prefers-reduced-motion:reduce){ .plate.cover-plate svg{transform:none !important; transition:none;} }
+
+  /* video thumb zoom + play icon */
+  .proj-media .plate.video-plate{transition:transform .4s cubic-bezier(.2,.7,.3,1), filter .4s ease;}
+  .proj-media:hover .plate.video-plate{transform:scale(1.06); filter:brightness(1.08);}
+  .plate.video-plate .play-ico{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:3; opacity:0; transition:opacity .25s ease, transform .25s ease; transform:scale(.8);}
+  .proj-media:hover .plate.video-plate .play-ico{opacity:1; transform:scale(1);}
+  .plate.video-plate .play-ico span{width:56px; height:56px; border-radius:50%; background:rgba(10,9,7,.55); border:1px solid rgba(243,237,224,.6); display:flex; align-items:center; justify-content:center;}
+  .plate.video-plate .play-ico svg{margin-left:3px;}
+  @media (prefers-reduced-motion:reduce){ .proj-media:hover .plate.video-plate{transform:none; filter:none;} .plate.video-plate .play-ico{transition:none;} }
+
+  /* theme flicker */
+  .crt-flicker{position:fixed; inset:0; z-index:99999; background:var(--ink); pointer-events:none; opacity:0; mix-blend-mode:difference;}
+  .crt-flicker.on{animation:crtflicker .38s steps(2,end);}
+  @keyframes crtflicker{
+    0%{opacity:.85;} 15%{opacity:0;} 30%{opacity:.6;} 45%{opacity:0;} 60%{opacity:.35;} 100%{opacity:0;}
+  }
+  @media (prefers-reduced-motion:reduce){ .crt-flicker{display:none;} }
+
+  /* hero typewriter */
+  .hero h1.typing .cursor{animation:none; opacity:1;}
+
+  /* ticker drag */
+  .ticker-wrap{cursor:grab; user-select:none;}
+  .ticker-wrap.dragging{cursor:grabbing;}
+  .ticker-track{user-select:none;}
+
+  /* help easter egg overlay */
+  .help-overlay{position:fixed; inset:0; z-index:99998; background:rgba(10,9,7,.72); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .2s ease;}
+  .help-overlay.show{opacity:1; pointer-events:auto;}
+  .help-overlay .win{max-width:480px; width:100%;}
+  .help-overlay .win-body{padding:24px 26px; font-family:"Space Mono",monospace; font-size:.82rem; line-height:1.7;}
+  .help-overlay .help-cmd{color:var(--accent);}
+  .help-overlay .help-close{margin-top:16px; font-size:.74rem; color:var(--ink-3);}
 </style>
 </head>
 <body>
@@ -380,11 +447,11 @@
         <div class="win-body">
           <div class="eyebrow-mono"><span class="sq"></span>Game Developer · London</div>
           <p class="hero-name"><img class="hero-avatar" src="images/avatar-hero.png" alt="Pixel-art avatar of Jay" width="44" height="44" loading="eager">Jaygovindhan Neelanarayanan <span class="hero-name-tag">— goes by Jay</span></p>
-          <h1>I build the systems behind games that feel <span class="accent-tag">alive</span><span class="cursor"></span></h1>
+          <h1 id="heroH1" style="visibility:hidden">I build the systems behind games that feel <span class="accent-tag">alive</span><span class="cursor"></span></h1>
           <p class="hero-bio">Gameplay programmer with three years of commercial experience: four shipped mobile titles, two of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
           <div class="hero-ctas">
-            <a href="#work" class="btn btn-solid"><span>See the work ↓</span></a>
-            <a href="#contact" class="btn btn-ghost"><span>Get in touch</span></a>
+            <a href="#work" class="btn btn-solid"><span>See the work ↓</span><span class="btn-prompt">&gt; see_the_work<span class="cur"></span></span></a>
+            <a href="#contact" class="btn btn-ghost"><span>Get in touch</span><span class="btn-prompt">&gt; get_in_touch<span class="cur"></span></span></a>
           </div>
         </div>
       </div>
@@ -392,9 +459,9 @@
         <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/stats.json</span></div>
         <div class="win-body">
           <div class="json-line">{</div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_shipped"</span>: <span class="json-val">4</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_past_1M_downloads"</span>: <span class="json-val">2</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val">11</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_shipped"</span>: <span class="json-val count-up" data-count="4">0</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_past_1M_downloads"</span>: <span class="json-val count-up" data-count="2">0</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val count-up" data-count="11">0</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"program"</span>: <span class="json-val">"MSc Games Tech &amp; VR '26"</span></div>
           <div class="json-line">}<span class="cursor"></span></div>
         </div>
@@ -431,7 +498,7 @@
         <div class="section-num mono">02 / RESUME</div>
         <h2>Full track record.</h2>
       </div>
-      <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Short 2-Page CV (PDF) ↓</span></a>
+      <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Short 2-Page CV (PDF) ↓</span><span class="btn-prompt">&gt; download_cv<span class="cur"></span></span></a>
     </div>
     <div class="win resume-doc-win" data-reveal>
       <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/resume/cv.log</span></div>
@@ -566,9 +633,27 @@
 </div>
 
 <div id="modalRoot"></div>
+<div class="cursor-tag" id="cursorTag">[ OPEN ]</div>
+<div class="crt-flicker" id="crtFlicker"></div>
+<div class="help-overlay" id="helpOverlay">
+  <div class="win">
+    <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/help</span></div>
+    <div class="win-body">
+      <div>You found the terminal. A few things it knows:</div><br>
+      <div><span class="help-cmd">theme</span> — flip light/dark with the toggle up top</div>
+      <div><span class="help-cmd">drag</span> — grab the scrolling tech ticker and scrub it by hand</div>
+      <div><span class="help-cmd">hover</span> — project cards tilt, covers drift, video tiles light up</div>
+      <div><span class="help-cmd">1m+</span> — RADDX and MR RACER, independently, during the NFT era</div>
+      <div class="help-close">[ Press ESC or click anywhere to close ]</div>
+    </div>
+  </div>
+</div>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarse = matchMedia('(pointer: coarse)').matches;
 
   const rootEl = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
@@ -620,6 +705,63 @@
   };
   const CAT_LABEL = { unity: 'Unity', mobile: 'Mobile', web: 'Web', desktop: 'Desktop', vr: 'VR' };
 
+  const SVG_OPEN = '<svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block">';
+  const COVERS = {
+    acf: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<g stroke="var(--line)" stroke-width="1"><line x1="0" y1="180" x2="400" y2="180"/><line x1="40" y1="150" x2="40" y2="225"/><line x1="120" y1="150" x2="120" y2="225"/><line x1="200" y1="150" x2="200" y2="225"/><line x1="280" y1="150" x2="280" y2="225"/><line x1="360" y1="150" x2="360" y2="225"/></g>' +
+      '<rect x="0" y="178" width="400" height="3" fill="var(--accent)"/>' +
+      '<rect x="120" y="120" width="26" height="58" rx="13" fill="var(--ink-2)"/><circle cx="133" cy="112" r="11" fill="var(--ink-2)"/>' +
+      '<rect x="250" y="122" width="26" height="56" rx="13" fill="var(--ink-3)" stroke="var(--accent)" stroke-width="1.5"/><circle cx="263" cy="114" r="11" fill="var(--ink-3)" stroke="var(--accent)" stroke-width="1.5"/>' +
+      '<rect x="155" y="130" width="70" height="40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4"/>' +
+      '</svg>',
+    arkcorebreach: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<g stroke="var(--line)" stroke-width="1.2" fill="none"><path d="M0,20 L160,95 L160,140 L0,205"/><path d="M400,20 L240,95 L240,140 L400,205"/><line x1="160" y1="95" x2="240" y2="95"/><line x1="160" y1="140" x2="240" y2="140"/></g>' +
+      '<circle cx="200" cy="117" r="22" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="200" cy="117" r="10" fill="var(--accent)" opacity="0.55"/>' +
+      '<rect x="0" y="18" width="400" height="3" fill="var(--accent)" opacity="0.6"/>' +
+      '</svg>',
+    aut: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<rect x="40" y="50" width="320" height="30" rx="2" fill="none" stroke="var(--line)"/>' +
+      '<rect x="46" y="56" width="18" height="18" fill="var(--accent)"/><rect x="68" y="56" width="18" height="18" fill="var(--accent)" opacity="0.8"/><rect x="90" y="56" width="18" height="18" fill="var(--ink-3)" opacity="0.8"/><rect x="112" y="56" width="18" height="18" fill="var(--ink-3)" opacity="0.6"/><rect x="134" y="56" width="18" height="18" fill="var(--ink-3)" opacity="0.4"/><rect x="156" y="56" width="18" height="18" fill="var(--ink-3)" opacity="0.25"/>' +
+      '<circle cx="300" cy="65" r="20" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="300" cy="65" r="20" fill="none" stroke="var(--accent)" stroke-width="6" stroke-dasharray="94 126" stroke-linecap="round" transform="rotate(-90 300 65)"/>' +
+      '<g stroke="var(--line)" stroke-width="0.8"><line x1="20" y1="120" x2="380" y2="120"/><line x1="20" y1="150" x2="380" y2="150"/><line x1="20" y1="180" x2="380" y2="180"/><line x1="100" y1="100" x2="100" y2="200"/><line x1="200" y1="100" x2="200" y2="200"/><line x1="300" y1="100" x2="300" y2="200"/></g>' +
+      '</svg>',
+    bounce: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<rect x="20" y="175" width="70" height="12" fill="var(--ink-3)"/><rect x="20" y="175" width="70" height="3" fill="var(--accent)"/>' +
+      '<rect x="140" y="140" width="70" height="12" fill="var(--ink-3)"/><rect x="140" y="140" width="70" height="3" fill="var(--accent)"/>' +
+      '<rect x="260" y="100" width="70" height="12" fill="var(--ink-3)"/><rect x="260" y="100" width="70" height="3" fill="var(--accent)"/>' +
+      '<path d="M55,175 Q120,110 175,140" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="3 5"/>' +
+      '<rect x="105" y="95" width="18" height="32" rx="9" fill="var(--ink-2)"/><circle cx="114" cy="90" r="8" fill="var(--ink-2)"/>' +
+      '<rect x="290" y="72" width="18" height="30" rx="9" fill="var(--ink-2)" stroke="var(--accent)" stroke-width="2"/><circle cx="299" cy="67" r="8" fill="var(--ink-2)" stroke="var(--accent)" stroke-width="2"/>' +
+      '</svg>',
+    sideshooter: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<rect x="0" y="190" width="400" height="4" fill="var(--line)"/>' +
+      '<rect x="90" y="150" width="60" height="8" fill="var(--ink-3)"/><rect x="230" y="120" width="60" height="8" fill="var(--ink-3)"/>' +
+      '<rect x="40" y="160" width="22" height="22" fill="var(--ink-2)"/>' +
+      '<rect x="260" y="90" width="16" height="16" fill="var(--ink-2)" stroke="var(--accent)" stroke-width="1.5"/><rect x="300" y="70" width="16" height="16" fill="var(--ink-2)" stroke="var(--accent)" stroke-width="1.5"/><rect x="340" y="90" width="16" height="16" fill="var(--ink-2)" stroke="var(--accent)" stroke-width="1.5"/>' +
+      '<line x1="70" y1="170" x2="250" y2="100" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5"/><line x1="70" y1="175" x2="230" y2="140" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5" opacity="0.6"/>' +
+      '</svg>',
+    trafalgar: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<rect x="30" y="30" width="340" height="165" fill="none" stroke="var(--line)" stroke-width="1.5"/>' +
+      '<line x1="60" y1="150" x2="340" y2="150" stroke="var(--line)" stroke-width="2"/>' +
+      '<rect x="90" y="128" width="30" height="20" fill="var(--ink-3)" stroke="var(--accent)" stroke-width="1.5"/><rect x="180" y="120" width="16" height="28" fill="var(--ink-3)" stroke="var(--accent)" stroke-width="1.5"/><rect x="250" y="130" width="34" height="18" fill="var(--ink-3)" stroke="var(--accent)" stroke-width="1.5"/>' +
+      '<circle cx="105" cy="138" r="26" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>' +
+      '<rect x="140" y="175" width="14" height="24" rx="6" fill="var(--ink-2)"/><rect x="164" y="175" width="14" height="24" rx="6" fill="var(--ink-2)"/>' +
+      '</svg>',
+    drivecircuit: SVG_OPEN +
+      '<rect width="400" height="225" fill="var(--bg-3)"/>' +
+      '<path d="M40,180 C40,100 120,60 200,80 C280,100 360,60 360,140 C360,190 260,200 200,180 C140,160 100,200 40,180 Z" fill="none" stroke="var(--ink-3)" stroke-width="14" stroke-linejoin="round"/>' +
+      '<path d="M40,180 C40,100 120,60 200,80 C280,100 360,60 360,140 C360,190 260,200 200,180 C140,160 100,200 40,180 Z" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="8 8"/>' +
+      '<line x1="200" y1="70" x2="200" y2="92" stroke="var(--line)" stroke-width="4"/>' +
+      '<polygon points="70,150 84,140 84,160" fill="var(--ink-2)"/><polygon points="330,110 316,100 316,120" fill="var(--ink-2)"/>' +
+      '</svg>'
+  };
+
   const PROJECTS = [
     {
       id: "acf", title: "Action Combat Framework", category: "unity", featured: true,
@@ -636,6 +778,18 @@
       links: [{ label: "Repository", href: "https://github.com/jaygoneelz/ActionCombatFramework" }]
     },
     {
+      id: "arkcorebreach", title: "The Ark: Core Breach", category: "unity",
+      tagline: "First-person sci-fi systems prototype in Unity: a reactor-repair loop with a full environmental storytelling system.",
+      status: "Released", year: "2026", tags: ["Unity 6", "C#", "Input System", "TextMesh Pro"],
+      description: "A first-person sci-fi gameplay prototype built in Unity, shipped as a playable Windows 64-bit build.",
+      systems: [
+        "Complete reactor-repair objective loop: raycast interaction and a single-item carry/install mechanic across 4 power cores",
+        "Responsive environmental storytelling: lighting, audio, UI and camera changes reacting live to player progress via a state system toggling between alarm and stable station states",
+        "A guided, navigable level — modular reactor chamber, supply room and corridor layout — using lighting and directional cues alongside a complete TextMesh Pro UI for objectives and progress tracking"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
       id: "aut", title: "Accessibility UI Tester", category: "unity",
       tagline: "Unity Editor extension detecting colour-vision UI failures: GPU CVD simulation, a WCAG contrast meter and JSON reporting.",
       status: "MSc Dissertation", year: "2025–26", tags: ["Unity 6", "C#", "URP", "Render Graph"],
@@ -649,6 +803,70 @@
         "Packaged as an MIT-licensed, one-click-importable Unity package with a full unit and integration test suite"
       ],
       links: [{ label: "Repository", href: "https://github.com/jaygoneelz/AccessibilityUITester" }]
+    },
+    {
+      id: "forklift", title: "Forklift Idle", category: "web",
+      tagline: "Data-driven logistics simulation & idle game: JSON-driven progression, observer-pattern event architecture.",
+      status: "In Development", year: "2025", tags: ["Idle Game", "JSON Config", "Observer Pattern"],
+      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~7,000 lines). Playable in full below.",
+      systems: [
+        "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values — 28 restaurants across 4 unlock tiers and 284 menu items with rarity tiers and cuisine mastery discounts",
+        "Dual-currency economy with 4 built-in minigames feeding wallet income, alongside daily tasks, streak rewards and a prestige soft-reset",
+        "Observer-pattern event architecture decoupling game logic from UI state",
+        "Live delivery tracking with real-world routing: Leaflet.js integrated with the OSRM routing API, plus WebAudio sound and localStorage state persistence",
+        "Shipped as an installable, offline-capable Progressive Web App: service-worker caching, a Web App Manifest, and TWA/PWABuilder packaging for the Play Store"
+      ],
+      links: [], playUrl: "games/forklift/index.html"
+    },
+    {
+      id: "bounce", title: "8-Bit Bounce", category: "desktop",
+      tagline: "Self-contained 3D platformer in raw C++/OpenGL with 20-agent FSM enemy AI and full rigid-body physics.",
+      status: "Released", year: "2025", tags: ["C++17", "OpenGL", "Bullet3", "FMOD"],
+      description: "Built for INM710 Advanced Games Technology at City St George's: a full 3D platformer game loop implemented from first principles.",
+      systems: [
+        "Four-state FSM enemy AI (patrol, chase, attack, dying) across 20 concurrent agents, driven by line-of-sight raycasting",
+        "Bullet3 rigid-body physics: gravity, restitution, surface friction and per-frame synchronisation to oscillating platforms",
+        "FMOD Core spatialised audio and Assimp mesh loading",
+        "Score/timer/health HUD, power-ups, skybox, wireframe debug toggle and alpha-fade spawn effects"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "sideshooter", title: "Side Scroller Shooter", category: "desktop",
+      tagline: "2D arcade shooter in C#/MonoGame with a fully data-driven difficulty curve and zero hardcoded spawn values.",
+      status: "Released", year: "2025", tags: ["C#", "MonoGame"],
+      description: "Built for INM379 Computer Games Architecture, prioritising engine architecture over content as a demonstration of production-grade systems design.",
+      systems: [
+        "Observer/EventManager pattern with an IGameState FSM driving screen flow",
+        "Wave-based enemy spawning, three-life system, power-ups and high-score persistence",
+        "Difficulty entirely JSON-config driven, enabling balance iteration without touching code",
+        "ResourceManager caching textures/fonts/SFX on first load; object pooling and spatial partitioning"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "trafalgar", title: "Lost in Trafalgar", category: "vr",
+      tagline: "VR gameplay and puzzle design for a Unity mystery experience built for Meta Quest 2.",
+      status: "Released", year: "2025", tags: ["Unity", "VR", "Meta Quest 2"], team: true,
+      description: "Built for INM717 Experiencing the Unknown at City St George's — a group project centred on a digital-disconnection theme, collaborating directly with programmers and environment designers.",
+      systems: [
+        "Gameplay and puzzle systems for a 5-minute-plus immersive VR mystery experience, architecting a branching puzzle-dependency flow with multiple completion routes",
+        "VR object interactions and affordances — props including newspapers, bottles and cameras guiding player behaviour — combining visual, spatial-audio and environmental cues",
+        "Gameplay sketches and 3D assets contributed to the wider team's integrated interactive environment"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
+    },
+    {
+      id: "drivecircuit", title: "Drive Circuit", category: "desktop",
+      tagline: "OpenGL racing game with procedural spline track generation and a GLSL weather system.",
+      status: "Released", year: "2024–25", tags: ["C++", "OpenGL", "GLSL"],
+      description: "Built for INM376 Computer Graphics under Dr Eddie Edwards: a graphics-focused racing build centred on procedural track generation and shader work.",
+      systems: [
+        "Catmull-Rom spline track generation with arc-length parameterisation and TNB-frame cameras across 4 distinct camera modes",
+        "Three custom GLSL rendering effects: exponential distance fog, multi-texturing, and an animated storm shader with procedural rain and lightning",
+        "Complete gameplay loop — speed control, lap timing and collision-based pickups through a drop-shadow HUD — with 4 external OBJ meshes and 40 animated lane markers"
+      ],
+      links: [], note: "No capture loaded: screenshots pending export."
     },
     {
       id: "raddx", title: "RADDX Racing Metaverse", category: "mobile", discontinued: true,
@@ -702,83 +920,8 @@
       extraVideos: [
         { id: "uvVXt-9Gx9g", label: "Gameplay Trailer" }
       ]
-    },
-    {
-      id: "forklift", title: "Forklift Idle", category: "web",
-      tagline: "Data-driven logistics simulation & idle game: JSON-driven progression, observer-pattern event architecture.",
-      status: "In Development", year: "2025", tags: ["Idle Game", "JSON Config", "Observer Pattern"],
-      description: "A personal idle-simulation project applying monetisation and retention design learned from two shipped commercial titles, built as a single dependency-free HTML file (~7,000 lines). Playable in full below.",
-      systems: [
-        "Data-driven progression: resource generation, delivery loop and upgrade tiers via a central JSON config, zero hardcoded values — 28 restaurants across 4 unlock tiers and 284 menu items with rarity tiers and cuisine mastery discounts",
-        "Dual-currency economy with 4 built-in minigames feeding wallet income, alongside daily tasks, streak rewards and a prestige soft-reset",
-        "Observer-pattern event architecture decoupling game logic from UI state",
-        "Live delivery tracking with real-world routing: Leaflet.js integrated with the OSRM routing API, plus WebAudio sound and localStorage state persistence",
-        "Shipped as an installable, offline-capable Progressive Web App: service-worker caching, a Web App Manifest, and TWA/PWABuilder packaging for the Play Store"
-      ],
-      links: [], playUrl: "games/forklift/index.html"
-    },
-    {
-      id: "bounce", title: "8-Bit Bounce", category: "desktop",
-      tagline: "Self-contained 3D platformer in raw C++/OpenGL with 20-agent FSM enemy AI and full rigid-body physics.",
-      status: "Released", year: "2025", tags: ["C++17", "OpenGL", "Bullet3", "FMOD"],
-      description: "Built for INM710 Advanced Games Technology at City St George's: a full 3D platformer game loop implemented from first principles.",
-      systems: [
-        "Four-state FSM enemy AI (patrol, chase, attack, dying) across 20 concurrent agents, driven by line-of-sight raycasting",
-        "Bullet3 rigid-body physics: gravity, restitution, surface friction and per-frame synchronisation to oscillating platforms",
-        "FMOD Core spatialised audio and Assimp mesh loading",
-        "Score/timer/health HUD, power-ups, skybox, wireframe debug toggle and alpha-fade spawn effects"
-      ],
-      links: [], note: "No capture loaded: screenshots pending export."
-    },
-    {
-      id: "sideshooter", title: "Side Scroller Shooter", category: "desktop",
-      tagline: "2D arcade shooter in C#/MonoGame with a fully data-driven difficulty curve and zero hardcoded spawn values.",
-      status: "Released", year: "2025", tags: ["C#", "MonoGame"],
-      description: "Built for INM379 Computer Games Architecture, prioritising engine architecture over content as a demonstration of production-grade systems design.",
-      systems: [
-        "Observer/EventManager pattern with an IGameState FSM driving screen flow",
-        "Wave-based enemy spawning, three-life system, power-ups and high-score persistence",
-        "Difficulty entirely JSON-config driven, enabling balance iteration without touching code",
-        "ResourceManager caching textures/fonts/SFX on first load; object pooling and spatial partitioning"
-      ],
-      links: [], note: "No capture loaded: screenshots pending export."
-    },
-    {
-      id: "drivecircuit", title: "Drive Circuit", category: "desktop",
-      tagline: "OpenGL racing game with procedural spline track generation and a GLSL weather system.",
-      status: "Released", year: "2024–25", tags: ["C++", "OpenGL", "GLSL"],
-      description: "Built for INM376 Computer Graphics under Dr Eddie Edwards: a graphics-focused racing build centred on procedural track generation and shader work.",
-      systems: [
-        "Catmull-Rom spline track generation with arc-length parameterisation and TNB-frame cameras across 4 distinct camera modes",
-        "Three custom GLSL rendering effects: exponential distance fog, multi-texturing, and an animated storm shader with procedural rain and lightning",
-        "Complete gameplay loop — speed control, lap timing and collision-based pickups through a drop-shadow HUD — with 4 external OBJ meshes and 40 animated lane markers"
-      ],
-      links: [], note: "No capture loaded: screenshots pending export."
-    },
-    {
-      id: "arkcorebreach", title: "The Ark: Core Breach", category: "unity",
-      tagline: "First-person sci-fi systems prototype in Unity: a reactor-repair loop with a full environmental storytelling system.",
-      status: "Released", year: "2026", tags: ["Unity 6", "C#", "Input System", "TextMesh Pro"],
-      description: "A first-person sci-fi gameplay prototype built in Unity, shipped as a playable Windows 64-bit build.",
-      systems: [
-        "Complete reactor-repair objective loop: raycast interaction and a single-item carry/install mechanic across 4 power cores",
-        "Responsive environmental storytelling: lighting, audio, UI and camera changes reacting live to player progress via a state system toggling between alarm and stable station states",
-        "A guided, navigable level — modular reactor chamber, supply room and corridor layout — using lighting and directional cues alongside a complete TextMesh Pro UI for objectives and progress tracking"
-      ],
-      links: [], note: "No capture loaded: screenshots pending export."
-    },
-    {
-      id: "trafalgar", title: "Lost in Trafalgar", category: "vr",
-      tagline: "VR gameplay and puzzle design for a Unity mystery experience built for Meta Quest 2.",
-      status: "Released", year: "2025", tags: ["Unity", "VR", "Meta Quest 2"], team: true,
-      description: "Built for INM717 Experiencing the Unknown at City St George's — a group project centred on a digital-disconnection theme, collaborating directly with programmers and environment designers.",
-      systems: [
-        "Gameplay and puzzle systems for a 5-minute-plus immersive VR mystery experience, architecting a branching puzzle-dependency flow with multiple completion routes",
-        "VR object interactions and affordances — props including newspapers, bottles and cameras guiding player behaviour — combining visual, spatial-audio and environmental cues",
-        "Gameplay sketches and 3D assets contributed to the wider team's integrated interactive environment"
-      ],
-      links: [], note: "No capture loaded: screenshots pending export."
     }
+  
   ];
   PROJECTS.forEach((p, i) => p.idx = String(i + 1).padStart(2, '0'));
 
@@ -790,20 +933,26 @@
     if (p.videoId) {
       const thumb = `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`;
       return `
-        <div class="proj-media" data-video="${p.videoId}">
-          <div class="plate video-plate" style="background-image:url('${thumb}')"><span class="idx">${p.idx}</span><span class="picon" style="position:relative">${ICONS[p.category]}</span></div>
+        <div class="proj-media" data-video="${p.videoId}" data-cursor="open">
+          <div class="plate video-plate" style="background-image:url('${thumb}')"><span class="idx">${p.idx}</span><span class="picon" style="position:relative">${ICONS[p.category]}</span><span class="play-ico"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="#f3ede0"><path d="M3 1.5L14 8L3 14.5V1.5Z"/></svg></span></span></div>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Loading · click to unmute &amp; control</span><a href="https://youtu.be/${p.videoId}" target="_blank" rel="noopener" class="yt-link">Watch on YouTube ↗</a></div>
         </div>`;
     }
     if (p.playUrl) {
       return `
-        <div class="proj-media playable" data-video="">
+        <div class="proj-media playable" data-video="" data-cursor="play">
           <iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Playable build</span><a href="${p.playUrl}" target="_blank" rel="noopener" class="yt-link">Open fullscreen ↗</a></div>
         </div>`;
     }
+    if (COVERS[p.id]) {
+      return `
+        <div class="proj-media" data-video="" data-cursor="open">
+          <div class="plate cover-plate">${COVERS[p.id]}<span class="idx">${p.idx}</span></div>
+        </div>`;
+    }
     return `
-      <div class="proj-media" data-video="">
+      <div class="proj-media" data-video="" data-cursor="open">
         <div class="plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
       </div>`;
   }
@@ -852,10 +1001,10 @@
           <div class="proj-body">
             <div class="proj-idx mono">${p.idx} / ${PROJECTS.length}</div>
             <div class="proj-status">${statusLine(p)}</div>
-            <h3>${p.title}</h3>
+            <h3><span class="scramble-txt" data-text="${p.title}">${p.title}</span></h3>
             <div class="proj-tagline">${p.tagline}</div>
             <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-            <button class="proj-more draw" data-id="${p.id}">Full breakdown <span>→</span></button>
+            <button class="proj-more draw" data-id="${p.id}" data-cursor="read">Full breakdown <span>→</span></button>
           </div>
         </div>
       </div>`;
@@ -920,6 +1069,8 @@
     });
     wireVideoUnlock();
     projList.querySelectorAll('.proj').forEach(el => { el.setAttribute('data-reveal',''); revealObserver.observe(el); });
+    wireCardTilt();
+    wireTitleScramble();
   }
   render();
 
@@ -932,6 +1083,8 @@
       ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
       : p.playUrl
       ? `<div class="modal-media playable"><iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe></div>`
+      : COVERS[p.id]
+      ? `<div class="modal-media"><div class="plate cover-plate">${COVERS[p.id]}</div></div>`
       : `<div class="modal-media"><div class="plate"><span class="picon">${ICONS[p.category]}</span></div></div>`;
     const extraVideos = (p.extraVideos || []).map(v => `
       <div class="modal-extra-video">
@@ -964,6 +1117,209 @@
   }
   function escClose(e){ if (e.key === 'Escape') closeModal(); }
   function closeModal(){ modalRoot.innerHTML = ''; document.removeEventListener('keydown', escClose); }
+
+  /* === interaction / motion layer === */
+
+  /* 1. custom cursor tag */
+  (function(){
+    if (isCoarse) return;
+    const tag = document.getElementById('cursorTag');
+    if (!tag) return;
+    const labels = { open:'[ OPEN ]', play:'[ PLAY ]', read:'[ READ ]', link:'[ GO ]' };
+    let active = false;
+    document.addEventListener('mousemove', e => {
+      tag.style.transform = `translate(${e.clientX + 16}px, ${e.clientY + 16}px)`;
+      if (!active) return;
+    });
+    function attach(){
+      document.querySelectorAll('[data-cursor]').forEach(el => {
+        if (el.dataset.cursorWired) return;
+        el.dataset.cursorWired = '1';
+        el.addEventListener('mouseenter', () => { tag.textContent = labels[el.dataset.cursor] || '[ OPEN ]'; tag.classList.add('show'); active = true; });
+        el.addEventListener('mouseleave', () => { tag.classList.remove('show'); active = false; });
+      });
+    }
+    attach();
+    new MutationObserver(attach).observe(document.body, { childList:true, subtree:true });
+  })();
+
+  /* 2. title scramble on hover */
+  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890#%&$/';
+  function scramble(el){
+    if (reduceMotion || el.dataset.scrambling) return;
+    const final = el.dataset.text || el.textContent;
+    el.dataset.scrambling = '1';
+    const len = final.length;
+    let frame = 0;
+    const totalFrames = 14;
+    const iv = setInterval(() => {
+      frame++;
+      let out = '';
+      for (let i = 0; i < len; i++) {
+        const ch = final[i];
+        if (ch === ' ') { out += ' '; continue; }
+        const revealAt = (i / len) * totalFrames;
+        out += frame >= revealAt + 4 ? ch : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+      }
+      el.textContent = out;
+      if (frame >= totalFrames + 4) { clearInterval(iv); el.textContent = final; delete el.dataset.scrambling; }
+    }, 28);
+  }
+  function wireTitleScramble(){
+    projList.querySelectorAll('.scramble-txt').forEach(el => {
+      if (el.dataset.scrambleWired) return;
+      el.dataset.scrambleWired = '1';
+      el.closest('h3').parentElement.addEventListener('mouseenter', () => scramble(el));
+    });
+  }
+
+  /* 3. nav underline draw — already implemented via .navlinks a::after / .draw */
+
+  /* 4. stat count-up on scroll into view */
+  (function(){
+    const targets = document.querySelectorAll('.count-up');
+    if (!targets.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting || e.target.dataset.counted) return;
+        e.target.dataset.counted = '1';
+        const target = parseInt(e.target.dataset.count, 10) || 0;
+        if (reduceMotion) { e.target.textContent = target; return; }
+        const dur = 900;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          e.target.textContent = Math.round(eased * target);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        io.unobserve(e.target);
+      });
+    }, { threshold: .6 });
+    targets.forEach(t => io.observe(t));
+  })();
+
+  /* 5. button > prompt hover — pure CSS via .btn-prompt, no JS needed */
+
+  /* 6 & 7. card tilt + cover parallax */
+  function wireCardTilt(){
+    if (reduceMotion || isCoarse) return;
+    projList.querySelectorAll('.proj-media').forEach(el => {
+      if (el.dataset.tiltWired) return;
+      el.dataset.tiltWired = '1';
+      el.classList.add('tilt-ready');
+      const cover = el.querySelector('.cover-plate svg');
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = `perspective(700px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) scale(1.015)`;
+        if (cover) cover.style.transform = `translate(${(-px * 10).toFixed(1)}px, ${(-py * 10).toFixed(1)}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+        if (cover) cover.style.transform = '';
+      });
+    });
+  }
+
+  /* 8. video thumbnail zoom/brightness + play icon — pure CSS via .video-plate hover rules */
+
+  /* 9. theme toggle CRT flicker */
+  const crtFlicker = document.getElementById('crtFlicker');
+  const _setTheme = setTheme;
+  setTheme = function(t){
+    if (!reduceMotion && crtFlicker) {
+      crtFlicker.classList.remove('on');
+      requestAnimationFrame(() => crtFlicker.classList.add('on'));
+      setTimeout(() => crtFlicker.classList.remove('on'), 420);
+    }
+    _setTheme(t);
+  };
+
+  /* 10. hero typewriter on load */
+  (function(){
+    const h1 = document.getElementById('heroH1');
+    if (!h1) return;
+    if (reduceMotion) { h1.style.visibility = 'visible'; return; }
+    const walker = document.createTreeWalker(h1, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    const chars = [];
+    nodes.forEach(node => {
+      const text = node.textContent;
+      for (const c of text) chars.push({ node, char: c });
+      node.textContent = '';
+    });
+    h1.style.visibility = 'visible';
+    h1.classList.add('typing');
+    let i = 0;
+    function step(){
+      if (i >= chars.length) { h1.classList.remove('typing'); return; }
+      chars[i].node.textContent += chars[i].char;
+      i++;
+      setTimeout(step, 20);
+    }
+    setTimeout(step, 250);
+  })();
+
+  /* 11. hidden terminal "help" easter egg */
+  (function(){
+    const overlay = document.getElementById('helpOverlay');
+    if (!overlay) return;
+    let buf = '';
+    document.addEventListener('keydown', e => {
+      const tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      if (e.key === 'Escape') { overlay.classList.remove('show'); return; }
+      if (e.key.length === 1) {
+        buf = (buf + e.key.toLowerCase()).slice(-20);
+        if (buf.endsWith('help')) { overlay.classList.add('show'); buf = ''; }
+      }
+    });
+    overlay.addEventListener('click', () => overlay.classList.remove('show'));
+  })();
+
+  /* 12. drag-to-scrub tech ticker */
+  (function(){
+    const wrap = document.querySelector('.ticker-wrap');
+    const track = document.getElementById('tickerTrack');
+    if (!wrap || !track) return;
+    function mod(a, m){ return ((a % m) + m) % m; }
+    let dragging = false, startX = 0, startOffset = 0;
+    function currentTranslate(){
+      const t = getComputedStyle(track).transform;
+      if (!t || t === 'none') return 0;
+      const m = t.match(/matrix\(([^)]+)\)/);
+      return m ? (parseFloat(m[1].split(',')[4]) || 0) : 0;
+    }
+    wrap.addEventListener('pointerdown', e => {
+      dragging = true;
+      wrap.classList.add('dragging');
+      track.style.animationPlayState = 'paused';
+      startX = e.clientX;
+      startOffset = currentTranslate();
+      wrap.style.touchAction = 'none';
+      try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    wrap.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const half = track.scrollWidth / 2 || 1;
+      const next = -mod(-(startOffset + (e.clientX - startX)), half);
+      track.style.transform = `translateX(${next}px)`;
+    });
+    function release(){
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('dragging');
+      wrap.style.touchAction = '';
+      setTimeout(() => { track.style.transform = ''; track.style.animationPlayState = 'running'; }, 900);
+    }
+    wrap.addEventListener('pointerup', release);
+    wrap.addEventListener('pointercancel', release);
+  })();
 </script>
 </body>
 </html>
