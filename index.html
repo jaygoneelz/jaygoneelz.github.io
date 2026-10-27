@@ -931,18 +931,18 @@
     },
     {
       id: "bounce", title: "8-Bit Bounce", category: "desktop", platforms: ["desktop", "web"],
-      tagline: "A 3D spiral-platform challenge with moving platforms, cube enemies and power-ups. Play the WebGL edition right here.",
+      tagline: "A 3D spiral-platform game. Try a simplified interactive browser demo; the original C++/OpenGL game on GitHub has different graphics, assets and physics.",
       status: "Released", year: "2025–26", tags: ["C++17", "OpenGL", "Bullet Physics", "WebGL", "Three.js"],
-      description: "My 3D platformer, 8-bit Bounce. Guide a blue marble up twelve spiral platforms, ride moving side routes, dodge red cube enemies and collect heal and high-bounce pickups. Reach the summit ring or survive five minutes. The C++ desktop project uses OpenGL and Bullet; the browser adaptation uses Three.js and a fixed-step platform simulation.",
+      description: "My 3D platformer, 8-bit Bounce. Guide a blue marble up twelve spiral platforms, ride moving side routes, dodge red cube enemies and collect heal and high-bounce pickups. Reach the summit ring or survive five minutes. This interactive browser demo is a simplified recreation of the gameplay. The original C++/OpenGL game on GitHub has different graphics, assets and physics; this demo uses Three.js and a separate platform simulation.",
       systems: [
         "Twelve spiral platforms, five moving side routes, a summit goal and a five-minute survival objective",
-        "Twenty cube enemies with patrol, chase and attack states, health, damage cooldowns and timed jump boosts",
-        "Browser adaptation adds checkpoints, a complete restart flow and named browser-local top-ten records",
+        "Twenty enemies with five active states and scout, hunter and guard roles, health, damage cooldowns and timed jump boosts",
+        "Simplified browser demo adds checkpoints and local records; it is a separate recreation of the native game",
         "Camera-relative movement, keyboard and touch controls, drag/Q/E camera rotation, pause on focus loss and synthesised sound effects",
         "Native C++17/OpenGL engine source, Bullet collision integration, FMOD audio integration and retained third-party notices"
       ],
-      links: [{ label: "Play in browser", href: "games/8bit-bounce/" }, { label: "Repository", href: "https://github.com/jaygoneelz/8BitBounce" }],
-      playUrl: "games/8bit-bounce/", playAspect: "landscape"
+      links: [{ label: "Play browser demo", href: "games/8bit-bounce/" }, { label: "Original game & source", href: "https://github.com/jaygoneelz/8BitBounce" }],
+      playUrl: "games/8bit-bounce/", playLabel: "Interactive browser demo", playAspect: "landscape"
     },
     {
       id: "sideshooter", title: "Side Scroller Shooter", category: "desktop", platforms: ["desktop", "web"],
@@ -1056,8 +1056,8 @@
     if (p.playUrl) {
       return `
         <div class="proj-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}" data-video="" data-cursor="play">
-          <iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
-          <div class="video-flag"><span class="dot"></span><span class="flag-text">Playable build</span><a href="${p.playUrl}" target="_blank" rel="noopener" class="yt-link">Open fullscreen ↗</a></div>
+          <iframe src="${p.playUrl}" title="${p.title} ${p.playLabel || 'playable build'}" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+          <div class="video-flag"><span class="dot"></span><span class="flag-text">${p.playLabel || 'Playable build'}</span><a href="${p.playUrl}" target="_blank" rel="noopener" class="yt-link">Open fullscreen ↗</a></div>
         </div>`;
     }
     if (COVERS[p.id]) {
@@ -1119,7 +1119,7 @@
             <h3><span class="scramble-txt" data-text="${p.title}">${p.title}</span></h3>
             <div class="proj-tagline">${p.tagline}</div>
             <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-            ${['sideshooter','bounce'].includes(p.id) ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">Play in browser ↗</a>` : ''}
+            ${['sideshooter','bounce'].includes(p.id) ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">${p.playLabel ? 'Play browser demo' : 'Play in browser'} ↗</a>` : ''}
             <button class="proj-more draw" data-id="${p.id}" data-cursor="read">Full breakdown <span>→</span></button>
           </div>
         </div>
@@ -1215,7 +1215,7 @@
     const media = p.videoId
       ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
       : p.playUrl
-      ? `<div class="modal-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}"><iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>`
+      ? `<div class="modal-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}"><iframe src="${p.playUrl}" title="${p.title} ${p.playLabel || 'playable build'}" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>`
       : COVERS[p.id]
       ? `<div class="modal-media"><div class="plate cover-plate">${COVERS[p.id]}</div></div>`
       : `<div class="modal-media"><div class="plate"><span class="picon">${ICONS[p.category]}</span></div></div>`;
