@@ -1,0 +1,85 @@
+{
+  "width": 1120,
+  "height": 720,
+  "seed": 379,
+  "playerX": 130,
+  "playerY": 360,
+  "playerSpeed": 300,
+  "lives": 3,
+  "bulletSpeed": 650,
+  "powerUpInterval": 8,
+  "powerUpDuration": 6,
+  "invulnerabilitySeconds": 1.25,
+  "levels": [
+    {
+      "name": "01 / OUTER ORBIT",
+      "duration": 30,
+      "spawnInterval": 1.7,
+      "enemySpeed": 125,
+      "pattern": [
+        "scout",
+        "scout",
+        "weaver"
+      ],
+      "initialEnemies": [
+        {
+          "type": "scout",
+          "x": 950,
+          "y": 250
+        },
+        {
+          "type": "scout",
+          "x": 1080,
+          "y": 500
+        }
+      ]
+    },
+    {
+      "name": "02 / DEBRIS RUN",
+      "duration": 35,
+      "spawnInterval": 1.2,
+      "enemySpeed": 155,
+      "pattern": [
+        "weaver",
+        "hunter",
+        "scout"
+      ],
+      "initialEnemies": [
+        {
+          "type": "weaver",
+          "x": 960,
+          "y": 220
+        },
+        {
+          "type": "hunter",
+          "x": 1080,
+          "y": 530
+        }
+      ]
+    },
+    {
+      "name": "03 / FINAL APPROACH",
+      "duration": 40,
+      "spawnInterval": 0.85,
+      "enemySpeed": 190,
+      "pattern": [
+        "hunter",
+        "weaver",
+        "hunter",
+        "scout"
+      ],
+      "initialEnemies": [
+        {
+          "type": "hunter",
+          "x": 1000,
+          "y": 200
+        },
+        {
+          "type": "weaver",
+          "x": 1000,
+          "y": 560
+        }
+      ]
+    }
+  ]
+}

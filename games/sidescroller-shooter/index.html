@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#09121e">
+<meta name="description" content="Play ORBIT / 379, Jay's side-scrolling space shooter. Three sectors, enemy AI, power-ups and local high scores. No download required.">
+<title>ORBIT / 379 · Side Scroller Shooter</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar"><a class="brand" href="../../#work" target="_top" aria-label="Back to Jay's portfolio">JAY.DEV <span>/ ARCADE</span></a><div class="tools"><button id="sound" type="button" aria-pressed="false">Sound off</button><button id="pause" type="button" disabled>Pause</button><button id="expand" type="button">Fullscreen</button></div></header>
+  <section class="stage" id="stage" aria-label="Side Scroller Shooter game">
+    <canvas id="game" width="1120" height="720" tabindex="0" aria-label="Game field. WASD or arrows to move, hold Space to fire. P pauses, Escape opens the menu."></canvas>
+    <div class="overlay" id="overlay">
+      <section class="screen" id="menu"><p class="eyebrow">SIDE SCROLLER SHOOTER</p><h1>ORBIT <span>/ 379</span></h1><p class="intro">Three sectors. One ship.<br>Make every shot count.</p><div class="actions"><button id="start" type="button" class="primary" disabled>Loading assets…</button><button id="records" type="button">Flight records</button><button id="help" type="button">How to play</button></div><p class="hint">WASD / ARROWS move · SPACE fire · P pause</p><p id="load-status" role="status">Preparing your ship…</p></section>
+      <section class="screen" id="pause-screen" hidden><p class="eyebrow">FLIGHT ON HOLD</p><h2>Paused</h2><div class="actions"><button id="resume" class="primary" type="button">Resume flight</button><button data-menu type="button">Return to menu</button></div><p class="hint">Your sector timer is paused.</p></section>
+      <section class="screen" id="results" hidden><p class="eyebrow" id="result-label">FLIGHT ENDED</p><h2 id="result-title">Mission ended</h2><p id="result-score"></p><form id="score-form"><label for="pilot">Pilot name</label><input id="pilot" name="pilot" maxlength="12" autocomplete="off" pattern="[A-Za-z0-9 ]{0,12}" placeholder="PILOT"><button class="primary" type="submit">Save score</button></form><p id="save-status" role="status"></p><div class="actions"><button id="retry" type="button">Fly again</button><button data-records type="button">Flight records</button><button data-menu type="button">Menu</button></div></section>
+      <section class="screen records-screen" id="records-screen" hidden><p class="eyebrow">YOUR TOP TEN</p><h2>Flight records</h2><p class="hint">Saved on this browser and device.</p><div class="table-scroll"><table><thead><tr><th>#</th><th>Pilot</th><th>Score</th><th>Sector</th></tr></thead><tbody id="score-rows"></tbody></table></div><p id="records-status" role="status"></p><button data-menu type="button">Back to menu</button></section>
+      <section class="screen help-screen" id="help-screen" hidden><p class="eyebrow">MISSION BRIEFING</p><h2>How to play</h2><ul><li><strong>Move</strong> with WASD / arrows, or the touch pad. Hold Space or FIRE to shoot.</li><li><strong>Survive</strong> all three sector countdowns. You have three lives.</li><li><strong>Enemies:</strong> white scouts fly straight, orange weavers patrol, purple hunters aim then charge.</li><li><strong>Pickups:</strong> R rapid fire, S shield, + repair. Timed effects last six seconds.</li><li><strong>P</strong> pauses, <strong>M</strong> toggles sound, <strong>F3</strong> shows hitboxes. Escape pauses or returns.</li></ul><button data-menu type="button">Ready to fly</button></section>
+    </div>
+  </section>
+  <div class="touch-controls" aria-label="Touch controls"><div class="dpad"><button data-key="ArrowUp" aria-label="Move up">↑</button><button data-key="ArrowLeft" aria-label="Move left">←</button><button data-key="ArrowDown" aria-label="Move down">↓</button><button data-key="ArrowRight" aria-label="Move right">→</button></div><button data-key="Space" class="fire" aria-label="Hold to fire">FIRE</button></div>
+  <footer><span id="flight-status" role="status" aria-live="polite">Browser edition · Ready for launch</span><a href="https://github.com/jaygoneelz/SideScrollerShooter" target="_blank" rel="noopener">SOURCE ↗</a></footer>
+</main>
+<noscript>This game requires JavaScript. You can find the desktop source on GitHub.</noscript>
+<script type="module" src="game.js"></script>
+</body></html>

@@ -306,6 +306,10 @@
   footer{border-top:1px solid var(--line); padding-block:24px 50px; text-align:center; font-family:"Space Mono",monospace; font-size:.72rem; color:var(--ink-3);}
   footer::before{content:"$ "; color:var(--accent);}
 
+  .proj-media.playable.landscape{aspect-ratio:4/3;}
+  .modal-media.playable.landscape{aspect-ratio:4/3;max-height:none;}
+  .proj-play{display:inline-block;margin:8px 16px 8px 0;font-family:"Space Mono",monospace;font-size:.76rem;text-decoration:none;color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:4px;}
+
   /* modal */
   .modal-bg{position:fixed; inset:0; background:rgba(8,8,10,.72); display:flex; align-items:flex-start; justify-content:center; padding:44px 18px; z-index:100; overflow-y:auto;}
   .modal{background:var(--bg); border:1px solid var(--line-strong); max-width:680px; width:100%;}
@@ -635,7 +639,7 @@
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>Side Scroller Shooter — 2D Side-Scrolling Shooter</span><span class="resume-date">2025</span></div>
-          <div class="resume-item-sub">INM379 Computer Games Architecture, City St George's · C#, MonoGame, Visual Studio 2022</div>
+          <div class="resume-item-sub">Personal project · C#, MonoGame, JavaScript, Canvas 2D</div>
           <ul class="resume-bullets">
             <li>Built a complete 2D side-scrolling shooter in C# and MonoGame, measured by frame-rate-independent movement, collision detection, and persistent high scores via file I/O, by architecting an event-driven system with custom input and event managers.</li>
             <li>Implemented clean state management, measured by dedicated menu, gameplay, and game-over screens plus FSM-driven enemy behaviour, by applying the State pattern across the game's screen flow.</li>
@@ -939,17 +943,19 @@
       links: [], note: "No capture loaded: screenshots pending export."
     },
     {
-      id: "sideshooter", title: "Side Scroller Shooter", category: "desktop",
-      tagline: "2D arcade shooter in C#/MonoGame with a fully data-driven difficulty curve and zero hardcoded spawn values.",
-      status: "Released", year: "2025", tags: ["C#", "MonoGame"],
-      description: "Built for INM379 Computer Games Architecture, prioritising engine architecture over content as a demonstration of production-grade systems design.",
+      id: "sideshooter", title: "Side Scroller Shooter", category: "desktop", platforms: ["desktop", "web"],
+      tagline: "A three-sector arcade space shooter: desktop MonoGame game and a browser edition you can play right here.",
+      status: "Released", year: "2025–26", tags: ["C#", "MonoGame", "JavaScript", "Canvas 2D"],
+      description: "My personal arcade shooter project, ORBIT / 379. Survive three sectors, dodge scouts, weavers and hunters, collect rapid-fire, shield and repair pickups, and compete against your own saved flight records. The browser edition shares the desktop game's art, audio and world configuration.",
       systems: [
-        "Observer/EventManager pattern with an IGameState FSM driving screen flow",
-        "Wave-based enemy spawning, three-life system, power-ups and high-score persistence",
-        "Difficulty entirely JSON-config driven, enabling balance iteration without touching code",
-        "ResourceManager caching textures/fonts/SFX on first load; object pooling and spatial partitioning"
+        "Event-driven input and scoring, screen states, and a separate enemy behaviour FSM",
+        "Three JSON-configured sectors with initial formations, spawn patterns, timed survival goals and victory flow",
+        "Centred collision geometry, separate hit responses, damage cooldowns and three pickup effects",
+        "Named top-ten records: JSON persistence on desktop and browser-local storage on the web",
+        "Browser adaptation with a fixed-step Canvas simulation, keyboard and multi-touch controls, audio, fullscreen and automatic pause on lost focus"
       ],
-      links: [], note: "No capture loaded: screenshots pending export."
+      links: [{ label: "Play in browser", href: "games/sidescroller-shooter/" }, { label: "Repository", href: "https://github.com/jaygoneelz/SideScrollerShooter" }],
+      playUrl: "games/sidescroller-shooter/", playAspect: "landscape"
     },
     {
       id: "trafalgar", title: "Lost in Trafalgar", category: "vr",
@@ -1047,8 +1053,8 @@
     }
     if (p.playUrl) {
       return `
-        <div class="proj-media playable" data-video="" data-cursor="play">
-          <iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe>
+        <div class="proj-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}" data-video="" data-cursor="play">
+          <iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Playable build</span><a href="${p.playUrl}" target="_blank" rel="noopener" class="yt-link">Open fullscreen ↗</a></div>
         </div>`;
     }
@@ -1089,7 +1095,7 @@
   });
 
   function matches(p){
-    if (state.cat !== 'all' && p.category !== state.cat) return false;
+    if (state.cat !== 'all' && p.category !== state.cat && !(p.platforms || []).includes(state.cat)) return false;
     if (!state.q) return true;
     const hay = [p.title, p.tagline, p.description, ...p.tags].join(' ').toLowerCase();
     return hay.includes(state.q);
@@ -1111,6 +1117,7 @@
             <h3><span class="scramble-txt" data-text="${p.title}">${p.title}</span></h3>
             <div class="proj-tagline">${p.tagline}</div>
             <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+            ${p.id === 'sideshooter' ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">Play in browser ↗</a>` : ''}
             <button class="proj-more draw" data-id="${p.id}" data-cursor="read">Full breakdown <span>→</span></button>
           </div>
         </div>
@@ -1206,7 +1213,7 @@
     const media = p.videoId
       ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
       : p.playUrl
-      ? `<div class="modal-media playable"><iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy"></iframe></div>`
+      ? `<div class="modal-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}"><iframe src="${p.playUrl}" title="${p.title} playable build" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>`
       : COVERS[p.id]
       ? `<div class="modal-media"><div class="plate cover-plate">${COVERS[p.id]}</div></div>`
       : `<div class="modal-media"><div class="plate"><span class="picon">${ICONS[p.category]}</span></div></div>`;
