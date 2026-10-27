@@ -1,0 +1,16 @@
+{
+  "layers": 12,
+  "radius": 8,
+  "heightStep": 1.5,
+  "platformSize": 5,
+  "gravity": 18,
+  "jumpSpeed": 8,
+  "moveSpeed": 6,
+  "playerRadius": 0.5,
+  "enemyCount": 20,
+  "survivalSeconds": 300,
+  "maxHealth": 100,
+  "seed": 710,
+  "boostSeconds": 5,
+  "checkpointEvery": 3
+}

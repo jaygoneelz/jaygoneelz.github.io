@@ -630,7 +630,7 @@
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>8-Bit Bounce — 3D Platformer</span><span class="resume-date">2025</span></div>
-          <div class="resume-item-sub">INM710 Advanced Games Technology, City St George's · C++, OpenGL, Bullet Physics, FMOD, Assimp, GLM, GLFW</div>
+          <div class="resume-item-sub">Personal project · C++17, OpenGL, Bullet Physics, Three.js / WebGL</div>
           <ul class="resume-bullets">
             <li>Built a single-level 3D platformer in C++ and OpenGL, measured by a full gameplay loop covering movement, jumping, moving platforms, scoring, health, and a survival timer, by extending a university engine template with custom collision and HUD systems.</li>
             <li>Implemented AI-controlled enemies and physics-driven interactions, measured by patrol, chase, and attack behaviour with realistic collision response, by integrating Bullet physics for gravity, friction, and restitution alongside FMOD spatialised audio.</li>
@@ -930,17 +930,19 @@
       links: [], playUrl: "games/forklift/index.html"
     },
     {
-      id: "bounce", title: "8-Bit Bounce", category: "desktop",
-      tagline: "Self-contained 3D platformer in raw C++/OpenGL with 20-agent FSM enemy AI and full rigid-body physics.",
-      status: "Released", year: "2025", tags: ["C++17", "OpenGL", "Bullet3", "FMOD"],
-      description: "Built for INM710 Advanced Games Technology at City St George's: a full 3D platformer game loop implemented from first principles.",
+      id: "bounce", title: "8-Bit Bounce", category: "desktop", platforms: ["desktop", "web"],
+      tagline: "A 3D spiral-platform challenge with moving platforms, cube enemies and power-ups. Play the WebGL edition right here.",
+      status: "Released", year: "2025–26", tags: ["C++17", "OpenGL", "Bullet Physics", "WebGL", "Three.js"],
+      description: "My 3D platformer, 8-bit Bounce. Guide a blue marble up twelve spiral platforms, ride moving side routes, dodge red cube enemies and collect heal and high-bounce pickups. Reach the summit ring or survive five minutes. The C++ desktop project uses OpenGL and Bullet; the browser adaptation uses Three.js and a fixed-step platform simulation.",
       systems: [
-        "Four-state FSM enemy AI (patrol, chase, attack, dying) across 20 concurrent agents, driven by line-of-sight raycasting",
-        "Bullet3 rigid-body physics: gravity, restitution, surface friction and per-frame synchronisation to oscillating platforms",
-        "FMOD Core spatialised audio and Assimp mesh loading",
-        "Score/timer/health HUD, power-ups, skybox, wireframe debug toggle and alpha-fade spawn effects"
+        "Twelve spiral platforms, five moving side routes, a summit goal and a five-minute survival objective",
+        "Twenty cube enemies with patrol, chase and attack states, health, damage cooldowns and timed jump boosts",
+        "Browser adaptation adds checkpoints, a complete restart flow and named browser-local top-ten records",
+        "Camera-relative movement, keyboard and touch controls, drag/Q/E camera rotation, pause on focus loss and synthesised sound effects",
+        "Native C++17/OpenGL engine source, Bullet collision integration, FMOD audio integration and retained third-party notices"
       ],
-      links: [], note: "No capture loaded: screenshots pending export."
+      links: [{ label: "Play in browser", href: "games/8bit-bounce/" }, { label: "Repository", href: "https://github.com/jaygoneelz/8BitBounce" }],
+      playUrl: "games/8bit-bounce/", playAspect: "landscape"
     },
     {
       id: "sideshooter", title: "Side Scroller Shooter", category: "desktop", platforms: ["desktop", "web"],
@@ -1117,7 +1119,7 @@
             <h3><span class="scramble-txt" data-text="${p.title}">${p.title}</span></h3>
             <div class="proj-tagline">${p.tagline}</div>
             <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
-            ${p.id === 'sideshooter' ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">Play in browser ↗</a>` : ''}
+            ${['sideshooter','bounce'].includes(p.id) ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">Play in browser ↗</a>` : ''}
             <button class="proj-more draw" data-id="${p.id}" data-cursor="read">Full breakdown <span>→</span></button>
           </div>
         </div>
