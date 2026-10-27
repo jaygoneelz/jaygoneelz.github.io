@@ -30,36 +30,52 @@ export function normalizeRecords(entries){
 export function recordRun(entries,name,g){return normalizeRecords([...normalizeRecords(entries),{name:String(name||'PLAYER').toUpperCase().replace(/[^A-Z0-9 ]/g,'').trim().slice(0,12)||'PLAYER',score:g.score,time:Number(g.elapsed.toFixed(2)),platform:g.highest+1,won:g.state==='victory'}]);}
 export class Game{
   constructor(config){
-    this.c=validate(config);this.platforms=generatePlatforms(config);this.elapsed=0;this.state='playing';this.paused=false;this.highest=0;this.collected=0;this.seed=config.seed>>>0||710;this.jumpHeld=false;this.jumpBuffer=0;this.coyote=.1;this.events=[];
+    this.c=validate(config);this.platforms=generatePlatforms(config);this.elapsed=0;this.state='playing';this.paused=false;this.highest=0;this.collected=0;this.seed=config.seed>>>0||710;this.jumpHeld=false;this.jumpBuffer=0;this.coyote=.1;this.events=[];this.combo=0;this.comboTimer=0;this.lastPickup=null;
     const first=this.platforms[0];this.checkpoint={x:first.x,y:first.y+first.hy+config.playerRadius+.03,z:first.z,index:0};
     this.player={x:first.x,y:first.y+first.hy+config.playerRadius,z:first.z,vx:0,vy:0,vz:0,health:config.maxHealth,boost:0,hurt:0,grounded:'p0'};
     this.enemies=[];
     for(let i=0;i<config.enemyCount;i++){
       const angle=this.random()*Math.PI*2,radius=14+this.random()*23,x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
-      this.enemies.push({x,y:.6,z,originX:x,originZ:z,targetX:x+2,targetZ:z,state:'patrol',timer:0,cooldown:0});
+      this.enemies.push({x,y:.6,z,originX:x,originZ:z,targetX:x+2,targetZ:z,state:'patrol',timer:0,cooldown:0,alert:0,kind:['scout','hunter','guard'][i%3]});
     }
     this.pickups=[{id:'heal0',x:first.x+1.1,y:first.y+.85,z:first.z+.5,kind:'heal',alive:true}];
     for(let i=1;i<config.layers;i++)if(i%2===1||i%3===0){const p=this.platforms.find(p=>p.index===i);this.pickups.push({id:'u'+i,x:p.x,y:p.y+.85,z:p.z,kind:i%3===0?'heal':'boost',alive:true});}
   }
   random(){this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;return this.seed/4294967296;}
-  get score(){return Math.floor(this.elapsed)*10+this.collected*50+this.highest*100+(this.state==='victory'?500:0);}
+  get score(){return Math.floor(this.elapsed)*10+this.collected*50+this.combo*100+this.highest*100+(this.state==='victory'?500:0);}
   damage(amount){const p=this.player;if(p.hurt>0||this.state!=='playing')return;p.health=Math.max(0,p.health-amount);p.hurt=.9;this.events.push('damage');}
   respawn(){const p=this.player;p.health=Math.max(0,p.health-25);Object.assign(p,{x:this.checkpoint.x,y:this.checkpoint.y,z:this.checkpoint.z,vx:0,vy:0,vz:0,grounded:null,hurt:1});this.events.push('respawn');}
   updateEnemies(dt){
     const p=this.player;
     for(const e of this.enemies){
-      e.timer+=dt;e.cooldown=Math.max(0,e.cooldown-dt);const distance=Math.hypot(p.x-e.x,p.z-e.z),nearHeight=Math.abs(p.y-e.y)<1.8;
-      if(distance<1.7&&nearHeight)e.state='attack';else if(distance<9&&nearHeight)e.state='chase';else if(distance>11||!nearHeight)e.state='patrol';
-      if(e.state==='attack'){if(e.cooldown<=0){this.damage(10);e.cooldown=1.2;}continue;}
-      if(e.state==='patrol'&&(e.timer>4||Math.hypot(e.targetX-e.x,e.targetZ-e.z)<.4)){const a=this.random()*Math.PI*2;e.targetX=clamp(e.originX+Math.cos(a)*3,-43,43);e.targetZ=clamp(e.originZ+Math.sin(a)*3,-43,43);e.timer=0;}
-      const x=(e.state==='chase'?p.x:e.targetX)-e.x,z=(e.state==='chase'?p.z:e.targetZ)-e.z,length=Math.hypot(x,z)||1,speed=e.state==='chase'?2.5:1.5;
-      e.x+=x/length*speed*dt;e.z+=z/length*speed*dt;
+      e.timer+=dt;e.alert=(e.alert||0)+dt;e.cooldown=Math.max(0,e.cooldown-dt);
+      const distance=Math.hypot(p.x-e.x,p.z-e.z),nearHeight=Math.abs(p.y-e.y)<1.8;
+      const detection=e.kind==='scout'?14:9,speed=e.kind==='hunter'?3.6:2.5;
+      const change=state=>{if(e.state!==state){e.state=state;e.timer=0;}};
+      // Recovery is a real vulnerability window; range checks cannot cancel it.
+      if(e.state==='recover'){if(e.timer>=.65)change('chase');continue;}
+      if(e.state==='patrol'&&e.alert>=12){e.alert=0;change('investigate');}
+      if(distance<1.7&&nearHeight)change('attack');
+      else if(distance<detection&&nearHeight)change('chase');
+      else if(e.state==='attack'||(e.state==='chase'&&!nearHeight))change('investigate');
+      if(e.state==='attack'){
+        if(e.cooldown<=0){this.damage(e.kind==='guard'?15:10);e.cooldown=1.2;change('recover');}
+        continue;
+      }
+      if(e.state==='patrol'&&(e.timer>4||Math.hypot(e.targetX-e.x,e.targetZ-e.z)<.4)){
+        const a=this.random()*Math.PI*2;e.targetX=clamp(e.originX+Math.cos(a)*3,-43,43);e.targetZ=clamp(e.originZ+Math.sin(a)*3,-43,43);e.timer=0;
+      }
+      const pursuing=e.state==='chase'||e.state==='investigate';
+      const x=(pursuing?p.x:e.targetX)-e.x,z=(pursuing?p.z:e.targetZ)-e.z,length=Math.hypot(x,z);
+      const step=Math.min(length,(e.state==='chase'?speed:e.state==='investigate'?speed*.75:1.5)*dt);
+      if(length>.001){e.x+=x/length*step;e.z+=z/length*step;}
+      if(e.state==='investigate'&&e.timer>=8)change('patrol');
     }
   }
   update(dt,input={}){
     if(this.state!=='playing'||this.paused)return;
     if(!Number.isFinite(dt)||dt<=0||dt>.1)throw new Error('Use a simulation step no larger than 0.1 seconds.');
-    this.events=[];this.elapsed+=dt;const p=this.player,c=this.c,r=c.playerRadius;
+    this.events=[];this.elapsed+=dt;this.comboTimer=Math.max(0,this.comboTimer-dt);const p=this.player,c=this.c,r=c.playerRadius;
     p.boost=Math.max(0,p.boost-dt);p.hurt=Math.max(0,p.hurt-dt);
     for(const box of this.platforms)if(box.moving){const before={x:box.x,y:box.y,z:box.z};box[box.axis]=box.start+(box.end-box.start)*pingpong(this.elapsed*box.speed);if(p.grounded===box.id){p.x+=box.x-before.x;p.y+=box.y-before.y;p.z+=box.z-before.z;}}
     this.coyote=p.grounded?.1:Math.max(0,this.coyote-dt);
@@ -82,7 +98,7 @@ export class Game{
       if(d>0&&d<r){const depth=r-d;p.x+=x/d*depth;p.y+=y/d*depth;p.z+=z/d*depth;if(y<0&&p.vy>0)p.vy=0;}
     }
     if(p.y<-10)this.respawn();
-    for(const u of this.pickups)if(u.alive&&Math.hypot(p.x-u.x,p.y-u.y,p.z-u.z)<1.15){u.alive=false;this.collected++;if(u.kind==='heal')p.health=Math.min(c.maxHealth,p.health+20);else p.boost=c.boostSeconds;this.events.push(u.kind);}
+    for(const u of this.pickups)if(u.alive&&Math.hypot(p.x-u.x,p.y-u.y,p.z-u.z)<1.15){u.alive=false;this.collected++;if(this.comboTimer>0&&this.lastPickup!==u.kind){this.combo++;this.events.push('combo');}this.lastPickup=u.kind;this.comboTimer=8;if(u.kind==='heal')p.health=Math.min(c.maxHealth,p.health+20);else p.boost=c.boostSeconds;this.events.push(u.kind);}
     this.updateEnemies(dt);
     const goal=this.platforms.find(box=>box.index===c.layers-1);
     if(p.health<=0){this.state='defeat';this.events.push('defeat');}
