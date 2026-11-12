@@ -875,6 +875,19 @@
 
   const PROJECTS = [
     {
+      id: "lablockdown", title: "Lab Lockdown", category: "desktop", platforms: ["desktop", "web"],
+      tagline: "A first-person drone lockdown with relay repairs and a timed extraction route.",
+      status: "Playable Demo", year: "2026", tags: ["C++17", "OpenGL", "GLSL", "JavaScript"],
+      description: "I built Lab Lockdown as a Windows FPS in C++ and OpenGL. Clear drone patrols, restore two relays and return to extraction. The playable browser recreation uses a smaller lab layout and its own raycast renderer.",
+      systems: [
+        "Three waves with a resupply choice, an interruptible repair and a timed relay link",
+        "Patrol, chase, wind-up and recovery behaviours, including a heavy drone vulnerable during blue recovery",
+        "Gun, knife and empty-hand slots with keyboard and mouse-wheel switching"
+      ],
+      links: [{ label: "Play browser demo", href: "games/lab-lockdown/" }],
+      playUrl: "games/lab-lockdown/", playLabel: "Interactive browser demo", playAspect: "landscape"
+    },
+    {
       id: "acf", title: "Action Combat Framework", category: "unity", featured: true,
       tagline: "Modular melee combat system in Unity: FSM, input buffering, hitbox system and a full custom-editor debug suite.",
       status: "In Development", year: "2026", tags: ["Unity 6", "C#", "FSM", "Enemy AI"],
