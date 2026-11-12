@@ -875,17 +875,19 @@
 
   const PROJECTS = [
     {
-      id: "lablockdown", title: "Lab Lockdown", category: "desktop", platforms: ["desktop", "web"],
-      tagline: "A first-person drone lockdown with relay repairs and a timed extraction route.",
-      status: "Playable Demo", year: "2026", tags: ["C++17", "OpenGL", "GLSL", "JavaScript"],
-      description: "I built Lab Lockdown as a Windows FPS in C++ and OpenGL. Clear drone patrols, restore two relays and return to extraction. The playable browser recreation uses a smaller lab layout and its own raycast renderer.",
+      id: "lablockdown", title: "Lab Lockdown", category: "desktop", platforms: ["desktop"],
+      tagline: "A Windows first-person action game with drone combat, relay repairs, and extraction.",
+      status: "Windows Project", year: "2026", tags: ["C++17", "OpenGL 3.3", "GLSL", "GLFW", "SDL2_mixer", "Visual Studio"],
+      description: "I developed Lab Lockdown as a native Windows FPS using C++17 and OpenGL. The mission starts with drone patrols, then asks players to restore a relay under pressure, synchronise a second relay within 35 seconds, and return to extraction.",
       systems: [
-        "Three waves with a resupply choice, an interruptible repair and a timed relay link",
-        "Patrol, chase, wind-up and recovery behaviours, including a heavy drone vulnerable during blue recovery",
-        "Gun, knife and empty-hand slots with keyboard and mouse-wheel switching"
+        "Rendering and asset pipeline: GLSL shaders, directional shadow mapping, skybox rendering, and post-render combat effects. Assimp imports 3D meshes, and FreeType renders the HUD and menus.",
+        "Gameplay architecture: component-based game objects, event-driven input, and a delta-time update loop that separates gameplay, physics, and rendering.",
+        "Player controller and combat: first-person camera, run and walk modes, jumping, flashlight, and raycast collision. Switch between the gun, short-range knife, and empty hands using number keys or the mouse wheel.",
+        "Enemy AI and animation: patrol, pursuit, attack wind-up, and recovery. Faster pursuers arrive in wave two, and the final-wave heavy takes double damage during its blue recovery window.",
+        "Mission design: three waves, a health-or-ammo resupply choice, repairs interrupted by damage, a timed relay link, and an extraction objective. The HUD shows the active objective, direction, and distance.",
+        "Game feel and interface: animated reloads and knife swings, bullet tracers, hit markers, directional damage feedback, and SDL2_mixer audio cues. The mouse-friendly pause menu exposes sensitivity, volume, and a damage-effect toggle."
       ],
-      links: [{ label: "Play browser demo", href: "games/lab-lockdown/" }, { label: "C++ source code", href: "https://github.com/jaygoneelz/lab-lockdown" }],
-      playUrl: "games/lab-lockdown/", playLabel: "Interactive browser demo", playAspect: "landscape"
+      links: [{ label: "C++ source code and build instructions", href: "https://github.com/jaygoneelz/lab-lockdown" }]
     },
     {
       id: "acf", title: "Action Combat Framework", category: "unity", featured: true,
