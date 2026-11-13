@@ -34,6 +34,7 @@
     --line:rgba(23,20,16,.16); --line-strong:#171410;
     --accent:#d9480f; --accent-2:#a83908; --accent-ink:#ffffff;
     --dot-r:#e5533d; --dot-y:#d9a029; --dot-g:#4f9d5c;
+    --ok:#2e7d4b; --wip:#946300;
     --scan-op:0;
     color-scheme:light;
   }
@@ -44,6 +45,7 @@
       --line:rgba(243,237,224,.14); --line-strong:#f3ede0;
       --accent:#ff5a1f; --accent-2:#ff8248; --accent-ink:#0a0b0c;
       --dot-r:#ff5f56; --dot-y:#ffbd2e; --dot-g:#27c93f;
+      --ok:#4cc27a; --wip:#e3b341;
       --scan-op:1;
       color-scheme:dark;
     }
@@ -54,6 +56,7 @@
     --line:rgba(243,237,224,.14); --line-strong:#f3ede0;
     --accent:#ff5a1f; --accent-2:#ff8248; --accent-ink:#0a0b0c;
     --dot-r:#ff5f56; --dot-y:#ffbd2e; --dot-g:#27c93f;
+    --ok:#4cc27a; --wip:#e3b341;
     --scan-op:1;
     color-scheme:dark;
   }
@@ -90,7 +93,6 @@
   .win-dot{width:9px; height:9px; border-radius:50%; flex:none;}
   .win-dot.r{background:var(--dot-r);} .win-dot.y{background:var(--dot-y);} .win-dot.g{background:var(--dot-g);}
   .win-path{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .win-status{margin-left:auto; color:var(--accent); text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;}
 
   [data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
   [data-reveal].in{opacity:1; transform:none;}
@@ -157,7 +159,7 @@
   .draw:hover::after{right:0;}
   .draw:hover{color:var(--accent);}
 
-  .stats-win{display:flex; flex-direction:column; height:100%;}
+  .stats-win{display:flex; flex-direction:column; align-self:start;}
   .stats-win .win-body{padding:22px 26px; font-family:"Space Mono",monospace; font-size:.86rem; flex:1; display:flex; flex-direction:column; justify-content:center;}
   .json-line{color:var(--ink-3);}
   .json-key{color:var(--ink-2);}
@@ -249,6 +251,12 @@
   .proj-code a:hover{color:var(--accent);}
   .proj-status{font-family:"Space Mono",monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); display:flex; gap:10px; flex-wrap:wrap;}
   .proj-status .muted{color:var(--ink-3);}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:2px 8px; border:1px solid currentColor; border-radius:999px; line-height:1.5;}
+  .chip::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .chip-live{color:var(--ok);}
+  .chip-wip{color:var(--wip);}
+  .chip-info{color:var(--ink-2);}
+  .proj-status, .modal-status{align-items:center;}
   .proj h3{font-size:1.35rem;}
   .proj-tagline{color:var(--ink-2); font-size:.98rem; max-width:54ch;}
   .proj-tags{display:flex; gap:8px; flex-wrap:wrap;}
@@ -314,8 +322,13 @@
   @media (max-width:780px){ .contact-grid{grid-template-columns:1fr;} }
   .contact h2{font-size:clamp(1.7rem,4vw,2.4rem);}
   .contact-grid > div:first-child p{color:var(--ink-2); max-width:46ch; margin-top:14px;}
-  .mail-line{font-family:"Space Mono",monospace; font-size:1.02rem; display:inline-flex; align-items:center; gap:10px; padding-bottom:6px; margin-top:28px;}
-  .mail-line::before{content:"$ mailto "; color:var(--ink-3);}
+  .avail{display:inline-flex; align-items:center; gap:9px; margin-top:26px; font-family:"Space Mono",monospace; font-size:.76rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ok);}
+  .avail-dot{width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 4px color-mix(in srgb, var(--ok) 22%, transparent);}
+  .mail-big{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:14px;}
+  .mail-big a{font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(1.15rem,3.2vw,1.9rem); text-decoration:none; border-bottom:2px solid var(--accent); padding-bottom:2px; overflow-wrap:anywhere;}
+  .mail-big a:hover{color:var(--accent);}
+  .copy-btn{font-family:"Space Mono",monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; padding:8px 12px; border:1px solid var(--line-strong); background:transparent; color:var(--ink); cursor:pointer;}
+  .copy-btn:hover{border-color:var(--accent); color:var(--accent);}
   .social-col{display:flex; flex-direction:column;}
   .social-row{display:flex; justify-content:space-between; align-items:center; padding-block:15px; border-top:1px solid var(--line); text-decoration:none; font-family:"Space Mono",monospace; font-size:.84rem; text-transform:uppercase; letter-spacing:.04em; transition:padding-left .2s ease;}
   .social-row:last-child{border-bottom:1px solid var(--line);}
@@ -510,7 +523,9 @@
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"shipped_title_credits"</span>: <span class="json-val count-up" data-count="4">0</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_past_1M_downloads"</span>: <span class="json-val count-up" data-count="2">0</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val count-up" id="buildCount" data-count="9">0</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"program"</span>: <span class="json-val">"MSc Games Tech &amp; VR '26"</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"program"</span>: <span class="json-val">"MSc Games Tech &amp; VR '26"</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"currently"</span>: <span class="json-val">"open to gameplay roles"</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"location"</span>: <span class="json-val">"London / Remote"</span></div>
           <div class="json-line">}<span class="cursor"></span></div>
         </div>
       </div>
@@ -550,7 +565,6 @@
       <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Full CV (PDF, 2 pages) ↓</span><span class="btn-prompt">&gt; download_cv<span class="cur"></span></span></a></div>
     </div>
     <div class="win resume-doc-win">
-      <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/resume/cv.log</span></div>
     <div class="win-body">
     <div class="resume-doc">
       <div class="resume-block">
@@ -625,7 +639,6 @@
     </div>
     <div id="fullRecord" class="full-record" hidden>
     <div class="win resume-doc-win">
-      <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/resume/full_track_record.log</span></div>
     <div class="win-body">
     <div class="resume-doc">
       <div class="resume-block">
@@ -826,8 +839,12 @@
       <div data-reveal>
         <div class="section-num mono">03 / CONTACT</div>
         <h2>Let's build something playable.</h2>
-        <p>Open to collaboration, freelance, and full-time roles. The fastest way to reach me is email, or find me on the platforms to the right.</p>
-        <a class="mail-line draw" href="mailto:jaygoneelz@gmail.com">jaygoneelz@gmail.com ↗</a>
+        <p>Open to full-time gameplay programming roles, plus freelance and collaboration. Email is the fastest way to reach me.</p>
+        <div class="avail"><span class="avail-dot"></span>Available now · London / Remote</div>
+        <div class="mail-big">
+          <a href="mailto:jaygoneelz@gmail.com">jaygoneelz@gmail.com</a>
+          <button type="button" class="copy-btn" id="copyEmail" data-email="jaygoneelz@gmail.com">Copy</button>
+        </div>
       </div>
       <div class="social-col" data-reveal>
         <a class="social-row" href="https://github.com/jaygoneelz" target="_blank" rel="noopener">GitHub<span>↗</span></a>
@@ -1196,7 +1213,7 @@
       const thumb = `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`;
       return `
         <div class="proj-media" data-video="${p.videoId}" data-cursor="open">
-          <div class="plate video-plate" style="background-image:url('${thumb}')"><span class="idx">${p.idx}</span><span class="picon" style="position:relative">${ICONS[p.category]}</span><span class="play-ico"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="#f3ede0"><path d="M3 1.5L14 8L3 14.5V1.5Z"/></svg></span></span></div>
+          <div class="plate video-plate" style="background-image:url('${thumb}')"><span class="picon" style="position:relative">${ICONS[p.category]}</span><span class="play-ico"><span><svg width="16" height="16" viewBox="0 0 16 16" fill="#f3ede0"><path d="M3 1.5L14 8L3 14.5V1.5Z"/></svg></span></span></div>
           <div class="video-flag"><span class="dot"></span><span class="flag-text">Loading · click to unmute &amp; control</span><a href="https://youtu.be/${p.videoId}" target="_blank" rel="noopener" class="yt-link">Watch on YouTube ↗</a></div>
         </div>`;
     }
@@ -1210,12 +1227,12 @@
     if (COVERS[p.id]) {
       return `
         <div class="proj-media" data-video="" data-cursor="open">
-          <div class="plate cover-plate">${COVERS[p.id]}<span class="idx">${p.idx}</span></div>
+          <div class="plate cover-plate">${COVERS[p.id]}</div>
         </div>`;
     }
     return `
       <div class="proj-media" data-video="" data-cursor="open">
-        <div class="plate"><span class="idx">${p.idx}</span><span class="picon" style="position:absolute">${ICONS[p.category]}</span></div>
+        <div class="plate"><span class="picon">${ICONS[p.category]}</span></div>
       </div>`;
   }
 
@@ -1250,14 +1267,19 @@
     return hay.includes(state.q);
   }
 
+  function statusKind(status){
+    const s = status.toLowerCase();
+    if (s === 'shipped' || s === 'released') return 'live';
+    if (s === 'in development') return 'wip';
+    return 'info';
+  }
   function statusLine(p){
-    return `<span>${CAT_LABEL[p.category]}</span><span class="muted">${p.year}</span><span>[${p.status.toUpperCase()}]</span>${p.discontinued ? '<span class="muted">[DISCONTINUED]</span>' : ''}${p.featured ? '<span>[FEATURED]</span>' : ''}${p.team ? '<span class="muted">[GROUP PROJECT]</span>' : ''}`;
+    return `<span>${CAT_LABEL[p.category]}</span><span class="muted">${p.year}</span><span class="chip chip-${statusKind(p.status)}">${p.status}</span>${p.discontinued ? '<span class="muted">[DISCONTINUED]</span>' : ''}${p.featured ? '<span>[FEATURED]</span>' : ''}${p.team ? '<span class="muted">[GROUP PROJECT]</span>' : ''}`;
   }
 
   function rowTemplate(p, i){
     return `
       <div class="proj ${i % 2 ? 'reverse' : ''}">
-        <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/projects/${p.id}.build</span><span class="win-status">${p.status.toUpperCase()}</span></div>
         <div class="proj-grid">
           ${mediaTemplate(p)}
           <div class="proj-body">
@@ -1361,6 +1383,18 @@
   render();
 
   document.querySelectorAll('#resume [data-reveal], #contact [data-reveal], .hero [data-reveal]').forEach(el => revealObserver.observe(el));
+
+  const copyBtn = document.getElementById('copyEmail');
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copyBtn.dataset.email);
+      copyBtn.textContent = 'Copied ✓';
+    } catch (e) {
+      copyBtn.textContent = 'Press Ctrl+C';
+      getSelection().selectAllChildren(copyBtn.previousElementSibling);
+    }
+    setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1800);
+  });
 
   const fullRecord = document.getElementById('fullRecord');
   const fullToggle = document.getElementById('fullRecordToggle');
