@@ -227,6 +227,7 @@
   .video-flag .yt-link{margin-left:auto; color:var(--bg); opacity:.75; text-decoration:underline; pointer-events:auto; flex:none;}
   .video-flag .yt-link:hover{opacity:1;}
   .proj-media.unlocked .video-flag{display:none;}
+  .proj-media[data-load-state] .plate .idx, .proj-media[data-load-state] .plate .picon{opacity:0; transition:opacity .3s ease;}
 
   .proj-body{display:flex; flex-direction:column; gap:12px;}
   .proj-idx{font-family:"Space Mono",monospace; font-size:.78rem; color:var(--ink-3);}
@@ -1172,7 +1173,11 @@
     iframe.allow = 'autoplay; encrypted-media';
     iframe.loading = 'lazy';
     iframe.src = muted ? muteSrc(el.dataset.video) : activeSrc(el.dataset.video);
-    iframe.addEventListener('load', () => { el.dataset.loadState = 'loaded'; });
+    iframe.addEventListener('load', () => {
+      el.dataset.loadState = 'loaded';
+      const flag = el.querySelector('.flag-text');
+      if (flag) flag.textContent = 'Muted preview · click to unmute & control';
+    });
     el.appendChild(iframe);
     if (!muted) el.classList.add('unlocked');
   }
