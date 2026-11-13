@@ -11,7 +11,12 @@
 <meta property="og:title" content="Jay · Gameplay Programmer">
 <meta property="og:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles, two of them past 1M+ downloads.">
 <meta property="og:url" content="https://jaygoneelz.github.io/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://jaygoneelz.github.io/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jay, gameplay programmer: I build the systems behind games that feel alive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jaygoneelz.github.io/images/og-card.png">
 <meta name="twitter:title" content="Jay · Gameplay Programmer">
 <meta name="twitter:description" content="Gameplay programmer portfolio — Unity, C++, real-time rendering, and shipped mobile titles, two of them past 1M+ downloads.">
 
@@ -231,6 +236,17 @@
 
   .proj-body{display:flex; flex-direction:column; gap:12px;}
   .proj-idx{font-family:"Space Mono",monospace; font-size:.78rem; color:var(--ink-3);}
+  .proj-clip{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:#000;}
+  .modal-media .proj-clip{position:static; height:auto; aspect-ratio:16/9;}
+  .proj-metrics{display:grid; grid-template-columns:repeat(3, 1fr); border:1px solid var(--line);}
+  .proj-metrics div{padding:12px 14px; display:flex; flex-direction:column; gap:4px;}
+  .proj-metrics div + div{border-left:1px solid var(--line);}
+  .proj-metrics b{font-family:"Space Mono",monospace; font-size:1.35rem; color:var(--accent); line-height:1;}
+  .proj-metrics span{font-family:"Space Mono",monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-3);}
+  .proj-code{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; font-family:"Space Mono",monospace; font-size:.72rem;}
+  .proj-code-label{color:var(--ink-3); text-transform:uppercase; letter-spacing:.04em;}
+  .proj-code a{color:var(--ink-2); text-decoration:underline; text-underline-offset:3px;}
+  .proj-code a:hover{color:var(--accent);}
   .proj-status{font-family:"Space Mono",monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); display:flex; gap:10px; flex-wrap:wrap;}
   .proj-status .muted{color:var(--ink-3);}
   .proj h3{font-size:1.35rem;}
@@ -477,7 +493,7 @@
           <div class="eyebrow-mono"><span class="sq"></span>Game Developer · London</div>
           <p class="hero-name"><img class="hero-avatar" src="images/avatar-hero.png" alt="Pixel-art avatar of Jay" width="44" height="44" loading="eager">Jaygovindhan Neelanarayanan <span class="hero-name-tag">— goes by Jay</span></p>
           <h1 id="heroH1" style="visibility:hidden">I build the systems behind games that feel <span class="accent-tag">alive</span><span class="cursor"></span></h1>
-          <p class="hero-bio">Gameplay programmer with three years of commercial experience: four shipped mobile titles, two of them past a million downloads, plus production-grade C++17 engines, Unity 6 tooling, and the data-driven architectures underneath them.</p>
+          <p class="hero-bio">Game designer turned gameplay programmer. Three years in commercial mobile games, with credits on four shipped titles (two past a million downloads). Now I write C++17/OpenGL games, Unity 6 combat systems and editor tooling, and the data-driven architecture underneath them.</p>
           <div class="hero-ctas">
             <a href="#work" class="btn btn-solid"><span>See the work ↓</span><span class="btn-prompt">&gt; see_the_work<span class="cur"></span></span></a>
             <a href="#contact" class="btn btn-ghost"><span>Get in touch</span><span class="btn-prompt">&gt; get_in_touch<span class="cur"></span></span></a>
@@ -488,9 +504,9 @@
         <div class="win-bar"><span class="win-dots"><span class="win-dot r"></span><span class="win-dot y"></span><span class="win-dot g"></span></span><span class="win-path">~/stats.json</span></div>
         <div class="win-body">
           <div class="json-line">{</div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_shipped"</span>: <span class="json-val count-up" data-count="4">0</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"shipped_title_credits"</span>: <span class="json-val count-up" data-count="4">0</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"titles_past_1M_downloads"</span>: <span class="json-val count-up" data-count="2">0</span><span class="json-line">,</span></div>
-          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val count-up" data-count="11">0</span><span class="json-line">,</span></div>
+          <div class="hstat">&nbsp;&nbsp;<span class="json-key">"portfolio_builds"</span>: <span class="json-val count-up" id="buildCount" data-count="9">0</span><span class="json-line">,</span></div>
           <div class="hstat">&nbsp;&nbsp;<span class="json-key">"program"</span>: <span class="json-val">"MSc Games Tech &amp; VR '26"</span></div>
           <div class="json-line">}<span class="cursor"></span></div>
         </div>
@@ -525,7 +541,7 @@
     <div class="section-head">
       <div>
         <div class="section-num mono">02 / RESUME</div>
-        <h2>Full track record.</h2>
+        <h2>Track record.</h2>
       </div>
       <a class="btn btn-ghost" href="resume/Jaygovindhan-Neelanarayanan-CV.pdf" target="_blank" rel="noopener" download><span>Download Short 2-Page CV (PDF) ↓</span><span class="btn-prompt">&gt; download_cv<span class="cur"></span></span></a>
     </div>
@@ -535,7 +551,7 @@
     <div class="resume-doc">
       <div class="resume-block">
         <h3 class="resume-h">Professional Summary</h3>
-        <p class="resume-summary">Game developer with three-plus years of commercial mobile experience, including design work and NFT-economy architecture for a title that passed one million downloads. Now expanding into general engineering across C++ systems programming, Unity architecture, VR design, and full-stack web development: a physics-driven platformer in C++, plus a reusable Unity combat framework with custom editor tooling and a self-built Progressive Web App with real-world map routing. Handles the full pipeline: design, implementation, cross-functional delivery, and iterative live-game development. Completing an MSc in Computer Games Technology with VR at City St George's, University of London, and uses AI coding tools, Claude Code and Copilot, daily.</p>
+        <p class="resume-summary">Game designer turned gameplay programmer. I spent three years in commercial mobile games, leading design on RADDX Racing Metaverse (1M+ downloads) and Hurley Super Surfer, then doing development and technical art on THE DOT. I now build C++17/OpenGL games, Unity 6 gameplay systems and editor tooling. MSc Computer Games Technology with VR, City St George's, University of London.</p>
       </div>
 
       <div class="resume-block" id="skills" data-reveal style="scroll-margin-top:96px;">
@@ -555,142 +571,23 @@
       </div>
 
       <div class="resume-block" data-reveal>
-        <h3 class="resume-h">Work Experience</h3>
+        <h3 class="resume-h">Experience</h3>
         <div class="resume-item">
-          <div class="resume-item-head"><span>Computer Games Designer (Freelance, Hourly)</span><span class="resume-date">Jul 2026 – Present</span></div>
+          <div class="resume-item-head"><span>Computer Games Designer (Freelance)</span><span class="resume-date">Jul 2026 – Present</span></div>
           <div class="resume-item-sub">ALPHA2 Solutions &amp; Software Limited · London</div>
-          <ul class="resume-bullets"><li>Delivered game design work across multiple concurrent client projects, measured by consistent hourly engagement since Jul 2026, by scoping and adapting each engagement to the itinerary and brief supplied per project.</li></ul>
+          <ul class="resume-bullets"><li>Game design across several client projects, each scoped to the brief supplied.</li></ul>
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>Developer &amp; Technical Artist</span><span class="resume-date">Nov 2022 – Aug 2024</span></div>
           <div class="resume-item-sub">OFGA Multimedia · Remote</div>
-          <ul class="resume-bullets">
-            <li>Shipped a commercial mobile title (THE DOT) to Android and iOS, measured by sustained post-launch operational stability, by contributing to game logic, performance-critical rendering systems, and asset pipelines within a live production codebase.</li>
-            <li>Maintained consistent performance and release stability, measured by a stable product across development, integration, testing, and post-launch maintenance, by working within a small, agile cross-functional team.</li>
-            <li>Broadened technical range across a multi-discipline studio, measured by direct exposure to games, web, mobile app, and AI-integration projects, by contributing development and technical art support across the studio's wider portfolio.</li>
-            <li>Bridged engineering and technical art on live features, measured by shipped visual features integrated under commercial release pressure, by producing self-authored assets and coordinating runtime behaviour directly with programmers.</li>
-          </ul>
+          <ul class="resume-bullets"><li>Shipped THE DOT to Android and iOS, working on game logic, rendering performance and the asset pipeline in a live codebase.</li></ul>
         </div>
         <div class="resume-item">
           <div class="resume-item-head"><span>Game Designer</span><span class="resume-date">Jun 2021 – Oct 2022</span></div>
           <div class="resume-item-sub">ChennaiGames Studio · Chennai, India</div>
           <ul class="resume-bullets">
-            <li>Led design on two commercial mobile titles (RADDX Racing Metaverse, Hurley Super Surfer), measured by RADDX surpassing 1M+ downloads, by owning game design documentation, monetisation mechanics, player behaviour research, and product architecture across both titles.</li>
-            <li>Designed RADDX's blockchain-based NFT vehicle economy, measured by a 30,103-car supply spread across a 6-tier rarity system, by defining distinct top speed, acceleration, handling, and braking stats per tier.</li>
-            <li>Built RADDX's core progression loop, measured by a 30-level car upgrade path fed by 6 distinct earning channels, by designing a dual-currency system (RC and JT Points) with a position-based blueprint-card drop-rate curve.</li>
-            <li>Designed RADDX's virtual real-estate layer, measured by 500 digital land parcels and 500 digital buildings across 4 rarity tiers spread over 10 tracks, by defining category splits and building-type allocations for the metaverse economy.</li>
-            <li>Authored RADDX's public-facing litepaper, measured by full investor- and community-facing coverage of the game's economic and gameplay systems, by documenting currencies, NFT tiers, powerups, game modes, XP curve, and roadmap.</li>
-            <li>Built out the world and cast for an unreleased FPS/TPS battle royale (POR: Players on Retaliation), measured by a full set of playable environments and character designs feeding its customisation system, by producing level maps, character sketches, and character asset designs. See <a href="https://www.artstation.com/jay6900" target="_blank" rel="noopener" style="text-decoration:underline; text-underline-offset:3px;">ArtStation</a>.</li>
-            <li>Contributed art and asset work to MR RACER: Premium Racing Game, measured by 1M+ downloads and a 4.2-star rating across 12,000 reviews, by producing car and environment assets across the game's 5 locations and its car customisation system (paints, wheels, name boards).</li>
-            <li>Improved monetisation and engagement, measured by IAP systems and offer structures implemented by engineering teams, by designing progression-linked offer structures and engagement loops iterated on live player behaviour data.</li>
-            <li>Delivered under tight commercial release cycles, measured by a successful cross-team shipping cadence, by coordinating delivery across programmers, artists, and QA.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="resume-block" data-reveal>
-        <h3 class="resume-h">Projects</h3>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Accessibility UI Tester — Unity Editor Extension</span><span class="resume-date">2025 – 2026</span></div>
-          <div class="resume-item-sub">MSc Individual Project, City St George's · github.com/jaygoneelz/AccessibilityUITester</div>
-          <ul class="resume-bullets">
-            <li>Built a Unity 6 Editor extension for real-time colour-accessibility testing, measured by a live CVD shader verified to a colour deviation of 0.0000 against reference data running at approximately 420fps, by implementing a custom URP shader simulating protanopia, deuteranopia, and tritanopia.</li>
-            <li>Delivered an automated whole-scene accessibility scanner, measured by an 8.6x performance improvement (from 4.3 seconds to 499 milliseconds per 1,000-element scan), by diagnosing and fixing an N+1 rendering regression in the JSON-exporting scan pipeline.</li>
-            <li>Validated detection accuracy through an independent evaluation, measured by a Precision of 0.92, Recall of 1.00, and F1 of 0.96 against two independently-developed Unity games, by building a labelled ground-truth benchmark and a reproducible Python scoring script.</li>
-            <li>Packaged the toolkit for public use, measured by a fully documented, one-click-importable release, by publishing an MIT-licensed Unity package with a complete unit and integration test suite.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Forklift — Food Delivery Idle Game</span><span class="resume-date">2026</span></div>
-          <div class="resume-item-sub">Independent Game Development · jaygoneelz.github.io/forklift</div>
-          <ul class="resume-bullets">
-            <li>Built a full browser-based idle game from scratch, measured by a self-contained file of about 7,000 lines of HTML with zero external frameworks or build tools, by implementing 28 restaurants across 4 unlock tiers and 284 menu items with rarity tiers and cuisine mastery discounts.</li>
-            <li>Designed a dual-currency economy to drive engagement, measured by 4 built-in minigames feeding wallet income alongside daily tasks, streak rewards, and a prestige soft-reset, by centralising all tunable values into a single configuration object.</li>
-            <li>Implemented live delivery tracking with real-world routing, measured by accurate road-based delivery paths, by integrating Leaflet.js with the OSRM routing API, alongside WebAudio sound and localStorage state persistence.</li>
-            <li>Shipped the game as an installable, offline-capable app, measured by Play Store-ready packaging, by building it as a Progressive Web App with service-worker caching, a Web App Manifest, and TWA/PWABuilder packaging.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Action Combat Framework — Unity Gameplay Programming Portfolio</span><span class="resume-date">2026</span></div>
-          <div class="resume-item-sub">Personal Project · Unity, C#, Cinemachine · github.com/jaygoneelz/ActionCombatFramework</div>
-          <ul class="resume-bullets">
-            <li>Architected a reusable combat framework for Unity, measured by a single generic FSM driving player combat, enemy AI, and UI simultaneously, by implementing transition priority, debug history, and forced-state interrupts.</li>
-            <li>Built a full player combat kit, measured by a 3-hit combo, heavy attacks, i-frame dodging, and configurable block damage reduction, by implementing input buffering and a data-driven hitbox/hurtbox damage system with per-swing duplicate-hit prevention.</li>
-            <li>Developed enemy AI sharing the player's architecture, measured by chase, attack, stagger, and death states with detection range and cooldowns, by extending the same FSM pattern used for player combat.</li>
-            <li>Improved combat feel and debuggability, measured by frame-precise hitstop, screen shake, and floating damage popups alongside three custom Editor tools, by building a dockable state-machine debugger, a Scene-view hitbox editor, and a CSV-exportable combat log.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Drive Circuit — OpenGL Racing Game</span><span class="resume-date">2024 – 2025</span></div>
-          <div class="resume-item-sub">INM376 Computer Graphics, City St George's · C++, OpenGL 4.0, GLSL, Assimp, FreeType, GLM</div>
-          <ul class="resume-bullets">
-            <li>Built a real-time 3D racing game in C++ and OpenGL, measured by a fully closed circuit supporting 4 distinct camera modes, by generating a Catmull-Rom spline track with arc-length parameterisation and TNB-frame cameras.</li>
-            <li>Developed three custom GLSL rendering effects, measured by exponential distance fog, multi-texturing, and an animated storm shader with procedural rain and lightning, by writing and integrating custom shader passes.</li>
-            <li>Delivered a complete gameplay loop, measured by speed control, lap timing, and collision-based pickups presented through a drop-shadow HUD, by integrating custom geometry, 4 external OBJ meshes, and 40 animated lane markers.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>8-Bit Bounce — 3D Platformer</span><span class="resume-date">2025</span></div>
-          <div class="resume-item-sub">Personal project · C++17, OpenGL, Bullet Physics, Three.js / WebGL</div>
-          <ul class="resume-bullets">
-            <li>Built a single-level 3D platformer in C++ and OpenGL, measured by a full gameplay loop covering movement, jumping, moving platforms, scoring, health, and a survival timer, by extending an engine template with custom collision and HUD systems.</li>
-            <li>Implemented AI-controlled enemies and physics-driven interactions, measured by patrol, chase, and attack behaviour with realistic collision response, by integrating Bullet physics for gravity, friction, and restitution alongside FMOD spatialised audio.</li>
-            <li>Polished the game's presentation, measured by a custom skybox, textured terrain, and multiple lighting modes, by importing environment assets and adding debug wireframe and bounding-box visualisation.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Side Scroller Shooter — 2D Side-Scrolling Shooter</span><span class="resume-date">2025</span></div>
-          <div class="resume-item-sub">Personal project · C#, MonoGame, JavaScript, Canvas 2D</div>
-          <ul class="resume-bullets">
-            <li>Built a complete 2D side-scrolling shooter in C# and MonoGame, measured by frame-rate-independent movement, collision detection, and persistent high scores via file I/O, by architecting an event-driven system with custom input and event managers.</li>
-            <li>Implemented clean state management, measured by dedicated menu, gameplay, and game-over screens plus FSM-driven enemy behaviour, by applying the State pattern across the game's screen flow.</li>
-            <li>Designed a scalable difficulty system, measured by enemy spawn rate and speed increasing over time with zero code changes, by driving all balance values from an external JSON configuration file.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>The Ark: Core Breach — First-Person Sci-Fi Systems Prototype</span><span class="resume-date">2026</span></div>
-          <div class="resume-item-sub">Unity 6, C#, Unity Input System, TextMesh Pro</div>
-          <ul class="resume-bullets">
-            <li>Built a first-person sci-fi gameplay prototype in Unity, measured by a complete reactor-repair objective loop shipped as a playable Windows 64-bit build, by implementing raycast interaction and a single-item carry/install mechanic across 4 power cores.</li>
-            <li>Designed a responsive environmental storytelling system, measured by lighting, audio, UI, and camera changes reacting live to player progress, by building a state system toggling between alarm and stable station states.</li>
-            <li>Delivered a guided, navigable level, measured by a modular reactor chamber, supply room, and corridor layout, by using lighting and directional cues alongside a complete TextMesh Pro UI for objectives and progress tracking.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Lost in Trafalgar — VR Gameplay Design</span><span class="resume-date">2025</span></div>
-          <div class="resume-item-sub">INM717 Experiencing the Unknown, City St George's · Unity, Meta Quest 2</div>
-          <ul class="resume-bullets">
-            <li>Designed gameplay and puzzle systems for a Unity VR mystery experience, measured by a 5-minute-plus immersive experience built for Meta Quest 2, by architecting a branching puzzle-dependency flow with multiple completion routes.</li>
-            <li>Created VR object interactions and affordances, measured by props including newspapers, bottles, and cameras guiding player behaviour, by combining visual, spatial-audio, and environmental cues.</li>
-            <li>Contributed gameplay sketches and 3D assets to the wider team, measured by an integrated interactive environment supporting the project's digital-disconnection theme, by collaborating directly with programmers and environment designers.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="resume-block" data-reveal>
-        <h3 class="resume-h">Additional Work Experience</h3>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Team Member</span><span class="resume-date">Jul 2026 – Present</span></div>
-          <div class="resume-item-sub">The Salad Project · London</div>
-          <ul class="resume-bullets">
-            <li>Maintained food hygiene and allergen compliance standards, measured by consistent adherence during high-volume, physically demanding shifts, by preparing fresh salads to order and running the till across a fast-paced front and back of house team.</li>
-            <li>Kept service running smoothly under pressure, measured by consistent food safety and presentation standards across every shift, by coordinating closely with kitchen and floor staff across multiple stations.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Sales Assistant</span><span class="resume-date">Mar 2026 – Jun 2026</span></div>
-          <div class="resume-item-sub">The Salad Kitchen · London</div>
-          <ul class="resume-bullets">
-            <li>Delivered fresh, made-to-order salad bowls daily, measured by consistent completion of full morning prep, by blending dressings and hummus, making labneh, baking focaccia, and slow-roasting lamb, chicken, and mushrooms.</li>
-            <li>Ran an outdoor market stall independently, measured by full setup and standalone service delivery, by handling focaccia sandwich service, proactive upselling, and adapting fluidly between stall and in-store operations.</li>
-          </ul>
-        </div>
-        <div class="resume-item">
-          <div class="resume-item-head"><span>Barista and Waiter</span><span class="resume-date">Aug 2025 – Nov 2025</span></div>
-          <div class="resume-item-sub">UBA Shoreditch · London</div>
-          <ul class="resume-bullets">
-            <li>Delivered full table service across high-volume shifts, measured by consistent coverage from dinner through breakfast and lunch, by taking orders, upselling, and serving wine across multiple service periods.</li>
-            <li>Supported bar and kitchen coordination, measured by smooth front-of-house/back-of-house handoffs during busy service, by pouring drinks, preparing espresso, and assisting as food runner and commis.</li>
+            <li>Led design on RADDX Racing Metaverse (1M+ downloads) and Hurley Super Surfer: progression, dual-currency economy, a 6-tier NFT vehicle economy and the public litepaper.</li>
+            <li>Car and environment art for MR RACER (1M+ downloads, 4.2★), plus level and character design for an unreleased battle royale (<a href="https://www.artstation.com/jay6900" target="_blank" rel="noopener" style="text-decoration:underline; text-underline-offset:3px;">ArtStation</a>).</li>
           </ul>
         </div>
       </div>
@@ -699,7 +596,7 @@
         <div class="resume-col" data-reveal>
           <h3 class="resume-h">Education</h3>
           <div class="resume-item">
-            <div class="resume-item-head"><span>MSc Computer Games Technology with VR</span><span class="resume-date">2024–2026 (Expected)</span></div>
+            <div class="resume-item-head"><span>MSc Computer Games Technology with VR</span><span class="resume-date">2024–2026 · Awaiting award</span></div>
             <div class="resume-item-sub">City St George's, University of London · London</div>
             <ul class="resume-bullets"><li>Computer Graphics (C++/OpenGL/GLSL), Computer Games Architecture (C#/MonoGame), Advanced Games Technology (C++17/OpenGL, physics, AI), Game Development Process (Unity 6), Virtual Reality Systems, Individual Research Project.</li></ul>
           </div>
@@ -716,7 +613,6 @@
             <li>Ethics in the Age of Generative AI, LinkedIn Learning (Feb 2026)</li>
             <li>Unity 3D 2021 Essential Training, LinkedIn Learning</li>
             <li>Game Design and Development 1: 2D Shooter, Michigan State University (2024): C#, OOP, Software Architecture</li>
-            <li>Food Hygiene (Level 2), Allergy Awareness, Manual Handling, First Aid at Work, Fire Safety</li>
           </ul>
         </div>
       </div>
@@ -897,7 +793,12 @@
         "Mission design: three waves, a health-or-ammo resupply choice, repairs interrupted by damage, a timed relay link, and an extraction objective. The HUD shows the active objective, direction, and distance.",
         "Game feel and interface: animated reloads and knife swings, bullet tracers, hit markers, directional damage feedback, and SDL2_mixer audio cues. The mouse-friendly pause menu exposes sensitivity, volume, and a damage-effect toggle."
       ],
-      links: [{ label: "C++ source code and build instructions", href: "https://github.com/jaygoneelz/lab-lockdown" }]
+      links: [{ label: "C++ source code and build instructions", href: "https://github.com/jaygoneelz/lab-lockdown" }],
+      code: [
+        { label: "Enemy AI states", file: "Enemy.cpp", href: "https://github.com/jaygoneelz/lab-lockdown/blob/main/ProjectFPS/src/Components/Enemy.cpp" },
+        { label: "Wave and mission flow", file: "WaveSpawner.cpp", href: "https://github.com/jaygoneelz/lab-lockdown/blob/main/ProjectFPS/src/WaveSpawner.cpp" },
+        { label: "Renderer and shadow pass", file: "Renderer.cpp", href: "https://github.com/jaygoneelz/lab-lockdown/blob/main/ProjectFPS/src/Rendering/Renderer.cpp" }
+      ]
     },
     {
       id: "acf", title: "Action Combat Framework", category: "unity", featured: true,
@@ -911,7 +812,12 @@
         "Game feel pass: frame-precise hitstop, Cinemachine impulse screen shake, floating damage popups",
         "Three custom Editor tools: a dockable state-machine debugger, a Scene-view hitbox editor and a CSV-exportable combat log"
       ],
-      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/ActionCombatFramework" }]
+      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/ActionCombatFramework" }],
+      code: [
+        { label: "Generic state machine", file: "StateMachine.cs", href: "https://github.com/jaygoneelz/ActionCombatFramework/blob/main/Assets/Project/Scripts/Core/StateMachine/StateMachine.cs" },
+        { label: "Hitbox / hurtbox controller", file: "HitboxController.cs", href: "https://github.com/jaygoneelz/ActionCombatFramework/blob/main/Assets/Project/Scripts/Combat/Hitbox/HitboxController.cs" },
+        { label: "State-machine debugger window", file: "StateMachineDebugWindow.cs", href: "https://github.com/jaygoneelz/ActionCombatFramework/blob/main/Assets/Project/Scripts/Editor/StateMachineDebugWindow.cs" }
+      ]
     },
     {
       id: "arkcorebreach", title: "The Ark: Core Breach", category: "unity",
@@ -938,7 +844,13 @@
         "Validated via a labelled ground-truth benchmark and reproducible Python scoring script: Precision 0.917, Recall 1.000, F1 0.957",
         "Packaged as an MIT-licensed, one-click-importable Unity package with a full unit and integration test suite"
       ],
-      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/AccessibilityUITester" }]
+      links: [{ label: "Repository", href: "https://github.com/jaygoneelz/AccessibilityUITester" }],
+      metrics: [{ v: "8.6×", l: "faster scene scan" }, { v: "0.96", l: "F1 detection score" }, { v: "~420fps", l: "live CVD shader" }],
+      code: [
+        { label: "Scene scanner", file: "SceneReportScanner.cs", href: "https://github.com/jaygoneelz/AccessibilityUITester/blob/main/Assets/_AccessibilityTester/Runtime/ReportWriter/SceneReportScanner.cs" },
+        { label: "URP Render Graph feature", file: "CVDRendererFeature.cs", href: "https://github.com/jaygoneelz/AccessibilityUITester/blob/main/Assets/_AccessibilityTester/Runtime/ShaderController/CVDRendererFeature.cs" },
+        { label: "Evaluation script", file: "evaluate.py", href: "https://github.com/jaygoneelz/AccessibilityUITester/blob/main/EvaluationEvidence/evaluate.py" }
+      ]
     },
     {
       id: "forklift", title: "Forklift Idle", category: "web",
@@ -1063,13 +975,22 @@
     }
   
   ];
+  const ORDER = ['acf', 'lablockdown', 'aut', 'forklift', 'sideshooter', 'bounce', 'arkcorebreach', 'drivecircuit', 'trafalgar', 'raddx', 'hurley', 'mrracer'];
+  PROJECTS.sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
   PROJECTS.forEach((p, i) => p.idx = String(i + 1).padStart(2, '0'));
+  document.getElementById('buildCount').dataset.count = PROJECTS.filter(p => p.category !== 'mobile').length;
 
   function muteSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0&playsinline=1`; }
   function activeSrc(id){ return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&loop=1&playlist=${id}&controls=1&modestbranding=1&rel=0&playsinline=1`; }
   function staticSrc(id){ return `https://www.youtube.com/embed/${id}?modestbranding=1&rel=0&playsinline=1`; }
 
   function mediaTemplate(p){
+    if (p.clip) {
+      return `
+        <div class="proj-media" data-video="" data-cursor="open">
+          <video class="proj-clip" src="${p.clip}" ${p.clipPoster ? `poster="${p.clipPoster}"` : ''} autoplay muted loop playsinline preload="metadata"></video>
+        </div>`;
+    }
     if (p.videoId) {
       const thumb = `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`;
       return `
@@ -1143,7 +1064,9 @@
             <div class="proj-status">${statusLine(p)}</div>
             <h3><span class="scramble-txt" data-text="${p.title}">${p.title}</span></h3>
             <div class="proj-tagline">${p.tagline}</div>
+            ${p.metrics ? `<div class="proj-metrics">${p.metrics.map(m => `<div><b>${m.v}</b><span>${m.l}</span></div>`).join('')}</div>` : ''}
             <div class="proj-tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+            ${p.code ? `<div class="proj-code"><span class="proj-code-label">Read the code:</span>${p.code.map(c => `<a href="${c.href}" target="_blank" rel="noopener" title="${c.label}">${c.file} ↗</a>`).join('')}</div>` : ''}
             ${['sideshooter','bounce'].includes(p.id) ? `<a class="proj-play" href="${p.playUrl}" target="_blank" rel="noopener">${p.playLabel ? 'Play browser demo' : 'Play in browser'} ↗</a>` : ''}
             <button class="proj-more draw" data-id="${p.id}" data-cursor="read">Full breakdown <span>→</span></button>
           </div>
@@ -1241,7 +1164,9 @@
   const modalRoot = document.getElementById('modalRoot');
   function openModal(p){
     const links = p.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('');
-    const media = p.videoId
+    const media = p.clip
+      ? `<div class="modal-media"><video class="proj-clip" src="${p.clip}" autoplay muted loop playsinline controls></video></div>`
+      : p.videoId
       ? `<div class="modal-media"><iframe src="${activeSrc(p.videoId)}" title="${p.title} gameplay video" allow="autoplay; encrypted-media" loading="lazy"></iframe></div>`
       : p.playUrl
       ? `<div class="modal-media playable${p.playAspect === 'landscape' ? ' landscape' : ''}"><iframe src="${p.playUrl}" title="${p.title} ${p.playLabel || 'playable build'}" loading="lazy" allow="fullscreen" allowfullscreen></iframe></div>`
@@ -1268,6 +1193,7 @@
             ${extraVideos ? `<div class="syslabel">More footage</div><div class="modal-extra-grid">${extraVideos}</div>` : ''}
             <div class="syslabel">Systems</div>
             <ul class="syslist">${p.systems.map(s => `<li>${s}</li>`).join('')}</ul>
+            ${p.code ? `<div class="syslabel">Start reading here</div><ul class="syslist">${p.code.map(c => `<li><a href="${c.href}" target="_blank" rel="noopener" style="color:var(--accent);">${c.file} ↗</a> · ${c.label}</li>`).join('')}</ul>` : ''}
             ${p.note ? `<div class="modal-note">${p.note}</div>` : ''}
             ${links ? `<div class="modal-links">${links}</div>` : ''}
           </div>
